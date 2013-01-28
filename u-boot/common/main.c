@@ -240,7 +240,8 @@ static __inline__ int abortboot(int bootdelay)
 
 		--bootdelay;
 		/* delay 100 * 10ms */
-		for (i=0; !abort && i<100; ++i) {
+//		for (i=0; !abort && i<100; ++i) {
+		for (i=0; !abort && i<10; ++i) {
 			if (tstc()) {	/* we got a key press	*/
 				abort  = 1;	/* don't auto boot	*/
 				bootdelay = 0;	/* no more delay	*/

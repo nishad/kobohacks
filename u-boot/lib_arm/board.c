@@ -66,6 +66,10 @@ extern int  AT91F_DataflashInit(void);
 extern void dataflash_print_info(void);
 #endif
 
+#if defined CONFIG_SPLASH_SCREEN && defined CONFIG_VIDEO_MX5
+extern void setup_splash_image(void);
+#endif
+
 #ifndef CONFIG_IDENT_STRING
 #define CONFIG_IDENT_STRING ""
 #endif
@@ -124,23 +128,23 @@ void *sbrk (ptrdiff_t increment)
  * May be supplied by boards if desired
  */
 void inline __coloured_LED_init (void) {}
-void inline coloured_LED_init (void) __attribute__((weak, alias("__coloured_LED_init")));
+void coloured_LED_init(void)__attribute__((weak, alias("__coloured_LED_init")));
 void inline __red_LED_on (void) {}
-void inline red_LED_on (void) __attribute__((weak, alias("__red_LED_on")));
+void red_LED_on(void) __attribute__((weak, alias("__red_LED_on")));
 void inline __red_LED_off(void) {}
-void inline red_LED_off(void)	     __attribute__((weak, alias("__red_LED_off")));
+void red_LED_off(void)       __attribute__((weak, alias("__red_LED_off")));
 void inline __green_LED_on(void) {}
-void inline green_LED_on(void) __attribute__((weak, alias("__green_LED_on")));
+void green_LED_on(void) __attribute__((weak, alias("__green_LED_on")));
 void inline __green_LED_off(void) {}
-void inline green_LED_off(void)__attribute__((weak, alias("__green_LED_off")));
+void green_LED_off(void) __attribute__((weak, alias("__green_LED_off")));
 void inline __yellow_LED_on(void) {}
-void inline yellow_LED_on(void)__attribute__((weak, alias("__yellow_LED_on")));
+void yellow_LED_on(void) __attribute__((weak, alias("__yellow_LED_on")));
 void inline __yellow_LED_off(void) {}
-void inline yellow_LED_off(void)__attribute__((weak, alias("__yellow_LED_off")));
+void yellow_LED_off(void) __attribute__((weak, alias("__yellow_LED_off")));
 void inline __blue_LED_on(void) {}
-void inline blue_LED_on(void)__attribute__((weak, alias("__blue_LED_on")));
+void blue_LED_on(void) __attribute__((weak, alias("__blue_LED_on")));
 void inline __blue_LED_off(void) {}
-void inline blue_LED_off(void)__attribute__((weak, alias("__blue_LED_off")));
+void blue_LED_off(void) __attribute__((weak, alias("__blue_LED_off")));
 
 /************************************************************************
  * Init Utilities							*
@@ -374,6 +378,11 @@ void start_armboot (void)
 	dataflash_print_info();
 #endif
 
+#ifdef CONFIG_GENERIC_MMC
+	puts ("MMC:   ");
+	mmc_initialize (gd->bd);
+#endif
+
 	/* initialize environment */
 	env_relocate ();
 
@@ -388,6 +397,10 @@ void start_armboot (void)
 
 	/* IP Address */
 	gd->bd->bi_ip_addr = getenv_IPaddr ("ipaddr");
+
+#if defined CONFIG_SPLASH_SCREEN && defined CONFIG_VIDEO_MX5
+	setup_splash_image();
+#endif
 
 	stdio_init ();	/* get the devices list going. */
 
@@ -437,6 +450,11 @@ extern void davinci_eth_set_mac_addr (const u_int8_t *addr);
 	}
 #endif /* CONFIG_DRIVER_SMC91111 || CONFIG_DRIVER_LAN91C96 */
 
+#if defined(CONFIG_ENC28J60_ETH) && !defined(CONFIG_ETHADDR)
+	extern void enc_set_mac_addr (void);
+	enc_set_mac_addr ();
+#endif /* CONFIG_ENC28J60_ETH && !CONFIG_ETHADDR*/
+
 	/* Initialize from environment */
 	if ((s = getenv ("loadaddr")) != NULL) {
 		load_addr = simple_strtoul (s, NULL, 16);
@@ -451,9 +469,8 @@ extern void davinci_eth_set_mac_addr (const u_int8_t *addr);
 	board_late_init ();
 #endif
 
-#ifdef CONFIG_GENERIC_MMC
-	puts ("MMC:   ");
-	mmc_initialize (gd->bd);
+#ifdef CONFIG_ANDROID_RECOVERY
+	check_recovery_mode();
 #endif
 
 #if defined(CONFIG_CMD_NET)

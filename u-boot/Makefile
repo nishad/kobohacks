@@ -223,6 +223,7 @@ LIBS += drivers/pci/libpci.a
 LIBS += drivers/pcmcia/libpcmcia.a
 LIBS += drivers/power/libpower.a
 LIBS += drivers/spi/libspi.a
+LIBS += drivers/fastboot/libfastboot.a
 ifeq ($(CPU),mpc83xx)
 LIBS += drivers/qe/qe.a
 endif
@@ -3204,6 +3205,16 @@ apollon_config		: unconfig
 	@$(MKCONFIG) $(@:_config=) arm arm1136 apollon NULL omap24xx
 	@echo "CONFIG_ONENAND_U_BOOT = y" >> $(obj)include/config.mk
 
+mx23_evk_config : unconfig
+	@$(MKCONFIG) $(@:_config=) arm arm926ejs mx23_evk freescale mx23
+
+mx25_3stack_mfg_config \
+mx25_3stack_config	:	unconfig
+	@$(MKCONFIG) $(@:_config=) arm arm926ejs mx25_3stack freescale mx25
+
+mx28_evk_config : unconfig
+	@$(MKCONFIG) $(@:_config=) arm arm926ejs mx28_evk freescale mx28
+
 imx31_litekit_config	: unconfig
 	@$(MKCONFIG) $(@:_config=) arm arm1136 imx31_litekit NULL mx31
 
@@ -3228,6 +3239,68 @@ mx31pdk_nand_config	: unconfig
 		echo "#define CONFIG_SKIP_RELOCATE_UBOOT" >> $(obj)include/config.h;	\
 	fi
 	@$(MKCONFIG) -a mx31pdk arm arm1136 mx31pdk freescale mx31
+
+mx31_3stack_config	: unconfig
+	@$(MKCONFIG) $(@:_config=) arm arm1136 mx31_3stack freescale mx31
+
+mx35_3stack_config      \
+mx35_3stack_mfg_config \
+mx35_3stack_mmc_config: unconfig
+	@$(MKCONFIG) $(@:_config=) arm arm1136 mx35_3stack freescale mx35
+
+mx50_arm2_lpddr2_config \
+mx50_arm2_ddr2_config \
+mx50_arm2_iram_config \
+mx50_arm2_config  \
+mx50_arm2_mfg_config \
+mx50_rdp_iram_config \
+mx50_rd3_config \
+mx50_rd3_mfg_config \
+mx50_rdp_mfg_config \
+mx50_rdp_android_config \
+mx50_rdp_mddr_128_config \
+mx50_rdp_ddr2_128_config \
+mx50_rdp_config      : unconfig
+	@[ -z "$(findstring iram_,$@)" ] || \
+		{ echo "TEXT_BASE = 0xF8008400" >$(obj)board/freescale/mx50_rdp/config.tmp ; \
+		  echo "... with iram configuration" ; \
+		}
+	@$(MKCONFIG) $(@:_config=) arm arm_cortexa8 mx50_rdp freescale mx50
+
+mx51_bbg_android_config	\
+mx51_bbg_mfg_config \
+mx51_bbg_iram_config \
+mx51_bbg_config		: unconfig
+	@[ -z "$(findstring iram_,$@)" ] || \
+		{ echo "TEXT_BASE = 0x1FFE5000" >$(obj)board/freescale/mx51_bbg/config.tmp ; \
+		  echo "... with iram configuration" ; \
+		}
+	@$(MKCONFIG) $(@:_config=) arm arm_cortexa8 mx51_bbg freescale mx51
+
+mx51_3stack_android_config	\
+mx51_3stack_config	: unconfig
+	@$(MKCONFIG) $(@:_config=) arm arm_cortexa8 mx51_3stack freescale mx51
+
+mx53_smd_mfg_config             \
+mx53_smd_android_config		\
+mx53_smd_config		:unconfig
+	$(MKCONFIG) $(@:_config=) arm arm_cortexa8 mx53_smd freescale mx53
+
+mx53_loco_mfg_config		\
+mx53_loco_config	:unconfig
+	$(MKCONFIG) $(@:_config=) arm arm_cortexa8 mx53_loco freescale mx53
+
+mx53_ard_ddr3_config		\
+mx53_ard_mfg_config		\
+mx53_ard_config		: unconfig
+	$(MKCONFIG) $(@:_config=) arm arm_cortexa8 mx53_ard freescale mx53
+
+mx53_arm2_ddr3_config		\
+mx53_arm2_ddr3_android_config	\
+mx53_evk_android_config		\
+mx53_evk_mfg_config             \
+mx53_evk_config      : unconfig
+	@$(MKCONFIG) $(@:_config=) arm arm_cortexa8 mx53_evk freescale mx53
 
 omap2420h4_config	: unconfig
 	@$(MKCONFIG) $(@:_config=) arm arm1136 omap2420h4 NULL omap24xx

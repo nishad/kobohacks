@@ -13,6 +13,13 @@
 *~
 *.swp
 *.patch
+*.swp
+
+# gallen add rule [.
+svn-commit.*
+.svn
+*.cmd
+# gallen add rule ].
 
 #
 # Top-level generic files
@@ -22,7 +29,7 @@
 /u-boot
 /u-boot.hex
 /u-boot.map
-/u-boot.bin
+#/u-boot.bin
 /u-boot.srec
 /u-boot.ldr
 /u-boot.ldr.hex

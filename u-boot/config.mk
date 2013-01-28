@@ -123,7 +123,13 @@ OBJCFLAGS += --gap-fill=0xff
 gccincdir := $(shell $(CC) -print-file-name=include)
 
 CPPFLAGS := $(DBGFLAGS) $(OPTFLAGS) $(RELFLAGS)		\
-	-D__KERNEL__
+	-D__KERNEL__ -D_MX50_ -D__UBOOT__
+
+ifneq ($(BOOT_MEDIA),)
+	BOOT_MEDIA_MACRO = BOOT_MEDIA_$(shell echo $(BOOT_MEDIA) | tr '[a-z]' '[A-Z]')
+	CPPFLAGS += -D$(BOOT_MEDIA_MACRO)
+endif
+
 ifneq ($(TEXT_BASE),)
 CPPFLAGS += -DTEXT_BASE=$(TEXT_BASE)
 endif

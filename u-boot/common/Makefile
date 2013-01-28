@@ -55,12 +55,18 @@ COBJS-$(CONFIG_ENV_IS_EMBEDDED) += env_embedded.o
 COBJS-$(CONFIG_ENV_IS_IN_EEPROM) += env_embedded.o
 COBJS-$(CONFIG_ENV_IS_IN_FLASH) += env_embedded.o
 COBJS-$(CONFIG_ENV_IS_IN_NVRAM) += env_embedded.o
+COBJS-$(CONFIG_ENV_IS_IN_MMC) += env_embedded.o
+COBJS-$(CONFIG_ENV_IS_IN_NAND) += env_embedded.o
+COBJS-$(CONFIG_ENV_IS_IN_SPI_FLASH) += env_embedded.o
+COBJS-$(CONFIG_ENV_IS_IN_SATA) += env_embedded.o
 COBJS-$(CONFIG_ENV_IS_IN_FLASH) += env_flash.o
 COBJS-$(CONFIG_ENV_IS_IN_MG_DISK) += env_mgdisk.o
 COBJS-$(CONFIG_ENV_IS_IN_NAND) += env_nand.o
 COBJS-$(CONFIG_ENV_IS_IN_NVRAM) += env_nvram.o
 COBJS-$(CONFIG_ENV_IS_IN_ONENAND) += env_onenand.o
+COBJS-$(CONFIG_ENV_IS_IN_SATA) += env_sata.o
 COBJS-$(CONFIG_ENV_IS_IN_SPI_FLASH) += env_sf.o
+COBJS-$(CONFIG_ENV_IS_IN_MMC) += env_mmc.o
 COBJS-$(CONFIG_ENV_IS_NOWHERE) += env_nowhere.o
 
 # command
@@ -72,6 +78,7 @@ COBJS-$(CONFIG_CMD_BEDBUG) += bedbug.o cmd_bedbug.o
 COBJS-$(CONFIG_CMD_BMP) += cmd_bmp.o
 COBJS-$(CONFIG_CMD_BOOTLDR) += cmd_bootldr.o
 COBJS-$(CONFIG_CMD_CACHE) += cmd_cache.o
+COBJS-$(CONFIG_CMD_CLOCK) += cmd_clk.o
 COBJS-$(CONFIG_CMD_CONSOLE) += cmd_console.o
 COBJS-$(CONFIG_CMD_CPLBINFO) += cmd_cplbinfo.o
 COBJS-$(CONFIG_DATAFLASH_MMC_SELECT) += cmd_dataflash_mmc_mux.o
@@ -96,6 +103,7 @@ COBJS-$(CONFIG_CMD_FLASH) += cmd_flash.o
 ifdef CONFIG_FPGA
 COBJS-$(CONFIG_CMD_FPGA) += cmd_fpga.o
 endif
+COBJS-$(CONFIG_CMD_IIM) += cmd_iim.o
 COBJS-$(CONFIG_CMD_I2C) += cmd_i2c.o
 COBJS-$(CONFIG_CMD_IDE) += cmd_ide.o
 COBJS-$(CONFIG_CMD_IMMAP) += cmd_immap.o
@@ -120,6 +128,7 @@ COBJS-y += cmd_nand.o
 COBJS-$(CONFIG_CMD_NET) += cmd_net.o
 COBJS-$(CONFIG_CMD_ONENAND) += cmd_onenand.o
 COBJS-$(CONFIG_CMD_OTP) += cmd_otp.o
+COBJS-$(CONFIG_CMD_PATA) += cmd_pata.o
 ifdef CONFIG_PCI
 COBJS-$(CONFIG_CMD_PCI) += cmd_pci.o
 endif
@@ -160,7 +169,7 @@ COBJS-$(CONFIG_LYNXKDI) += lynxkdi.o
 COBJS-$(CONFIG_MODEM_SUPPORT) += modem.o
 COBJS-$(CONFIG_UPDATE_TFTP) += update.o
 COBJS-$(CONFIG_USB_KEYBOARD) += usb_kbd.o
-
+COBJS-$(CONFIG_FASTBOOT) += cmd_fastboot.o
 
 COBJS	:= $(sort $(COBJS-y))
 SRCS	:= $(AOBJS:.o=.S) $(COBJS:.o=.c)
