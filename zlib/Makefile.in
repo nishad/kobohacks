@@ -51,10 +51,10 @@ man3dir = ${mandir}/man3
 pkgconfigdir = ${libdir}/pkgconfig
 
 OBJC = adler32.o compress.o crc32.o deflate.o gzclose.o gzlib.o gzread.o \
-	gzwrite.o infback.o inffast.o inflate.o inftrees.o trees.o uncompr.o zutil.o
+	gzwrite.o infback.o inffast.o inflate.o inftrees.o trees.o uncompr.o zutil.o inflate_fast_copy_neon.o
 
 PIC_OBJC = adler32.lo compress.lo crc32.lo deflate.lo gzclose.lo gzlib.lo gzread.lo \
-	gzwrite.lo infback.lo inffast.lo inflate.lo inftrees.lo trees.lo uncompr.lo zutil.lo
+	gzwrite.lo infback.lo inffast.lo inflate.lo inftrees.lo trees.lo uncompr.lo zutil.lo inflate_fast_copy_neon.lo
 
 # to use the asm code: make OBJA=match.o, PIC_OBJA=match.lo
 OBJA =
@@ -131,6 +131,14 @@ minigzip64.o: minigzip.c zlib.h zconf.h
 .c.lo:
 	-@if [ ! -d objs ]; then mkdir objs; fi
 	$(CC) $(SFLAGS) -DPIC -c -o objs/$*.o $<
+	-@mv objs/$*.o $@
+
+.S.o:
+	$(CC) $(SFLAGS) -c -o $*.o $<
+
+.S.lo:
+	-@if [ ! -d objs ]; then mkdir objs; fi
+	$(CC) $(SFLAGS) -c -o objs/$*.o $<
 	-@mv objs/$*.o $@
 
 $(SHAREDLIBV): $(PIC_OBJS)
