@@ -13,7 +13,7 @@
 #define noinline __attribute__((noinline))
 
 #define likely(x)   __builtin_expect((x),1)
-#define unlikely(x) __builtin_expect((x),1)
+#define unlikely(x) __builtin_expect((x),0)
 
 #define ALIGN_DOWN(x, n) (((intptr_t)(x)) & ~((intptr_t)(n) - 1L))
 #define ALIGN_DOWN_DIFF(x, n) (((intptr_t)(x)) & ((intptr_t)(n) - 1L))
