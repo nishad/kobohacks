@@ -8,6 +8,7 @@ KoboRoot.tgz : __ALWAYS__
 
 README.wiki : __ALWAYS__
 	git clone http://wiki.kobohack-j.googlecode.com/git
+	( cd git && git tag `date +%y%m%d` )
 	cp -p git/README.wiki .
 	rm -rf git
 
@@ -19,6 +20,8 @@ kobohack-j.zip : KoboRoot.tgz README.wiki
 	( cd ../rootfs/lib && ln -s libpng.so.3.50.0 libpng.so.3 ) 
 	( cd ../rootfs/lib && ln -s libpng12.so.0.50 libpng.so && ln -s libpng12.so.0.50.0 libpng12.so && ln -s libpng12.so.0.50.0 libpng12.so.0 ) 
 	( cd ../rootfs && tar --owner=root --group=root -zcvf ../script/KoboRoot.tgz ./lib )
+	git tag `date +%y%m%d`
 	zip -9 $@ $^
+	mv $@ kobohack-j-`date +%y%m%d`.zip
 
 .PHONY: __ALWAYS__
