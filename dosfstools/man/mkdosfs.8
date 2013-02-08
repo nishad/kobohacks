@@ -1,10 +1,33 @@
-.\" -*- nroff -*-
+.\" mkdosfs.8 - manpage for dosfsck
+.\"
+.\" Copyright (C) 2006-2013 Daniel Baumann <daniel@debian.org>
+.\"
+.\" This program is free software: you can redistribute it and/or modify
+.\" it under the terms of the GNU General Public License as published by
+.\" the Free Software Foundation, either version 3 of the License, or
+.\" (at your option) any later version.
+.\"
+.\" This program is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+.\" GNU General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU General Public License
+.\" along with this program. If not, see <http://www.gnu.org/licenses/>.
+.\"
+.\" On Debian systems, the complete text of the GNU General Public License
+.\" can be found in /usr/share/common-licenses/GPL-3 file.
+.\"
+.\"
 .TH MKDOSFS 8 "5 May 1995" "Version 2.x"
 .SH NAME
 .B mkdosfs
 \- create an MS-DOS file system under Linux
 .SH SYNOPSIS
 .B mkdosfs|mkfs.msdos|mkfs.vfat
+[
+.B \-a
+]
 [
 .B \-A
 ]
@@ -81,6 +104,15 @@ is the number of blocks on the device.  If omitted,
 .B mkdosfs
 automatically determines the file system size.
 .SH OPTIONS
+.TP
+.B \-a
+Normally, for any filesystem except very small ones, \fBmkdosfs\fP
+will align all the data structures to cluster size, to make sure that
+as long as the partition is properly aligned, so will all the data
+structures in the filesystem.  This option disables alignment; this
+may provide a handful of additional clusters of storage at the expense
+of a significant performance degradation on RAIDs, flash media or
+large-sector hard disks.
 .TP
 .B \-A
 Use Atari variation of the MS-DOS file system. This is default if
@@ -208,4 +240,5 @@ is based on code from
 (written by Linus Torvalds - <torvalds@cs.helsinki.fi>).
 .SH SEE ALSO
 .BR dosfsck (8),
+.BR dosfslabel (8),
 .BR mkfs (8)
