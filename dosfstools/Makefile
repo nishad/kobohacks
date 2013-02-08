@@ -26,7 +26,7 @@ DOCDIR = $(PREFIX)/share/doc
 MANDIR = $(PREFIX)/share/man
 
 #OPTFLAGS = -O2 -fomit-frame-pointer -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64
-OPTFLAGS = -O2 -fomit-frame-pointer $(shell getconf LFS_CFLAGS)
+OPTFLAGS = -O2 -fomit-frame-pointer $(shell getconf LFS_CFLAGS) -D__user= -DBLKSSZGET=_IO\(0x12,104\) -march=armv7-a -mtune=cortex-a8 -mfpu=neon -mfloat-abi=softfp
 #WARNFLAGS = -Wall -pedantic -std=c99
 WARNFLAGS = -Wall
 DEBUGFLAGS = -g
