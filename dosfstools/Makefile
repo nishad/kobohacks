@@ -25,6 +25,7 @@ SBINDIR = $(PREFIX)/sbin
 DOCDIR = $(PREFIX)/share/doc
 MANDIR = $(PREFIX)/share/man
 
+CC = /opt/freescale/usr/local/gcc-4.4.4-glibc-2.11.1-multilib-1.0/arm-fsl-linux-gnueabi/bin/arm-fsl-linux-gnueabi-gcc
 #OPTFLAGS = -O2 -fomit-frame-pointer -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64
 OPTFLAGS = -O2 -fomit-frame-pointer $(shell getconf LFS_CFLAGS) -D__user= -DBLKSSZGET=_IO\(0x12,104\) -march=armv7-a -mtune=cortex-a8 -mfpu=neon -mfloat-abi=softfp
 #WARNFLAGS = -Wall -pedantic -std=c99
