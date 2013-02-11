@@ -22,7 +22,7 @@ kobohack-j.zip : KoboRoot.tgz README.wiki u-boot.bin
 	( cd ../rootfs/lib && ln -s libz.so.1.2.7 libz.so && ln -s libz.so.1.2.7 libz.so.1 ) 
 	( cd ../rootfs/lib && ln -s libpng.so.3.50.0 libpng.so.3 ) 
 	( cd ../rootfs/lib && ln -s libpng12.so.0.50.0 libpng.so && ln -s libpng12.so.0.50.0 libpng12.so && ln -s libpng12.so.0.50.0 libpng12.so.0 ) 
-	( cd ../rootfs && tar --owner=root --group=root -zcvf ../script/KoboRoot.tgz ./lib )
+	( cd ../rootfs && tar --owner=root --group=root -zcvf ../script/KoboRoot.tgz ./lib ./bin )
 	git tag `date +%y%m%d`
 	zip -9 $@ $^
 	mv $@ kobohack-j-`date +%y%m%d`.zip
