@@ -3,7 +3,8 @@ KoboRoot.tgz : __ALWAYS__
 	( cd ../rootfs/lib && ln -s libz.so.1.2.7 libz.so && ln -s libz.so.1.2.7 libz.so.1 ) 
 	( cd ../rootfs/lib && ln -s libpng.so.3.50.0 libpng.so.3 ) 
 	( cd ../rootfs/lib && ln -s libpng12.so.0.50.0 libpng.so && ln -s libpng12.so.0.50.0 libpng12.so && ln -s libpng12.so.0.50.0 libpng12.so.0 ) 
-	( cd ../rootfs/usr/lib && ln -s libfreetype.so.6.10.0 libfreetype.so && ln -s libfreetype.so.6.10.0 libfreetype.so.0 ) 
+	( cd ../rootfs/usr/lib && ln -s libfreetype.so.6.10.0 libfreetype.so && ln -s libfreetype.so.6.10.0 libfreetype.so.6 ) 
+	( cd ../rootfs/usr/lib && ln -s libxml2.so.2.7.8 libxml2.so && ln -s libxml2.so.2.7.8 libxml2.so.2 ) 
 	( cd ../rootfs && tar --owner=root --group=root -zcvf ../script/KoboRoot.tgz ./lib ./usr/lib ./bin )
 
 README.wiki : __ALWAYS__
@@ -22,7 +23,9 @@ kobohack-j.zip : KoboRoot.tgz README.wiki u-boot.bin
 	( cd ../rootfs/lib && ln -s libz.so.1.2.7 libz.so && ln -s libz.so.1.2.7 libz.so.1 ) 
 	( cd ../rootfs/lib && ln -s libpng.so.3.50.0 libpng.so.3 ) 
 	( cd ../rootfs/lib && ln -s libpng12.so.0.50.0 libpng.so && ln -s libpng12.so.0.50.0 libpng12.so && ln -s libpng12.so.0.50.0 libpng12.so.0 ) 
-	( cd ../rootfs && tar --owner=root --group=root -zcvf ../script/KoboRoot.tgz ./lib ./bin )
+	( cd ../rootfs/usr/lib && ln -s libxml2.so.2.7.8 libxml2.so && ln -s libxml2.so.2.7.8 libxml2.so.2 ) 
+	( cd ../rootfs/usr/lib && rm libfreetype* ) 
+	( cd ../rootfs && tar --owner=root --group=root -zcvf ../script/KoboRoot.tgz ./lib ./usr/lib ./bin )
 	git tag `date +%y%m%d`
 	zip -9 $@ $^
 	mv $@ kobohack-j-`date +%y%m%d`.zip
