@@ -302,6 +302,12 @@ struct _xmlParserCtxt {
     xmlParserMode     parseMode;    /* the parser mode */
     unsigned long    nbentities;    /* number of entities references */
     unsigned long  sizeentities;    /* size of parsed entities */
+
+    /* for use by HTML non-recursive parser */
+    xmlParserNodeInfo *nodeInfo;      /* Current NodeInfo */
+    int                nodeInfoNr;    /* Depth of the parsing stack */
+    int                nodeInfoMax;   /* Max depth of the parsing stack */
+    xmlParserNodeInfo *nodeInfoTab;   /* array of nodeInfos */
 };
 
 /**
@@ -1216,6 +1222,7 @@ typedef enum {
     XML_WITH_DEBUG_MEM = 29,
     XML_WITH_DEBUG_RUN = 30,
     XML_WITH_ZLIB = 31,
+    XML_WITH_ICU = 32,
     XML_WITH_NONE = 99999 /* just to be sure of allocation size */
 } xmlFeature;
 
@@ -1226,4 +1233,3 @@ XMLPUBFUN int XMLCALL
 }
 #endif
 #endif /* __XML_PARSER_H__ */
-

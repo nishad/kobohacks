@@ -1105,24 +1105,33 @@ xmlSAX2AttributeInternal(void *ctx, const xmlChar *fullname,
 	return;
     }
 
+#ifdef LIBXML_HTML_ENABLED
+    if ((ctxt->html) &&
+        (value == NULL) && (htmlIsBooleanAttr(fullname))) {
+            nval = xmlStrdup(fullname);
+            value = (const xmlChar *) nval;
+    } else
+#endif
+    {
 #ifdef LIBXML_VALID_ENABLED
-    /*
-     * Do the last stage of the attribute normalization
-     * Needed for HTML too:
-     *   http://www.w3.org/TR/html4/types.html#h-6.2
-     */
-    ctxt->vctxt.valid = 1;
-    nval = xmlValidCtxtNormalizeAttributeValue(&ctxt->vctxt,
-	                                   ctxt->myDoc, ctxt->node,
-					   fullname, value);
-    if (ctxt->vctxt.valid != 1) {
-	ctxt->valid = 0;
-    }
-    if (nval != NULL)
-	value = nval;
+        /*
+         * Do the last stage of the attribute normalization
+         * Needed for HTML too:
+         *   http://www.w3.org/TR/html4/types.html#h-6.2
+         */
+        ctxt->vctxt.valid = 1;
+        nval = xmlValidCtxtNormalizeAttributeValue(&ctxt->vctxt,
+                                               ctxt->myDoc, ctxt->node,
+                                               fullname, value);
+        if (ctxt->vctxt.valid != 1) {
+            ctxt->valid = 0;
+        }
+        if (nval != NULL)
+            value = nval;
 #else
-    nval = NULL;
+        nval = NULL;
 #endif /* LIBXML_VALID_ENABLED */
+    }
 
     /*
      * Check whether it's a namespace definition
@@ -2233,8 +2242,12 @@ xmlSAX2StartElementNs(void *ctx,
 	    if ((URI != NULL) && (prefix == pref))
 		ret->ns = ns;
 	} else {
-	    xmlSAX2ErrMemory(ctxt, "xmlSAX2StartElementNs");
-	    return;
+            /*
+             * any out of memory error would already have been raised
+             * but we can't be garanteed it's the actual error due to the
+             * API, best is to skip in this case
+             */
+	    continue;
 	}
 #ifdef LIBXML_VALID_ENABLED
 	if ((!ctxt->html) && ctxt->validate && ctxt->wellFormed &&

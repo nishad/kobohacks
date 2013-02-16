@@ -1,5 +1,7 @@
 ## Process this file with automake to produce Makefile.in
 
+ACLOCAL_AMFLAGS = -I m4
+
 SUBDIRS = include . doc example xstc @PYTHON_SUBDIR@
 
 DIST_SUBDIRS = include . doc example python xstc
@@ -157,7 +159,7 @@ testModule_LDADD= $(LDADDS)
 
 noinst_LTLIBRARIES = testdso.la
 testdso_la_SOURCES = testdso.c
-testdso_la_LDFLAGS = -module -rpath $(libdir)
+testdso_la_LDFLAGS = -module -no-undefined -avoid-version -rpath $(libdir)
 
 # that one forces the rebuild when "make rebuild" is run on doc/
 rebuild_testapi:
@@ -1211,9 +1213,9 @@ DOC_MODULE=libxml2-$(VERSION)
 EXAMPLES_DIR=$(BASE_DIR)/$(DOC_MODULE)/examples
 
 install-data-local: 
-	$(mkinstalldirs) $(DESTDIR)$(BASE_DIR)/$(DOC_MODULE)
+	@MKDIR_P@ $(DESTDIR)$(BASE_DIR)/$(DOC_MODULE)
 	-@INSTALL@ -m 0644 $(srcdir)/Copyright $(DESTDIR)$(BASE_DIR)/$(DOC_MODULE)
-	$(mkinstalldirs) $(DESTDIR)$(EXAMPLES_DIR)
+	@MKDIR_P@ $(DESTDIR)$(EXAMPLES_DIR)
 	-@INSTALL@ -m 0644 $(srcdir)/xmllint.c $(DESTDIR)$(EXAMPLES_DIR)
 	-@INSTALL@ -m 0644 $(srcdir)/testSAX.c $(DESTDIR)$(EXAMPLES_DIR)
 	-@INSTALL@ -m 0644 $(srcdir)/testHTML.c $(DESTDIR)$(EXAMPLES_DIR)
