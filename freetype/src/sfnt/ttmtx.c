@@ -4,7 +4,7 @@
 /*                                                                         */
 /*    Load the metrics tables common to TTF and OTF fonts (body).          */
 /*                                                                         */
-/*  Copyright 2006, 2007, 2008, 2009 by                                    */
+/*  Copyright 2006-2009, 2011-2012 by                                      */
 /*  David Turner, Robert Wilhelm, and Werner Lemberg.                      */
 /*                                                                         */
 /*  This file is part of the FreeType project, and may only be used,       */
@@ -163,7 +163,7 @@
     {
       FT_TRACE0(( "tt_face_load_hmtx:"
                   " %cmtx has more metrics than glyphs.\n",
-                  vertical ? "v" : "h" ));
+                  vertical ? 'v' : 'h' ));
 
       /* Adobe simply ignores this problem.  So we shall do the same. */
 #if 0
@@ -260,7 +260,7 @@
     FT_Error        error;
     TT_HoriHeader*  header;
 
-    const FT_Frame_Field  metrics_header_fields[] =
+    static const FT_Frame_Field  metrics_header_fields[] =
     {
 #undef  FT_STRUCTURE
 #define FT_STRUCTURE  TT_HoriHeader
