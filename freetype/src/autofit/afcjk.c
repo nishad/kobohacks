@@ -1318,6 +1318,7 @@
 			break;
 
 		default:
+			break;
 	}
 
     hints->scaler_flags = scaler_flags;

@@ -1593,6 +1593,7 @@
 			break;
 
 		default:
+			break;
 	}
  
 	if( (face->style_flags & FT_STYLE_FLAG_ITALIC) != 0 )

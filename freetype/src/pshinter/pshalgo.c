@@ -2292,6 +2292,7 @@
 			break;
 
 		default:
+			break;
 	}
  
       for ( dimension = 0; dimension < 2; dimension++ )
