@@ -2250,17 +2250,50 @@
         psh_globals_set_scale( glyph->globals, x_scale, y_scale, 0, 0 );
       }
 
-      glyph->do_horz_hints = 1;
-      glyph->do_vert_hints = 1;
+	switch( hint_mode ) {
+		case FT_RENDER_MODE_NORMAL:
+			glyph->do_horz_hints = 1;
+			glyph->do_vert_hints = 1;
+			glyph->do_horz_snapping = 0;
+			glyph->do_vert_snapping = 0;
+			glyph->do_stem_adjust = 1;
+			break;
 
-      glyph->do_horz_snapping = FT_BOOL( hint_mode == FT_RENDER_MODE_MONO ||
-                                         hint_mode == FT_RENDER_MODE_LCD  );
+		case FT_RENDER_MODE_LIGHT:
+			glyph->do_horz_hints = 0;
+			glyph->do_vert_hints = 1;
+			glyph->do_horz_snapping = 0;
+			glyph->do_vert_snapping = 0;
+			glyph->do_stem_adjust = 0;
+			break;
 
-      glyph->do_vert_snapping = FT_BOOL( hint_mode == FT_RENDER_MODE_MONO  ||
-                                         hint_mode == FT_RENDER_MODE_LCD_V );
+		case FT_RENDER_MODE_MONO:
+			glyph->do_horz_hints = 1;
+			glyph->do_vert_hints = 1;
+			glyph->do_horz_snapping = 1;
+			glyph->do_vert_snapping = 1;
+			glyph->do_stem_adjust = 1;
+			break;
 
-      glyph->do_stem_adjust   = FT_BOOL( hint_mode != FT_RENDER_MODE_LIGHT );
+		case FT_RENDER_MODE_LCD:
+			glyph->do_horz_hints = 0;
+			glyph->do_vert_hints = 1;
+			glyph->do_horz_snapping = 0;
+			glyph->do_vert_snapping = 0;
+			glyph->do_stem_adjust = 0;
+			break;
 
+		case FT_RENDER_MODE_LCD_V:
+			glyph->do_horz_hints = 1;
+			glyph->do_vert_hints = 0;
+			glyph->do_horz_snapping = 0;
+			glyph->do_vert_snapping = 0;
+			glyph->do_stem_adjust = 0;
+			break;
+
+		default:
+	}
+ 
       for ( dimension = 0; dimension < 2; dimension++ )
       {
         /* load outline coordinates into glyph */

@@ -1522,36 +1522,51 @@
     scaler_flags = hints->scaler_flags;
     other_flags  = 0;
 
-    /*
-     *  We snap the width of vertical stems for the monochrome and
-     *  horizontal LCD rendering targets only.
-     */
-    if ( mode == FT_RENDER_MODE_MONO || mode == FT_RENDER_MODE_LCD )
-      other_flags |= AF_LATIN_HINTS_HORZ_SNAP;
+	switch( mode ) {
+		case FT_RENDER_MODE_NORMAL:
+			other_flags |=
+				AF_LATIN_HINTS_VERT_SNAP |
+				AF_LATIN_HINTS_HORZ_SNAP |
+				AF_LATIN_HINTS_STEM_ADJUST;
+			break;
 
-    /*
-     *  We snap the width of horizontal stems for the monochrome and
-     *  vertical LCD rendering targets only.
-     */
-    if ( mode == FT_RENDER_MODE_MONO || mode == FT_RENDER_MODE_LCD_V )
-      other_flags |= AF_LATIN_HINTS_VERT_SNAP;
+		case FT_RENDER_MODE_LIGHT:
+			other_flags |=
+				AF_LATIN_HINTS_VERT_SNAP |
+				AF_LATIN_HINTS_STEM_ADJUST;
+			scaler_flags |=
+				AF_SCALER_FLAG_NO_HORIZONTAL |
+				AF_SCALER_FLAG_NO_ADVANCE;
+			break;
 
-    /*
-     *  We adjust stems to full pixels only if we don't use the `light' mode.
-     */
-    if ( mode != FT_RENDER_MODE_LIGHT )
-      other_flags |= AF_LATIN_HINTS_STEM_ADJUST;
+		case FT_RENDER_MODE_MONO:
+			other_flags |=
+				AF_LATIN_HINTS_MONO |
+				AF_LATIN_HINTS_VERT_SNAP |
+				AF_LATIN_HINTS_HORZ_SNAP |
+				AF_LATIN_HINTS_STEM_ADJUST;
+			break;
 
-    if ( mode == FT_RENDER_MODE_MONO )
-      other_flags |= AF_LATIN_HINTS_MONO;
+		case FT_RENDER_MODE_LCD:
+			other_flags |=
+				AF_LATIN_HINTS_VERT_SNAP |
+				AF_LATIN_HINTS_STEM_ADJUST;
+			scaler_flags |=
+				AF_SCALER_FLAG_NO_HORIZONTAL |
+				AF_SCALER_FLAG_NO_ADVANCE;
+			break;
 
-    /*
-     *  In `light' hinting mode we disable horizontal hinting completely.
-     *  We also do it if the face is italic.
-     */
-    if ( mode == FT_RENDER_MODE_LIGHT                    ||
-         (face->style_flags & FT_STYLE_FLAG_ITALIC) != 0 )
-      scaler_flags |= AF_SCALER_FLAG_NO_HORIZONTAL;
+		case FT_RENDER_MODE_LCD_V:
+			other_flags |=
+				AF_LATIN_HINTS_HORZ_SNAP |
+				AF_LATIN_HINTS_STEM_ADJUST;
+			scaler_flags |=
+				AF_SCALER_FLAG_NO_VERTICAL |
+				AF_SCALER_FLAG_NO_ADVANCE;
+			break;
+
+		default:
+	}
 
     hints->scaler_flags = scaler_flags;
     hints->other_flags  = other_flags;

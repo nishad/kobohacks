@@ -187,7 +187,10 @@
 
       /* we now need to adjust the metrics according to the change in */
       /* width/positioning that occurred during the hinting process   */
-      if ( scaler->render_mode != FT_RENDER_MODE_LIGHT )
+      if(
+        scaler->render_mode == FT_RENDER_MODE_MONO ||
+        scaler->render_mode == FT_RENDER_MODE_NORMAL
+      )
       {
         FT_Pos        old_rsb, old_lsb, new_lsb;
         FT_Pos        pp1x_uh, pp2x_uh;
