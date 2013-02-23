@@ -56,13 +56,26 @@ inflate_fast_copy_default:
 
        ldr        r3,[r1,#0]           @; r3 = pointer to out
 
-inflate_fast_copy_default_loop:
-
-       ldrb       r12,[r2,#1]!         @; r12 = *(++from)
-       subs       r0,r0,#1             @; len--
-       strb       r12,[r3,#1]!         @; *(++out) = r12
-
-       bne        inflate_fast_copy_default_loop
+	movs	r12, r0, lsl #29
+	bcc	1f
+    .rept 8
+	ldrcsb	r12, [r2, #1]!
+	strcsb	r12, [r3, #1]!
+    .endr
+1:
+	bpl	1f
+    .rept 4
+	ldrmib	r12, [r2, #1]!
+	strmib	r12, [r3, #1]!
+    .endr
+1:
+	movs	r12, r0, lsl #31
+	ldrcsb	r12, [r2, #1]!
+	strcsb	r12, [r3, #1]!
+	ldrcsb	r12, [r2, #1]!
+	strcsb	r12, [r3, #1]!
+	ldrmib	r12, [r2, #1]!
+	strmib	r12, [r3, #1]!
 
        str        r3,[r1,#0]           @; r1 = updated pointer to pointer
                                        @;      to out
