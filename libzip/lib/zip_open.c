@@ -233,22 +233,27 @@ _zip_readcdir(FILE *fp, unsigned char *buf, unsigned char *eocd, int buflen,
 
     left = cd->size;
     i=0;
-    do {
-	if (i == cd->nentry && left > 0) {
-	    /* Infozip extension for more than 64k entries:
-	       nentries wraps around, size indicates correct EOCD */
-	    _zip_cdir_grow(cd, cd->nentry+0x10000, error);
-	}
-
+    while (i<cd->nentry && left > 0) {
 	if ((_zip_dirent_read(cd->entry+i, fp, bufp, &left, 0, error)) < 0) {
 	    cd->nentry = i;
 	    _zip_cdir_free(cd);
 	    return NULL;
 	}
 	i++;
-	
-    } while (i<cd->nentry);
-    
+
+	if (i == cd->nentry && left > 0) {
+	    /* Infozip extension for more than 64k entries:
+	       nentries wraps around, size indicates correct EOCD */
+	    if(_zip_cdir_grow(cd, cd->nentry+0x10000, error) < 0) {
+		cd->nentry = i;
+		_zip_cdir_free(cd);
+		return NULL;
+	    }
+	}
+    }
+
+    cd->nentry = i;
+
     return cd;
 }
 
