@@ -26,8 +26,8 @@ kobohack-j.zip : KoboRoot.tgz README.wiki u-boot.bin
 	( cd ../rootfs/usr/lib && ln -s libxml2.so.2.7.8 libxml2.so && ln -s libxml2.so.2.7.8 libxml2.so.2 ) 
 	( cd ../rootfs/usr/lib && ln -s libfreetype.so.6.10.0 libfreetype.so && ln -s libfreetype.so.6.10.0 libfreetype.so.6 ) 
 	( cd ../rootfs && tar --owner=root --group=root -zcvf ../script/KoboRoot.tgz ./lib ./usr/lib ./bin )
-	git tag `date +%y%m%d`
 	zip -9 $@ $^
 	mv $@ kobohack-j-`date +%y%m%d`.zip
+	git tag `date +%y%m%d`
 
 .PHONY: __ALWAYS__
