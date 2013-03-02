@@ -63,6 +63,7 @@
 #include <unistd.h>
 #include <time.h>
 #include <errno.h>
+#include <ctype.h>
 
 #include <asm/types.h>
 
@@ -105,6 +106,8 @@
 #define TEST_BUFFER_BLOCKS 16
 #define HARD_SECTOR_SIZE   512
 #define SECTORS_PER_BLOCK ( BLOCK_SIZE / HARD_SECTOR_SIZE )
+
+#define NO_NAME "NO NAME    "
 
 /* Macro definitions */
 
@@ -279,7 +282,7 @@ static int verbose = 0;		/* Default to verbose mode off */
 static long volume_id;		/* Volume ID number */
 static time_t create_time;	/* Creation time */
 static struct timeval create_timeval;	/* Creation time */
-static char volume_name[] = "           ";	/* Volume name */
+static char volume_name[] = NO_NAME;	/* Volume name */
 static unsigned long long blocks;	/* Number of blocks in filesystem */
 static int sector_size = 512;	/* Size of a logical sector */
 static int sector_size_set = 0;	/* User selected sector size */
@@ -1199,7 +1202,7 @@ static void setup_tables(void)
 	}
 	printf("Volume ID is %08lx, ", volume_id &
 	       (atari_format ? 0x00ffffff : 0xffffffff));
-	if (strcmp(volume_name, "           "))
+	if (strcmp(volume_name, NO_NAME))
 	    printf("volume label %s.\n", volume_name);
 	else
 	    printf("no volume label.\n");
@@ -1238,7 +1241,7 @@ static void setup_tables(void)
     }
 
     memset(root_dir, 0, size_root_dir);
-    if (memcmp(volume_name, "           ", 11)) {
+    if (memcmp(volume_name, NO_NAME, 11)) {
 	struct msdos_dir_entry *de = &root_dir[0];
 	memcpy(de->name, volume_name, 8);
 	memcpy(de->ext, volume_name + 8, 3);
@@ -1562,6 +1565,9 @@ int main(int argc, char **argv)
 
 	case 'n':		/* n : Volume name */
 	    sprintf(volume_name, "%-11.11s", optarg);
+            for (i = 0; i < 11; i++)
+              volume_name[i] = toupper(volume_name[i]);
+
 	    break;
 
 	case 'r':		/* r : Root directory entries */
@@ -1685,10 +1691,10 @@ int main(int argc, char **argv)
 	 * the 'superfloppy' format.  As I don't know how to find out if
 	 * this is a MO disk I introduce a -I (ignore) switch.  -Joey
 	 */
-	if (!ignore_full_disk && ((statbuf.st_rdev & 0xff3f) == 0x0300 ||	/* hda, hdb */
-				  (statbuf.st_rdev & 0xff0f) == 0x0800 ||	/* sd */
-				  (statbuf.st_rdev & 0xff3f) == 0x0d00 ||	/* xd */
-				  (statbuf.st_rdev & 0xff3f) == 0x1600)	/* hdc, hdd */
+	if (!ignore_full_disk && ((statbuf.st_rdev & 0xffffff3f) == 0x0300 ||	/* hda, hdb */
+				  (statbuf.st_rdev & 0xffffff0f) == 0x0800 ||	/* sd */
+				  (statbuf.st_rdev & 0xffffff3f) == 0x0d00 ||	/* xd */
+				  (statbuf.st_rdev & 0xffffff3f) == 0x1600)	/* hdc, hdd */
 	)
 	die("Device partition expected, not making filesystem on entire device '%s' (use -I to override)");
 

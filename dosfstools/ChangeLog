@@ -1,4 +1,127 @@
-commit 0d8f0020cae997f22c222f83ae8c2f65ab939fdc
+commit ac4d30646425e19e8682cf7c9055014cbdb54c6f
+Author: Petr Gajdos <pgajdos@suse.cz>
+Date:   Fri Mar 1 08:34:12 2013 +0100
+
+    Create rootdir entry volume label with mkdosfs, create it when
+    it doesn't exist with dosfslabel.
+    
+    See https://bugzilla.novell.com/show_bug.cgi?id=657011#c4
+    for more information.
+    
+    Signed-off-by: Daniel Baumann <mail@daniel-baumann.ch>
+
+commit 7963bda123aa3bc6e4525a69b8fb82c4e92f7a52
+Author: Petr Gajdos <pgajdos@suse.cz>
+Date:   Fri Mar 1 08:33:18 2013 +0100
+
+    Forbid lowercase letters in label.
+    
+    See https://bugzilla.novell.com/show_bug.cgi?id=657011#c4 and
+    http://support.microsoft.com/kb/71715/en-us for more information.
+    
+    Signed-off-by: Daniel Baumann <mail@daniel-baumann.ch>
+
+commit 23fd2911267f73ea8dd6b5e6cc7ffb60223063e5
+Author: Petr Gajdos <pgajdos@suse.cz>
+Date:   Fri Mar 1 08:32:02 2013 +0100
+
+    Read label also from rootdir entry.
+    
+    See https://bugzilla.novell.com/show_bug.cgi?id=657011#c4
+    for more information.
+    
+    Signed-off-by: Daniel Baumann <mail@daniel-baumann.ch>
+
+commit dbf11935d610b3b8d50480fc6c6257f8d8508635
+Author: Petr Gajdos <pgajdos@suse.cz>
+Date:   Fri Mar 1 08:30:21 2013 +0100
+
+    alloc_rootdir_entry() is intended to be called with pattern == "FSCK%04dREC",
+    the old code (probably c&p from auto_rename()) doesn't reflect this.
+    
+    Signed-off-by: Daniel Baumann <mail@daniel-baumann.ch>
+
+commit 6de7543008fb5b37017560448c45270dafb62ab8
+Author: Petr Gajdos <pgajdos@suse.cz>
+Date:   Fri Mar 1 08:29:00 2013 +0100
+
+    Instead of eleven blanks, fill in "NO NAME    " as specification tells.
+    
+    See https://bugzilla.novell.com/show_bug.cgi?id=657011#c4 and
+    http://www.win.tue.nl/~aeb/linux/fs/fat/fat-1.html for more information.
+    
+    Signed-off-by: Daniel Baumann <mail@daniel-baumann.ch>
+
+commit feb90914727acd92e4518881a07c3d80d6d6ccfa
+Author: Daniel Baumann <daniel.baumann@progress-linux.org>
+Date:   Fri Mar 1 08:58:15 2013 +0100
+
+    Write uppercase letters in label.
+    
+    See https://bugzilla.novell.com/show_bug.cgi?id=657011#c4 and
+    http://support.microsoft.com/kb/71715/en-us for more information.
+    
+    Signed-off-by: Daniel Baumann <mail@daniel-baumann.ch>
+
+commit a75fb1c838a47b8f54ff567ca2eb71e98ccb691c
+Author: Daniel Baumann <mail@daniel-baumann.ch>
+Date:   Thu Feb 21 15:06:52 2013 +0100
+
+    Releasing version 3.0.15.
+    
+    Signed-off-by: Daniel Baumann <mail@daniel-baumann.ch>
+
+commit c8f84fdcddf0982b86ef53250b08a005c80925ef
+Author: Alexander Korolkov <alexander.korolkov@gmail.com>
+Date:   Mon Feb 4 00:22:34 2013 +0400
+
+    Using wcstombs() to convert LFN unicode characters to printable text.
+    
+    This closes Debian bug #596336.
+    
+    Signed-off-by: Daniel Baumann <mail@daniel-baumann.ch>
+
+commit 154654555730874c1656bb6c63292a85a2260bdf
+Author: Alexander Korolkov <alexander.korolkov@gmail.com>
+Date:   Sun Sep 5 18:59:47 2010 +0400
+
+    Recode short filenames from DOS codepage (default 437).
+    
+    Recode short filenames from DOS codepage (default 437) to the current
+    character encoding. This makes messages of dosfsck more readable.
+    Partially closes Debian bug #596336.
+    
+    Signed-off-by: Daniel Baumann <mail@daniel-baumann.ch>
+
+commit ad76cae648d3b7895e97e16f8212ae8089b8846b
+Author: Jaroslav Skarvada <jskarvad@redhat.com>
+Date:   Thu Feb 21 14:40:52 2013 +0100
+
+    Fixing root directory allocation.
+    
+    See https://bugzilla.redhat.com/show_bug.cgi?id=674095 for more information.
+    
+    Signed-off-by: Daniel Baumann <mail@daniel-baumann.ch>
+
+commit b8201b34eb83c2bf87bd1c2b1a7fa57a1dc28191
+Author: Jaroslav Skarvada <jskarvad@redhat.com>
+Date:   Thu Feb 21 14:40:25 2013 +0100
+
+    Fixing device detection.
+    
+    See https://bugzilla.redhat.com/show_bug.cgi?id=710480 for more information.
+    
+    Signed-off-by: Daniel Baumann <mail@daniel-baumann.ch>
+
+commit 7a756385ed6bce393396c699e068b5f239053db6
+Author: Daniel Baumann <mail@daniel-baumann.ch>
+Date:   Wed Jan 23 13:22:01 2013 +0100
+
+    Releasing version 3.0.14.
+    
+    Signed-off-by: Daniel Baumann <mail@daniel-baumann.ch>
+
+commit 5bdd7ef95c7f18e9e6571bf0718a564bd15b30d5
 Author: Daniel Baumann <mail@daniel-baumann.ch>
 Date:   Wed Jan 23 13:16:20 2013 +0100
 
