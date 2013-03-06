@@ -26,8 +26,29 @@
  * Journal recovery routines for the generic filesystem journaling code;
  * part of the ext2fs journaling system.
  *
- * Licensed under GPLv2 or later, see file License in this tarball for details.
+ * Licensed under GPLv2 or later, see file LICENSE in this source tree.
  */
+
+/*
+//usage:#define e2fsck_trivial_usage
+//usage:       "[-panyrcdfvstDFSV] [-b superblock] [-B blocksize] "
+//usage:       "[-I inode_buffer_blocks] [-P process_inode_size] "
+//usage:       "[-l|-L bad_blocks_file] [-C fd] [-j external_journal] "
+//usage:       "[-E extended-options] device"
+//usage:#define e2fsck_full_usage "\n\n"
+//usage:       "Check ext2/ext3 file system\n"
+//usage:     "\n	-p		Automatic repair (no questions)"
+//usage:     "\n	-n		Make no changes to the filesystem"
+//usage:     "\n	-y		Assume 'yes' to all questions"
+//usage:     "\n	-c		Check for bad blocks and add them to the badblock list"
+//usage:     "\n	-f		Force checking even if filesystem is marked clean"
+//usage:     "\n	-v		Verbose"
+//usage:     "\n	-b superblock	Use alternative superblock"
+//usage:     "\n	-B blocksize	Force blocksize when looking for superblock"
+//usage:     "\n	-j journal	Set location of the external journal"
+//usage:     "\n	-l file		Add to badblocks list"
+//usage:     "\n	-L file		Set badblocks list"
+*/
 
 #include "e2fsck.h"	/*Put all of our defines here to clean things up*/
 
@@ -517,7 +538,6 @@ static void dict_insert(dict_t *dict, dnode_t *node, const void *key)
 	}
 
 	dict_root(dict)->color = dnode_black;
-
 }
 
 /*
@@ -561,7 +581,7 @@ static dnode_t *dict_first(dict_t *dict)
 
 /*
  * Return the given node's successor node---the node which has the
- * next key in the the left to right ordering. If the node has
+ * next key in the left to right ordering. If the node has
  * no successor, a null pointer is returned rather than a pointer to
  * the nil node.
  */
@@ -801,7 +821,6 @@ static void e2fsck_add_dx_dir(e2fsck_t ctx, ext2_ino_t ino, int num_blocks)
 	dir->dx_block = e2fsck_allocate_memory(ctx, num_blocks
 				       * sizeof (struct dx_dirblock_info),
 				       "dx_block info array");
-
 }
 
 /*
@@ -1724,7 +1743,6 @@ errout:
 	ext2fs_free_mem(&j_inode);
 	ext2fs_free_mem(&journal);
 	return retval;
-
 }
 
 static errcode_t e2fsck_journal_fix_bad_inode(e2fsck_t ctx,
@@ -3375,7 +3393,6 @@ static void e2fsck_pass1(e2fsck_t ctx)
 					e2fsck_write_inode(ctx, ino, inode,
 							   "pass1");
 				}
-
 			}
 			/*
 			 * If dtime is set, offer to clear it.  mke2fs
@@ -3678,7 +3695,6 @@ endit:
 
 	ext2fs_free_mem(&block_buf);
 	ext2fs_free_mem(&inode);
-
 }
 
 /*
@@ -4451,8 +4467,7 @@ static void mark_table_blocks(e2fsck_t ctx)
 						ctx->invalid_bitmaps++;
 					}
 				} else {
-				    ext2fs_mark_block_bitmap(ctx->block_found_map,
-							     b);
+					ext2fs_mark_block_bitmap(ctx->block_found_map, b);
 				}
 			}
 		}
@@ -4469,10 +4484,9 @@ static void mark_table_blocks(e2fsck_t ctx)
 					ctx->invalid_bitmaps++;
 				}
 			} else {
-			    ext2fs_mark_block_bitmap(ctx->block_found_map,
-				     fs->group_desc[i].bg_block_bitmap);
-		    }
-
+				ext2fs_mark_block_bitmap(ctx->block_found_map,
+					fs->group_desc[i].bg_block_bitmap);
+			}
 		}
 		/*
 		 * Mark block used for the inode bitmap
@@ -4486,8 +4500,8 @@ static void mark_table_blocks(e2fsck_t ctx)
 					ctx->invalid_bitmaps++;
 				}
 			} else {
-			    ext2fs_mark_block_bitmap(ctx->block_found_map,
-				     fs->group_desc[i].bg_inode_bitmap);
+				ext2fs_mark_block_bitmap(ctx->block_found_map,
+					fs->group_desc[i].bg_inode_bitmap);
 			}
 		}
 		block += fs->super->s_blocks_per_group;
@@ -5588,7 +5602,6 @@ static void e2fsck_pass2(e2fsck_t ctx)
 			ext2fs_mark_super_dirty(fs);
 		}
 	}
-
 }
 
 #define MAX_DEPTH 32000
@@ -9748,7 +9761,6 @@ int fix_problem(e2fsck_t ctx, problem_t code, struct problem_context *pctx)
 		if (print_answer)
 			printf("%s.\n", answer ?
 			       _(preen_msg[(int) ptr->prompt]) : _("IGNORED"));
-
 	}
 
 	if ((ptr->prompt == PROMPT_ABORT) && answer)
@@ -11324,7 +11336,7 @@ static int release_inode_block(ext2_filsys fs, blk_t *block_nr,
 	if ((blk < fs->super->s_first_data_block) ||
 	    (blk >= fs->super->s_blocks_count)) {
 		fix_problem(ctx, PR_0_ORPHAN_ILLEGAL_BLOCK_NUM, pctx);
-	return_abort:
+ return_abort:
 		pb->abort = 1;
 		return BLOCK_ABORT;
 	}
@@ -11537,7 +11549,7 @@ static int release_orphan_inodes(e2fsck_t ctx)
 	}
 	ext2fs_free_mem(&block_buf);
 	return 0;
-return_abort:
+ return_abort:
 	ext2fs_free_mem(&block_buf);
 	return 1;
 }
@@ -11565,7 +11577,7 @@ static void check_resize_inode(e2fsck_t ctx)
 	 * s_reserved_gdt_blocks must be zero.
 	 */
 	if (!(fs->super->s_feature_compat &
-	      EXT2_FEATURE_COMPAT_RESIZE_INODE)) {
+	      EXT2_FEATURE_COMPAT_RESIZE_INO)) {
 		if (fs->super->s_reserved_gdt_blocks) {
 			pctx.num = fs->super->s_reserved_gdt_blocks;
 			if (fix_problem(ctx, PR_0_NONZERO_RESERVED_GDT_BLOCKS,
@@ -11581,7 +11593,7 @@ static void check_resize_inode(e2fsck_t ctx)
 	retval = ext2fs_read_inode(fs, EXT2_RESIZE_INO, &inode);
 	if (retval) {
 		if (fs->super->s_feature_compat &
-		    EXT2_FEATURE_COMPAT_RESIZE_INODE)
+		    EXT2_FEATURE_COMPAT_RESIZE_INO)
 			ctx->flags |= E2F_FLAG_RESIZE_INODE;
 		return;
 	}
@@ -11591,7 +11603,7 @@ static void check_resize_inode(e2fsck_t ctx)
 	 * the resize inode is cleared; then we're done.
 	 */
 	if (!(fs->super->s_feature_compat &
-	      EXT2_FEATURE_COMPAT_RESIZE_INODE)) {
+	      EXT2_FEATURE_COMPAT_RESIZE_INO)) {
 		for (i=0; i < EXT2_N_BLOCKS; i++) {
 			if (inode.i_block[i])
 				break;
@@ -11618,7 +11630,7 @@ static void check_resize_inode(e2fsck_t ctx)
 	    !(inode.i_mode & LINUX_S_IFREG) ||
 	    (blk < fs->super->s_first_data_block ||
 	     blk >= fs->super->s_blocks_count)) {
-	resize_inode_invalid:
+ resize_inode_invalid:
 		if (fix_problem(ctx, PR_0_RESIZE_INODE_INVALID, &pctx)) {
 			memset(&inode, 0, sizeof(inode));
 			e2fsck_write_inode(ctx, EXT2_RESIZE_INO, &inode,
@@ -11660,10 +11672,9 @@ static void check_resize_inode(e2fsck_t ctx)
 		}
 	}
 
-cleanup:
+ cleanup:
 	ext2fs_free_mem(&dind_buf);
-
- }
+}
 
 static void check_super_block(e2fsck_t ctx)
 {
@@ -11842,7 +11853,6 @@ static void check_super_block(e2fsck_t ctx)
 		    (gd->bg_free_inodes_count > sb->s_inodes_per_group) ||
 		    (gd->bg_used_dirs_count > sb->s_inodes_per_group))
 			ext2fs_unmark_valid(fs);
-
 	}
 
 	/*
@@ -11902,7 +11912,6 @@ static void check_super_block(e2fsck_t ctx)
 			fs->super->s_feature_incompat &=
 				~EXT2_FEATURE_INCOMPAT_FILETYPE;
 			ext2fs_mark_super_dirty(fs);
-
 		}
 	}
 

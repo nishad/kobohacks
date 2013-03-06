@@ -1,6 +1,6 @@
 VERSION = 1
-PATCHLEVEL = 17
-SUBLEVEL = 1
+PATCHLEVEL = 20
+SUBLEVEL = 2
 EXTRAVERSION =
 NAME = Unnamed
 
@@ -433,7 +433,12 @@ ifeq ($(config-targets),1)
 -include $(srctree)/arch/$(ARCH)/Makefile
 export KBUILD_DEFCONFIG
 
-config %config: scripts_basic outputmakefile gen_build_files FORCE
+config: scripts_basic outputmakefile gen_build_files FORCE
+	$(Q)mkdir -p include
+	$(Q)$(MAKE) $(build)=scripts/kconfig $@
+	$(Q)$(MAKE) -C $(srctree) KBUILD_SRC= .kernelrelease
+
+%config: scripts_basic outputmakefile gen_build_files FORCE
 	$(Q)mkdir -p include
 	$(Q)$(MAKE) $(build)=scripts/kconfig $@
 	$(Q)$(MAKE) -C $(srctree) KBUILD_SRC= .kernelrelease
@@ -459,7 +464,7 @@ core-y		:= \
 
 libs-y		:= \
 		archival/ \
-		archival/libunarchive/ \
+		archival/libarchive/ \
 		console-tools/ \
 		coreutils/ \
 		coreutils/libcoreutils/ \
@@ -837,7 +842,7 @@ export CPPFLAGS_busybox.lds += -P -C -U$(ARCH)
 
 # 	Split autoconf.h into include/linux/config/*
 quiet_cmd_gen_bbconfigopts = GEN     include/bbconfigopts.h
-      cmd_gen_bbconfigopts = $(srctree)/scripts/mkconfigs > include/bbconfigopts.h
+      cmd_gen_bbconfigopts = $(srctree)/scripts/mkconfigs include/bbconfigopts.h include/bbconfigopts_bz2.h
 quiet_cmd_split_autoconf   = SPLIT   include/autoconf.h -> include/config/*
       cmd_split_autoconf   = scripts/basic/split-include include/autoconf.h include/config
 #bbox# piggybacked generation of few .h files
@@ -958,10 +963,14 @@ CLEAN_FILES +=	busybox busybox_unstripped* busybox.links \
 # Directories & files removed with 'make mrproper'
 MRPROPER_DIRS  += include/config include2
 MRPROPER_FILES += .config .config.old include/asm .version .old_version \
+		  include/NUM_APPLETS.h \
 		  include/autoconf.h \
 		  include/bbconfigopts.h \
+		  include/bbconfigopts_bz2.h \
 		  include/usage_compressed.h \
 		  include/applet_tables.h \
+		  include/applets.h \
+		  include/usage.h \
 		  applets/usage \
 		  .kernelrelease Module.symvers tags TAGS cscope* \
 		  busybox_old
@@ -986,7 +995,7 @@ clean: archclean $(clean-dirs)
 
 PHONY += doc-clean
 doc-clean: rm-files := docs/busybox.pod \
-		  docs/BusyBox.html docs/BusyBox.1 docs/BusyBox.txt
+		  docs/BusyBox.html docs/busybox.1 docs/BusyBox.txt
 doc-clean:
 	$(call cmd,rmfiles)
 
@@ -1003,8 +1012,8 @@ $(mrproper-dirs):
 mrproper: clean archmrproper $(mrproper-dirs)
 	$(call cmd,rmdirs)
 	$(call cmd,rmfiles)
-	@find -name Config.src | sed 's/.src$$/.in/' | xargs -r rm -f
-	@find -name Kbuild.src | sed 's/.src$$//' | xargs -r rm -f
+	@find . -name Config.src | sed 's/.src$$/.in/' | xargs -r rm -f
+	@find . -name Kbuild.src | sed 's/.src$$//' | xargs -r rm -f
 
 # distclean
 #
@@ -1033,7 +1042,7 @@ rpm: FORCE
 # Brief documentation of the typical targets used
 # ---------------------------------------------------------------------------
 
-boards := $(wildcard $(srctree)/arch/$(ARCH)/configs/*_defconfig)
+boards := $(wildcard $(srctree)/configs/*_defconfig)
 boards := $(notdir $(boards))
 
 -include $(srctree)/Makefile.help
@@ -1121,15 +1130,6 @@ clean: $(clean-dirs)
 		\( -name '*.[oas]' -o -name '*.ko' -o -name '.*.cmd' \
 		-o -name '.*.d' -o -name '.*.tmp' -o -name '*.mod.c' \) \
 		-type f -print | xargs rm -f
-
-help:
-	@echo  '  Building external modules.'
-	@echo  '  Syntax: make -C path/to/kernel/src M=$$PWD target'
-	@echo  ''
-	@echo  '  modules         - default target, build the module(s)'
-	@echo  '  modules_install - install the module'
-	@echo  '  clean           - remove generated files in module directory only'
-	@echo  ''
 
 # Dummies...
 PHONY += prepare scripts
@@ -1285,9 +1285,13 @@ endif
 	$(Q)$(MAKE) $(build)=$(build-dir) $(target-dir)$(notdir $@)
 
 # Modules
-/ %/: prepare scripts FORCE
+%/: prepare scripts FORCE
 	$(Q)$(MAKE) KBUILD_MODULES=$(if $(CONFIG_MODULES),1) \
 	$(build)=$(build-dir)
+/: prepare scripts FORCE
+	$(Q)$(MAKE) KBUILD_MODULES=$(if $(CONFIG_MODULES),1) \
+	$(build)=$(build-dir)
+
 %.ko: prepare scripts FORCE
 	$(Q)$(MAKE) KBUILD_MODULES=$(if $(CONFIG_MODULES),1)   \
 	$(build)=$(build-dir) $(@:.ko=.o)

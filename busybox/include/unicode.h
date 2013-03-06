@@ -1,6 +1,6 @@
 /* vi: set sw=4 ts=4: */
 /*
- * Licensed under the GPL version 2, see the file LICENSE in this tarball.
+ * Licensed under GPLv2, see file LICENSE in this source tree.
  */
 #ifndef UNICODE_H
 #define UNICODE_H 1
@@ -27,6 +27,7 @@ enum {
 # define unicode_strwidth(string) strlen(string)
 # define unicode_status UNICODE_OFF
 # define init_unicode() ((void)0)
+# define reinit_unicode(LANG) ((void)0)
 
 #else
 
@@ -60,13 +61,14 @@ enum {
 //UNUSED: unsigned FAST_FUNC unicode_padding_to_width(unsigned width, const char *src);
 //UNUSED: char* FAST_FUNC unicode_conv_to_printable2(uni_stat_t *stats, const char *src, unsigned width, int flags);
 char* FAST_FUNC unicode_conv_to_printable(uni_stat_t *stats, const char *src);
-char* FAST_FUNC unicode_conv_to_printable_maxwidth(uni_stat_t *stats, const char *src, unsigned maxwidth);
-char* FAST_FUNC unicode_conv_to_printable_fixedwidth(uni_stat_t *stats, const char *src, unsigned width);
+//UNUSED: char* FAST_FUNC unicode_conv_to_printable_maxwidth(uni_stat_t *stats, const char *src, unsigned maxwidth);
+char* FAST_FUNC unicode_conv_to_printable_fixedwidth(/*uni_stat_t *stats,*/ const char *src, unsigned width);
 
 # if ENABLE_UNICODE_USING_LOCALE
 
 extern uint8_t unicode_status;
 void init_unicode(void) FAST_FUNC;
+void reinit_unicode(const char *LANG) FAST_FUNC;
 
 # else
 
@@ -75,9 +77,11 @@ void init_unicode(void) FAST_FUNC;
 #  if !ENABLE_FEATURE_CHECK_UNICODE_IN_ENV
 #   define unicode_status UNICODE_ON
 #   define init_unicode() ((void)0)
+#   define reinit_unicode(LANG) ((void)0)
 #  else
 extern uint8_t unicode_status;
 void init_unicode(void) FAST_FUNC;
+void reinit_unicode(const char *LANG) FAST_FUNC;
 #  endif
 
 #  undef MB_CUR_MAX

@@ -4,7 +4,7 @@
  *
  * Copyright (C) 2003  Manuel Novoa III  <mjn3@codepoet.org>
  *
- * Licensed under GPLv2, see file LICENSE in this tarball for details.
+ * Licensed under GPLv2, see file LICENSE in this source tree.
  */
 
 PUSH_AND_SET_FUNCTION_VISIBILITY_TO_HIDDEN
@@ -166,6 +166,15 @@ uint32_t bb_strtou32(const char *arg, char **endp, int base)
 		return bb_strtou(arg, endp, base);
 	if (sizeof(uint32_t) == sizeof(unsigned long))
 		return bb_strtoul(arg, endp, base);
+	return BUG_bb_strtou32_unimplemented();
+}
+static ALWAYS_INLINE
+int32_t bb_strtoi32(const char *arg, char **endp, int base)
+{
+	if (sizeof(int32_t) == sizeof(int))
+		return bb_strtoi(arg, endp, base);
+	if (sizeof(int32_t) == sizeof(long))
+		return bb_strtol(arg, endp, base);
 	return BUG_bb_strtou32_unimplemented();
 }
 

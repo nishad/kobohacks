@@ -5,7 +5,7 @@
  * Copyright (C) 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002,
  *	2003, 2004, 2005 by Theodore Ts'o.
  *
- * Licensed under GPLv2, see file LICENSE in this tarball for details.
+ * Licensed under GPLv2, see file LICENSE in this source tree.
  */
 
 /* Usage: mke2fs [options] device
@@ -757,7 +757,7 @@ static void parse_extended_opts(struct ext2_super_block *sb_param,
 
 			if (rsv_gdb > 0) {
 				sb_param->s_feature_compat |=
-					EXT2_FEATURE_COMPAT_RESIZE_INODE;
+					EXT2_FEATURE_COMPAT_RESIZE_INO;
 
 				sb_param->s_reserved_gdt_blocks = rsv_gdb;
 			}
@@ -778,7 +778,7 @@ static void parse_extended_opts(struct ext2_super_block *sb_param,
 
 static __u32 ok_features[3] = {
 	EXT3_FEATURE_COMPAT_HAS_JOURNAL |
-		EXT2_FEATURE_COMPAT_RESIZE_INODE |
+		EXT2_FEATURE_COMPAT_RESIZE_INO |
 		EXT2_FEATURE_COMPAT_DIR_INDEX,  /* Compat */
 	EXT2_FEATURE_INCOMPAT_FILETYPE|         /* Incompat */
 		EXT3_FEATURE_INCOMPAT_JOURNAL_DEV|
@@ -895,7 +895,7 @@ static int PRS(int argc, char **argv)
 			creator_os = optarg;
 			break;
 		case 'r':
-			param.s_rev_level = xatoi_u(optarg);
+			param.s_rev_level = xatoi_positive(optarg);
 			if (param.s_rev_level == EXT2_GOOD_OLD_REV) {
 				param.s_feature_incompat = 0;
 				param.s_feature_compat = 0;
@@ -912,11 +912,11 @@ static int PRS(int argc, char **argv)
 			break;
 #ifdef EXT2_DYNAMIC_REV
 		case 'I':
-			inode_size = xatoi_u(optarg);
+			inode_size = xatoi_positive(optarg);
 			break;
 #endif
 		case 'N':
-			num_inodes = xatoi_u(optarg);
+			num_inodes = xatoi_positive(optarg);
 			break;
 		case 'v':
 			quiet = 0;
@@ -1123,7 +1123,7 @@ static int PRS(int argc, char **argv)
 	/* Since sparse_super is the default, we would only have a problem
 	 * here if it was explicitly disabled.
 	 */
-	if ((param.s_feature_compat & EXT2_FEATURE_COMPAT_RESIZE_INODE) &&
+	if ((param.s_feature_compat & EXT2_FEATURE_COMPAT_RESIZE_INO) &&
 	    !(param.s_feature_ro_compat&EXT2_FEATURE_RO_COMPAT_SPARSE_SUPER)) {
 		bb_error_msg_and_die("reserved online resize blocks not supported "
 			  "on non-sparse filesystem");
@@ -1312,7 +1312,7 @@ int mke2fs_main (int argc, char **argv)
 		reserve_inodes(fs);
 		create_bad_block_inode(fs, bb_list);
 		if (fs->super->s_feature_compat &
-		    EXT2_FEATURE_COMPAT_RESIZE_INODE) {
+		    EXT2_FEATURE_COMPAT_RESIZE_INO) {
 			retval = ext2fs_create_resize_inode(fs);
 			mke2fs_error_msg_and_die(retval, "reserve blocks for online resize");
 		}

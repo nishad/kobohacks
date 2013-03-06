@@ -6,8 +6,17 @@
  * Copyright 2006 Rob Landley <rob@landley.net>
  * Copyright 2006 Bernhard Reutner-Fischer <rep.nop@aon.at>
  *
- * Licensed under GPLv2, see file LICENSE in this tarball for details.
+ * Licensed under GPLv2, see file LICENSE in this source tree.
  */
+
+//usage:#define dmesg_trivial_usage
+//usage:       "[-c] [-n LEVEL] [-s SIZE]"
+//usage:#define dmesg_full_usage "\n\n"
+//usage:       "Print or control the kernel ring buffer\n"
+//usage:     "\n	-c		Clear ring buffer after printing"
+//usage:     "\n	-n LEVEL	Set console logging level"
+//usage:     "\n	-s SIZE		Buffer size"
+
 #include <sys/klog.h>
 #include "libbb.h"
 
@@ -45,20 +54,25 @@ int dmesg_main(int argc UNUSED_PARAM, char **argv)
 	if (len == 0)
 		return EXIT_SUCCESS;
 
-	/* Skip <#> at the start of lines, and make sure we end with a newline */
 
 	if (ENABLE_FEATURE_DMESG_PRETTY) {
 		int last = '\n';
 		int in = 0;
 
-		do {
-			if (last == '\n' && buf[in] == '<')
+		/* Skip <#> at the start of lines */
+		while (1) {
+			if (last == '\n' && buf[in] == '<') {
 				in += 3;
-			else {
-				last = buf[in++];
-				bb_putchar(last);
+				if (in >= len)
+					break;
 			}
-		} while (in < len);
+			last = buf[in];
+			putchar(last);
+			in++;
+			if (in >= len)
+				break;
+		}
+		/* Make sure we end with a newline */
 		if (last != '\n')
 			bb_putchar('\n');
 	} else {
