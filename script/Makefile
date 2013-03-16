@@ -14,10 +14,10 @@ README.wiki : __ALWAYS__
 	cp -p git/README.wiki .
 	rm -rf git
 
-u-boot.bin : __ALWAYS__
-	cp -p ../rootfs/u-boot.bin .
+u-boot_hack.bin : __ALWAYS__
+	cp -p ../rootfs/u-boot_hack.bin .
 
-kobohack-j.zip : KoboRoot.tgz README.wiki u-boot.bin
+kobohack-j.zip : KoboRoot.tgz README.wiki u-boot_hack.bin
 	rm -f kobohack-j.zip KoboRoot.tgz
 	( cd ../rootfs && find . -type l | xargs rm -f )
 	( cd ../rootfs && git pull )
