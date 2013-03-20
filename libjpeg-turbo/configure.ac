@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.56])
-AC_INIT([libjpeg-turbo], [1.2.1])
+AC_INIT([libjpeg-turbo], [1.2.90])
 BUILD=`date +%Y%m%d`
 
 AM_INIT_AUTOMAKE([-Wall foreign dist-bzip2])
@@ -121,7 +121,6 @@ AC_SUBST(JPEG_LIB_VERSION_DECIMAL)
 AC_MSG_RESULT([$JPEG_LIB_VERSION_DECIMAL])
 AC_DEFINE_UNQUOTED(JPEG_LIB_VERSION, [$JPEG_LIB_VERSION], [libjpeg API version])
 
-AC_MSG_CHECKING([libjpeg shared library version])
 AC_ARG_VAR(SO_MAJOR_VERSION, [Major version of the libjpeg-turbo shared library (default is determined by the API version)])
 AC_ARG_VAR(SO_MINOR_VERSION, [Minor version of the libjpeg-turbo shared library (default is determined by the API version)])
 if test "x$SO_MAJOR_VERSION" = "x"; then
@@ -136,9 +135,35 @@ if test "x$SO_MINOR_VERSION" = "x"; then
         *)   SO_MINOR_VERSION=0 ;;
     esac
 fi
-AC_MSG_RESULT([$SO_MAJOR_VERSION:$SO_MINOR_VERSION])
+
+RPM_CONFIG_ARGS=
+
+# Memory source/destination managers
+SO_AGE=0
+MEM_SRCDST_FUNCTIONS=
+if test "x${with_jpeg8}" != "xyes"; then
+  AC_MSG_CHECKING([whether to include in-memory source/destination managers])
+  AC_ARG_WITH([mem-srcdst],
+      AC_HELP_STRING([--without-mem-srcdst], [Do not include in-memory source/destination manager functions when emulating the libjpeg v6b or v7 API/ABI]))
+  if test "x$with_mem_srcdst" != "xno"; then
+      AC_MSG_RESULT(yes)
+      AC_DEFINE([MEM_SRCDST_SUPPORTED], [1], [Support in-memory source/destination managers])
+      SO_AGE=1
+      MEM_SRCDST_FUNCTIONS="global:  jpeg_mem_dest;  jpeg_mem_src;";
+  else
+      AC_MSG_RESULT(no)
+      RPM_CONFIG_ARGS="$RPM_CONFIG_ARGS --without-mem-srcdst"
+  fi
+fi
+
+AC_MSG_CHECKING([libjpeg shared library version])
+AC_MSG_RESULT([$SO_MAJOR_VERSION.$SO_AGE.$SO_MINOR_VERSION])
+LIBTOOL_CURRENT=`expr $SO_MAJOR_VERSION + $SO_AGE`
+AC_SUBST(LIBTOOL_CURRENT)
 AC_SUBST(SO_MAJOR_VERSION)
 AC_SUBST(SO_MINOR_VERSION)
+AC_SUBST(SO_AGE)
+AC_SUBST(MEM_SRCDST_FUNCTIONS)
 
 AC_DEFINE_UNQUOTED(LIBJPEG_TURBO_VERSION, [$VERSION], [libjpeg-turbo version])
 
@@ -189,11 +214,13 @@ int bar() { return foo();], ljt_cv_inline="inline"))))
 AC_MSG_RESULT($ljt_cv_inline)
 AC_DEFINE_UNQUOTED([INLINE],[$ljt_cv_inline],[How to obtain function inlining.])
 
+# Arithmetic coding support
 AC_MSG_CHECKING([whether to include arithmetic encoding support])
 AC_ARG_WITH([arith-enc],
-    AC_HELP_STRING([--without-arith-enc], [Omit arithmetic encoding support]))
+    AC_HELP_STRING([--without-arith-enc], [Do not include arithmetic encoding support]))
 if test "x$with_arith_enc" = "xno"; then
     AC_MSG_RESULT(no)
+    RPM_CONFIG_ARGS="$RPM_CONFIG_ARGS --without-arith-enc"
 else
     AC_DEFINE([C_ARITH_CODING_SUPPORTED], [1], [Support arithmetic encoding])
     AC_MSG_RESULT(yes)
@@ -202,9 +229,10 @@ AM_CONDITIONAL([WITH_ARITH_ENC], [test "x$with_arith_enc" != "xno"])
 
 AC_MSG_CHECKING([whether to include arithmetic decoding support])
 AC_ARG_WITH([arith-dec],
-    AC_HELP_STRING([--without-arith-dec], [Omit arithmetic decoding support]))
+    AC_HELP_STRING([--without-arith-dec], [Do not include arithmetic decoding support]))
 if test "x$with_arith_dec" = "xno"; then
     AC_MSG_RESULT(no)
+    RPM_CONFIG_ARGS="$RPM_CONFIG_ARGS --without-arith-dec"
 else
     AC_DEFINE([D_ARITH_CODING_SUPPORTED], [1], [Support arithmetic decoding])
     AC_MSG_RESULT(yes)
@@ -213,6 +241,18 @@ AM_CONDITIONAL([WITH_ARITH_DEC], [test "x$with_arith_dec" != "xno"])
 
 AM_CONDITIONAL([WITH_ARITH], [test "x$with_arith_dec" != "xno" -o "x$with_arith_enc" != "xno"])
 
+# TurboJPEG support
+AC_MSG_CHECKING([whether to build TurboJPEG C wrapper])
+AC_ARG_WITH([turbojpeg],
+    AC_HELP_STRING([--without-turbojpeg],[Do not include the TurboJPEG wrapper library and associated test programs]))
+if test "x$with_turbojpeg" = "xno"; then
+    AC_MSG_RESULT(no)
+    RPM_CONFIG_ARGS="$RPM_CONFIG_ARGS --without-turbojpeg"
+else
+    AC_MSG_RESULT(yes)
+fi
+
+# Java support
 AC_ARG_VAR(JAVAC, [Java compiler command (default: javac)])
 if test "x$JAVAC" = "x"; then
   JAVAC=javac
@@ -232,11 +272,13 @@ fi
 AC_SUBST(JAVA)
 AC_ARG_VAR(JNI_CFLAGS, [C compiler flags needed to include jni.h (default: -I/System/Library/Frameworks/JavaVM.framework/Headers on OS X, '-I/usr/java/include -I/usr/java/include/solaris' on Solaris, and '-I/usr/java/default/include -I/usr/java/default/include/linux' on Linux)])
 
-AC_MSG_CHECKING([whether to build TurboJPEG/OSS Java wrapper])
+AC_MSG_CHECKING([whether to build TurboJPEG Java wrapper])
 AC_ARG_WITH([java],
-    AC_HELP_STRING([--with-java],[Build Java wrapper for the TurboJPEG/OSS library]))
+    AC_HELP_STRING([--with-java],[Build Java wrapper for the TurboJPEG library]))
+if test "x$with_turbojpeg" = "xno"; then
+    with_java=no
+fi
 
-RPM_CONFIG_ARGS=
 WITH_JAVA=0
 if test "x$with_java" = "xyes"; then
     AC_MSG_RESULT(yes)
@@ -263,7 +305,7 @@ if test "x$with_java" = "xyes"; then
     CPPFLAGS=${SAVE_CPPFLAGS}
     AC_SUBST(JNI_CFLAGS)
 
-    RPM_CONFIG_ARGS=--with-java
+    RPM_CONFIG_ARGS="$RPM_CONFIG_ARGS --with-java"
     JAVA_RPM_CONTENTS_1='%dir /opt/%{name}/classes'
     JAVA_RPM_CONTENTS_2=/opt/%{name}/classes/turbojpeg.jar
     WITH_JAVA=1
@@ -274,7 +316,6 @@ AM_CONDITIONAL([WITH_JAVA], [test "x$with_java" = "xyes"])
 AC_SUBST(WITH_JAVA)
 AC_SUBST(JAVA_RPM_CONTENTS_1)
 AC_SUBST(JAVA_RPM_CONTENTS_2)
-AC_SUBST(RPM_CONFIG_ARGS)
 
 # optionally force using gas-preprocessor.pl for compatibility testing
 AC_ARG_WITH([gas-preprocessor],
@@ -293,7 +334,7 @@ fi
 
 # SIMD is optional
 AC_ARG_WITH([simd],
-    AC_HELP_STRING([--without-simd],[Omit SIMD extensions.]))
+    AC_HELP_STRING([--without-simd],[Do not include SIMD extensions]))
 if test "x${with_simd}" != "xno"; then
   # Check if we're on a supported CPU
   AC_MSG_CHECKING([if we have SIMD optimisations for cpu type])
@@ -328,6 +369,8 @@ if test "x${with_simd}" != "xno"; then
   if test "x${with_simd}" != "xno"; then
     AC_DEFINE([WITH_SIMD], [1], [Use accelerated SIMD routines.])
   fi
+else
+  RPM_CONFIG_ARGS="$RPM_CONFIG_ARGS --without-simd"
 fi
 
 AM_CONDITIONAL([WITH_SIMD], [test "x$with_simd" != "xno"])
@@ -336,6 +379,7 @@ AM_CONDITIONAL([SIMD_I386], [test "x$simd_arch" = "xi386"])
 AM_CONDITIONAL([SIMD_X86_64], [test "x$simd_arch" = "xx86_64"])
 AM_CONDITIONAL([SIMD_ARM], [test "x$simd_arch" = "xarm"])
 AM_CONDITIONAL([X86_64], [test "x$host_cpu" = "xx86_64" -o "x$host_cpu" = "xamd64"])
+AM_CONDITIONAL([WITH_TURBOJPEG], [test "x$with_turbojpeg" != "xno"])
 
 case "$host_cpu" in
   x86_64)
@@ -349,6 +393,7 @@ case "$host_cpu" in
 esac
 
 AC_SUBST(RPMARCH)
+AC_SUBST(RPM_CONFIG_ARGS)
 AC_SUBST(DEBARCH)
 AC_SUBST(BUILD)
 AC_DEFINE_UNQUOTED([BUILD], "$BUILD", [Build number])
@@ -366,10 +411,13 @@ AC_CONFIG_FILES([pkgscripts/makemacpkg:release/makemacpkg.in])
 AC_CONFIG_FILES([pkgscripts/Description.plist:release/Description.plist.in])
 AC_CONFIG_FILES([pkgscripts/Info.plist:release/Info.plist.in])
 AC_CONFIG_FILES([pkgscripts/uninstall:release/uninstall.in])
-AC_CONFIG_FILES([pkgscripts/makesunpkg:release/makesunpkg.in])
-AC_CONFIG_FILES([pkgscripts/pkginfo:release/pkginfo.in])
+if test "x$with_turbojpeg" != "xno"; then
 AC_CONFIG_FILES([tjbenchtest])
+fi
+if test "x$with_java" = "xyes"; then
+AC_CONFIG_FILES([tjbenchtest.java])
 AC_CONFIG_FILES([tjexampletest])
+fi
 AC_CONFIG_FILES([libjpeg.map])
 AC_CONFIG_FILES([Makefile simd/Makefile])
 AC_CONFIG_FILES([java/Makefile])
