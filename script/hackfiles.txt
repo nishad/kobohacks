@@ -1,0 +1,4 @@
+./bin/dropbearmulti
+./bin/dropbear
+./bin/dropbearkey
+./bin/dbclient
