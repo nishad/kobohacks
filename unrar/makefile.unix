@@ -2,11 +2,11 @@
 # Makefile for UNIX - unrar
 
 # Linux using GCC
-CXX=g++
-CXXFLAGS=-O2
+CXX=/opt/freescale/usr/local/gcc-4.4.4-glibc-2.11.1-multilib-1.0/arm-fsl-linux-gnueabi/bin/arm-fsl-linux-gnueabi-g++
+CXXFLAGS=-Os -march=armv7-a -mtune=cortex-a8 -mfpu=neon -mfloat-abi=softfp
 LIBFLAGS=-fPIC
 DEFINES=-D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE
-STRIP=strip
+STRIP=/opt/freescale/usr/local/gcc-4.4.4-glibc-2.11.1-multilib-1.0/arm-fsl-linux-gnueabi/bin/arm-fsl-linux-gnueabi-strip
 DESTDIR=/usr
 
 # Linux using LCC
