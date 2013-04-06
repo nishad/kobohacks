@@ -2,3 +2,4 @@
 ./bin/dropbear
 ./bin/dropbearkey
 ./bin/dbclient
+./bin/gdbserver
