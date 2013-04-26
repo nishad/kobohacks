@@ -1,9 +1,10 @@
 I2C TOOLS FOR LINUX
 ===================
 
-This package contains an heterogeneous set of I2C tools for Linux. These tools
-were originally part of the lm-sensors package but were finally split into
-their own package for convenience.
+This package contains an heterogeneous set of I2C tools for the Linux kernel.
+These tools were originally part of the lm-sensors project but were finally
+split into their own package for convenience. They compile, run and have been
+tested on GNU/Linux.
 
 
 CONTENTS
@@ -50,6 +51,11 @@ Optionally, you can run "make strip" prior to "make install" if you want
 smaller binaries. However, be aware that this will prevent any further
 attempt to debug the programs.
 
+If you wish to include sub-directories that are not enabled by default, then
+just set them via the EXTRA make variable. For example, to build py-smbus,
+do:
+  $ make EXTRA="py-smbus"
+
 
 DOCUMENTATION
 -------------
@@ -59,3 +65,12 @@ See these manual pages for command line interface details and tool specific
 information.
 
 The other tools come with simple text documentation, which isn't installed.
+
+
+QUESTIONS AND BUG REPORTS
+-------------------------
+
+Please post your questions and bug reports to the linux-i2c mailing list:
+  linux-i2c@vger.kernel.org
+For additional information about this list, see:
+  http://vger.kernel.org/vger-lists.html#linux-i2c
