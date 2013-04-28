@@ -1,5 +1,5 @@
 repo: d7da3b1e15401eb234ec866d5eac992fc4cd5878
-node: 96b8bcb88017815040949a417caa55686271e8a9
+node: e76614145aea67f66e4a4257685c771efba21aa1
 branch: default
-latesttag: DROPBEAR_2013.56
-latesttagdistance: 34
+latesttag: DROPBEAR_2013.57
+latesttagdistance: 8
