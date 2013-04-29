@@ -7,3 +7,4 @@
 ./bin/i2cdump
 ./bin/i2cget
 ./bin/i2cset
+./bin/strace
