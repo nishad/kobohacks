@@ -8,7 +8,7 @@
 dlname='libfreetype.so.6'
 
 # Names of this library.
-library_names='libfreetype.so.6.10.0 libfreetype.so.6 libfreetype.so'
+library_names='libfreetype.so.6.10.1 libfreetype.so.6 libfreetype.so'
 
 # The name of the static archive.
 old_library='libfreetype.a'
@@ -25,7 +25,7 @@ weak_library_names=''
 # Version information for libfreetype.
 current=16
 age=10
-revision=0
+revision=1
 
 # Is this an already installed library?
 installed=no
@@ -38,4 +38,4 @@ dlopen=''
 dlpreopen=''
 
 # Directory that this library needs to be installed in:
-libdir='/usr/local/lib'
+libdir='/opt/local/lib'

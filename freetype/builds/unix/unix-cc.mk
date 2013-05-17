@@ -79,7 +79,7 @@ T := -o$(space)
 #   We use our own FreeType configuration file.
 #
 CPPFLAGS := 
-CFLAGS   := -c -Wall -g -O2 -DFT_CONFIG_CONFIG_H="<ftconfig.h>" -march=armv7-a -mtune=cortex-a8 -mfpu=neon -mfloat-abi=softfp
+CFLAGS   := -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -mfloat-abi=softfp -DFT_CONFIG_CONFIG_H="<ftconfig.h>"
 
 # ANSIFLAGS: Put there the flags used to make your compiler ANSI-compliant.
 #
