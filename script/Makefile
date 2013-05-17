@@ -1,11 +1,11 @@
 KoboRoot.tgz : __ALWAYS__
 	( cd ../rootfs && find . -type l | xargs rm -f )
-	( cd ../rootfs/lib && ln -s libz.so.1.2.7 libz.so && ln -s libz.so.1.2.7 libz.so.1 ) 
+	( cd ../rootfs/lib && ln -s libz.so.1.2.8 libz.so && ln -s libz.so.1.2.8 libz.so.1 ) 
 	( cd ../rootfs/lib && ln -s libpng.so.3.50.0 libpng.so.3 ) 
 	( cd ../rootfs/lib && ln -s libpng12.so.0.50.0 libpng.so && ln -s libpng12.so.0.50.0 libpng12.so && ln -s libpng12.so.0.50.0 libpng12.so.0 ) 
 	( cd ../rootfs/lib && ln -s libexpat.so.1.6.0 libexpat.so && ln -s libexpat.so.1.6.0 libexpat.so.1 ) 
 	( cd ../rootfs/lib && ln -s libjpeg.so.62.1.0 libjpeg.so && ln -s libjpeg.so.62.1.0 libjpeg.so.62 ) 
-	( cd ../rootfs/usr/lib && ln -s libfreetype.so.6.10.0 libfreetype.so && ln -s libfreetype.so.6.10.0 libfreetype.so.6 ) 
+	( cd ../rootfs/usr/lib && ln -s libfreetype.so.6.10.1 libfreetype.so && ln -s libfreetype.so.6.10.1 libfreetype.so.6 ) 
 	( cd ../rootfs/usr/lib && ln -s libxml2.so.2.7.8 libxml2.so && ln -s libxml2.so.2.7.8 libxml2.so.2 ) 
 	( cd ../rootfs && tar --exclude-from=../script/hackfiles.txt --owner=root --group=root -zcvf ../script/KoboRoot.tgz ./lib ./usr ./bin )
 
