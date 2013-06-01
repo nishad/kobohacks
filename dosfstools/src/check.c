@@ -42,8 +42,8 @@ static DOS_FILE *root;
 
 /* get start field of a dir entry */
 #define FSTART(p,fs) \
-  ((unsigned long)CF_LE_W(p->dir_ent.start) | \
-   (fs->fat_bits == 32 ? CF_LE_W(p->dir_ent.starthi) << 16 : 0))
+  ((unsigned long)le16toh(p->dir_ent.start) | \
+   (fs->fat_bits == 32 ? le16toh(p->dir_ent.starthi) << 16 : 0))
 
 #define MODIFY(p,i,v)					\
   do {							\
@@ -61,17 +61,17 @@ static DOS_FILE *root;
 	/* writing to fake entry for FAT32 root dir */			\
 	if (!__v) die("Oops, deleting FAT32 root dir!");		\
 	fs->root_cluster = __v;						\
-	p->dir_ent.start = CT_LE_W(__v&0xffff);				\
-	p->dir_ent.starthi = CT_LE_W(__v>>16);				\
-	__v = CT_LE_L(__v);						\
+	p->dir_ent.start = htole16(__v&0xffff);				\
+	p->dir_ent.starthi = htole16(__v>>16);				\
+	__v = htole32(__v);						\
 	fs_write((loff_t)offsetof(struct boot_sector,root_cluster),	\
 	         sizeof(((struct boot_sector *)0)->root_cluster),	\
 		 &__v);							\
     }									\
     else {								\
-	MODIFY(p,start,CT_LE_W((__v)&0xffff));				\
+	MODIFY(p,start,htole16((__v)&0xffff));				\
 	if (fs->fat_bits == 32)						\
-	    MODIFY(p,starthi,CT_LE_W((__v)>>16));			\
+	    MODIFY(p,starthi,htole16((__v)>>16));			\
     }									\
   } while(0)
 
@@ -230,7 +230,7 @@ static int day_n[] =
 
 /* Convert a MS-DOS time/date pair to a UNIX date (seconds since 1 1 70). */
 
-time_t date_dos2unix(unsigned short time, unsigned short date)
+static time_t date_dos2unix(unsigned short time, unsigned short date)
 {
     int month, year;
     time_t secs;
@@ -253,18 +253,19 @@ static char *file_stat(DOS_FILE * file)
     time_t date;
 
     date =
-	date_dos2unix(CF_LE_W(file->dir_ent.time), CF_LE_W(file->dir_ent.date));
+	date_dos2unix(le16toh(file->dir_ent.time), le16toh(file->dir_ent.date));
     tm = localtime(&date);
     strftime(tmp, 99, "%H:%M:%S %b %d %Y", tm);
-    sprintf(temp, "  Size %u bytes, date %s", CF_LE_L(file->dir_ent.size), tmp);
+    sprintf(temp, "  Size %u bytes, date %s", le32toh(file->dir_ent.size), tmp);
     return temp;
 }
 
 static int bad_name(DOS_FILE * file)
 {
     int i, spc, suspicious = 0;
-    char *bad_chars = atari_format ? "*?\\/:" : "*?<>|\"\\/:";
-    unsigned char *name = file->dir_ent.name;
+    const char *bad_chars = atari_format ? "*?\\/:" : "*?<>|\"\\/:";
+    const unsigned char *name = file->dir_ent.name;
+    const unsigned char *ext = file->dir_ent.ext;
 
     /* Do not complain about (and auto-correct) the extended attribute files
      * of OS/2. */
@@ -286,12 +287,12 @@ static int bad_name(DOS_FILE * file)
 	    return 1;
     }
 
-    for (i = 8; i < 11; i++) {
-	if (name[i] < ' ' || name[i] == 0x7f)
+    for (i = 0; i < 3; i++) {
+	if (ext[i] < ' ' || ext[i] == 0x7f)
 	    return 1;
-	if (name[i] > 0x7f)
+	if (ext[i] > 0x7f)
 	    ++suspicious;
-	if (strchr(bad_chars, name[i]))
+	if (strchr(bad_chars, ext[i]))
 	    return 1;
     }
 
@@ -306,11 +307,11 @@ static int bad_name(DOS_FILE * file)
     }
 
     spc = 0;
-    for (i = 8; i < 11; i++) {
-	if (name[i] == ' ')
+    for (i = 0; i < 3; i++) {
+	if (ext[i] == ' ')
 	    spc = 1;
 	else if (spc)
-	    /* non-space after a space not allowed, space terminates the name
+	    /* non-space after a space not allowed, space terminates the ext
 	     * part */
 	    return 1;
     }
@@ -466,7 +467,7 @@ static int handle_dot(DOS_FS * fs, DOS_FILE * file, int dots)
 	    rename_file(file);
 	    return 0;
 	case '4':
-	    MODIFY(file, size, CT_LE_L(0));
+	    MODIFY(file, size, htole32(0));
 	    MODIFY(file, attr, file->dir_ent.attr | ATTR_DIR);
 	    break;
 	}
@@ -486,10 +487,10 @@ static int check_file(DOS_FS * fs, DOS_FILE * file)
     unsigned long expect, curr, this, clusters, prev, walk, clusters2;
 
     if (file->dir_ent.attr & ATTR_DIR) {
-	if (CF_LE_L(file->dir_ent.size)) {
+	if (le32toh(file->dir_ent.size)) {
 	    printf("%s\n  Directory has non-zero size. Fixing it.\n",
 		   path_name(file));
-	    MODIFY(file, size, CT_LE_L(0));
+	    MODIFY(file, size, htole32(0));
 	}
 	if (file->parent
 	    && !strncmp((const char *)file->dir_ent.name, MSDOS_DOT,
@@ -548,14 +549,14 @@ static int check_file(DOS_FS * fs, DOS_FILE * file)
 		MODIFY_START(file, 0, fs);
 	    break;
 	}
-	if (!(file->dir_ent.attr & ATTR_DIR) && CF_LE_L(file->dir_ent.size) <=
+	if (!(file->dir_ent.attr & ATTR_DIR) && le32toh(file->dir_ent.size) <=
 	    (unsigned long long)clusters * fs->cluster_size) {
 	    printf
 		("%s\n  File size is %u bytes, cluster chain length is > %llu "
 		 "bytes.\n  Truncating file to %u bytes.\n", path_name(file),
-		 CF_LE_L(file->dir_ent.size),
+		 le32toh(file->dir_ent.size),
 		 (unsigned long long)clusters * fs->cluster_size,
-		 CF_LE_L(file->dir_ent.size));
+		 le32toh(file->dir_ent.size));
 	    truncate_file(fs, file, clusters);
 	    break;
 	}
@@ -603,7 +604,7 @@ static int check_file(DOS_FS * fs, DOS_FILE * file)
 			else
 			    MODIFY_START(owner, 0, fs);
 			MODIFY(owner, size,
-			       CT_LE_L((unsigned long long)clusters *
+			       htole32((unsigned long long)clusters *
 				       fs->cluster_size));
 			if (restart)
 			    return 1;
@@ -632,16 +633,16 @@ static int check_file(DOS_FS * fs, DOS_FILE * file)
 	clusters++;
 	prev = curr;
     }
-    if (!(file->dir_ent.attr & ATTR_DIR) && CF_LE_L(file->dir_ent.size) >
+    if (!(file->dir_ent.attr & ATTR_DIR) && le32toh(file->dir_ent.size) >
 	(unsigned long long)clusters * fs->cluster_size) {
 	printf
 	    ("%s\n  File size is %u bytes, cluster chain length is %llu bytes."
 	     "\n  Truncating file to %llu bytes.\n", path_name(file),
-	     CF_LE_L(file->dir_ent.size),
+	     le32toh(file->dir_ent.size),
 	     (unsigned long long)clusters * fs->cluster_size,
 	     (unsigned long long)clusters * fs->cluster_size);
 	MODIFY(file, size,
-	       CT_LE_L((unsigned long long)clusters * fs->cluster_size));
+	       htole32((unsigned long long)clusters * fs->cluster_size));
     }
     return 0;
 }
@@ -869,7 +870,7 @@ static void undelete(DOS_FS * fs, DOS_FILE * file)
 {
     unsigned long clusters, left, prev, walk;
 
-    clusters = left = (CF_LE_L(file->dir_ent.size) + fs->cluster_size - 1) /
+    clusters = left = (le32toh(file->dir_ent.size) + fs->cluster_size - 1) /
 	fs->cluster_size;
     prev = 0;
 
@@ -931,8 +932,8 @@ static void add_file(DOS_FS * fs, DOS_FILE *** chain, DOS_FILE * parent,
 	memcpy(de.name, "           ", MSDOS_NAME);
 	de.attr = ATTR_DIR;
 	de.size = de.time = de.date = 0;
-	de.start = CT_LE_W(fs->root_cluster & 0xffff);
-	de.starthi = CT_LE_W((fs->root_cluster >> 16) & 0xffff);
+	de.start = htole16(fs->root_cluster & 0xffff);
+	de.starthi = htole16((fs->root_cluster >> 16) & 0xffff);
     }
     if ((type = file_type(cp, (char *)de.name)) != fdt_none) {
 	if (type == fdt_undelete && (de.attr & ATTR_DIR))

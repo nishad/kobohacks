@@ -37,23 +37,8 @@
 
 #include <linux/msdos_fs.h>
 
-#undef CF_LE_W
-#undef CF_LE_L
-#undef CT_LE_W
-#undef CT_LE_L
-
-#if __BYTE_ORDER == __BIG_ENDIAN
-#include <byteswap.h>
-#define CF_LE_W(v) bswap_16(v)
-#define CF_LE_L(v) bswap_32(v)
-#define CT_LE_W(v) CF_LE_W(v)
-#define CT_LE_L(v) CF_LE_L(v)
-#else
-#define CF_LE_W(v) (v)
-#define CF_LE_L(v) (v)
-#define CT_LE_W(v) (v)
-#define CT_LE_L(v) (v)
-#endif /* __BIG_ENDIAN */
+#include <stddef.h>
+#include <endian.h>
 
 #define VFAT_LN_ATTR (ATTR_RO | ATTR_HIDDEN | ATTR_SYS | ATTR_VOLUME)
 
@@ -188,9 +173,6 @@ typedef struct {
     char *label;
 } DOS_FS;
 
-#ifndef offsetof
-#define offsetof(t,e)	((int)&(((t *)0)->e))
-#endif
 
 extern int interactive, rw, list, verbose, test, write_immed;
 extern int atari_format;
