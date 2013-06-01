@@ -152,13 +152,15 @@ exampledir = $(datadir)/doc
 dist_example_DATA = example.c
 
 
-EXTRA_DIST = win release $(DOCS) testimages md5cmp CMakeLists.txt \
+EXTRA_DIST = win release $(DOCS) testimages CMakeLists.txt \
 	sharedlib/CMakeLists.txt cmakescripts libjpeg.map.in doc doxygen.config \
 	jccolext.c jdcolext.c jdmrgext.c
 
 dist-hook:
 	rm -rf `find $(distdir) -name .svn`
 
+
+SUBDIRS += md5
 
 MD5_JPEG_INT = 9a68f56bc76e466aa7e52f415d0f4a5f
 MD5_JPEG_FAST = 0e1502e7fa421835e376a314fac2a39f
@@ -205,72 +207,81 @@ endif
 	./tjunittest -yuv
 endif
 	./cjpeg -dct int -outfile testoutint.jpg $(srcdir)/testimages/testorig.ppm
-	sh $(srcdir)/md5cmp $(MD5_JPEG_INT) testoutint.jpg
+	md5/md5cmp $(MD5_JPEG_INT) testoutint.jpg
 	./cjpeg -dct fast -opt -outfile testoutfst.jpg $(srcdir)/testimages/testorig.ppm
-	sh $(srcdir)/md5cmp $(MD5_JPEG_FAST) testoutfst.jpg
+	md5/md5cmp $(MD5_JPEG_FAST) testoutfst.jpg
 	./cjpeg -dct fast -quality 100 -opt -outfile testoutfst100.jpg $(srcdir)/testimages/testorig.ppm
-	sh $(srcdir)/md5cmp $(MD5_JPEG_FAST_100) testoutfst100.jpg
+	md5/md5cmp $(MD5_JPEG_FAST_100) testoutfst100.jpg
 	./cjpeg -dct float -outfile testoutflt.jpg $(srcdir)/testimages/testorig.ppm
 if WITH_SSE_FLOAT_DCT
-	sh $(srcdir)/md5cmp $(MD5_JPEG_FLOAT) testoutflt.jpg
+	md5/md5cmp $(MD5_JPEG_FLOAT) testoutflt.jpg
 else
-	sh $(srcdir)/md5cmp $(MD5_JPEG_FLOAT_NOSIMD) testoutflt.jpg
+	md5/md5cmp $(MD5_JPEG_FLOAT_NOSIMD) testoutflt.jpg
 endif
 	./cjpeg -dct int -grayscale -outfile testoutgray.jpg $(srcdir)/testimages/testorig.ppm
-	sh $(srcdir)/md5cmp $(MD5_JPEG_INT_GRAY) testoutgray.jpg
+	md5/md5cmp $(MD5_JPEG_INT_GRAY) testoutgray.jpg
 	./djpeg -dct int -fast -ppm -outfile testoutint.ppm $(srcdir)/testimages/testorig.jpg
-	sh $(srcdir)/md5cmp $(MD5_PPM_INT) testoutint.ppm
+	md5/md5cmp $(MD5_PPM_INT) testoutint.ppm
 	./djpeg -dct fast -ppm -outfile testoutfst.ppm $(srcdir)/testimages/testorig.jpg
-	sh $(srcdir)/md5cmp $(MD5_PPM_FAST) testoutfst.ppm
+	md5/md5cmp $(MD5_PPM_FAST) testoutfst.ppm
 	./djpeg -dct float -ppm -outfile testoutflt.ppm $(srcdir)/testimages/testorig.jpg
 if WITH_SSE_FLOAT_DCT
-	sh $(srcdir)/md5cmp $(MD5_PPM_FLOAT) testoutflt.ppm
+	md5/md5cmp $(MD5_PPM_FLOAT) testoutflt.ppm
 else
-	sh $(srcdir)/md5cmp $(MD5_PPM_FLOAT_NOSIMD) testoutflt.ppm
+	md5/md5cmp $(MD5_PPM_FLOAT_NOSIMD) testoutflt.ppm
 endif
-	MD5[21]=$(MD5_PPM_INT_2_1); \
-	MD5[158]=$(MD5_PPM_INT_15_8); \
-	MD5[74]=$(MD5_PPM_INT_7_4); \
-	MD5[138]=$(MD5_PPM_INT_13_8); \
-	MD5[32]=$(MD5_PPM_INT_3_2); \
-	MD5[118]=$(MD5_PPM_INT_11_8); \
-	MD5[54]=$(MD5_PPM_INT_5_4); \
-	MD5[98]=$(MD5_PPM_INT_9_8); \
-	MD5[78]=$(MD5_PPM_INT_7_8); \
-	MD5[34]=$(MD5_PPM_INT_3_4); \
-	MD5[58]=$(MD5_PPM_INT_5_8); \
-	MD5[12]=$(MD5_PPM_INT_1_2); \
-	MD5[38]=$(MD5_PPM_INT_3_8); \
-	MD5[14]=$(MD5_PPM_INT_1_4); \
-	MD5[18]=$(MD5_PPM_INT_1_8); \
-	for scale in 2_1 15_8 7_4 13_8 3_2 11_8 5_4 9_8 7_8 3_4 5_8 1_2 3_8 1_4 1_8; do \
-		scalearg=`echo $$scale | sed s@_@/@g`; \
-		arrayindex=`echo $$scale | sed s@_@@g`; \
-		./djpeg -dct int -nosmooth -scale $$scalearg -ppm -outfile testoutint$$scale.ppm $(srcdir)/testimages/testorig.jpg; \
-		sh $(srcdir)/md5cmp $${MD5[$$arrayindex]} testoutint$$scale.ppm; \
-	done
+	./djpeg -dct int -nosmooth -scale 2/1 -ppm -outfile testoutint2_1.ppm $(srcdir)/testimages/testorig.jpg;
+	md5/md5cmp $(MD5_PPM_INT_2_1) testoutint2_1.ppm;
+	./djpeg -dct int -nosmooth -scale 15/8 -ppm -outfile testoutint15_8.ppm $(srcdir)/testimages/testorig.jpg;
+	md5/md5cmp $(MD5_PPM_INT_15_8) testoutint15_8.ppm;
+	./djpeg -dct int -nosmooth -scale 7/4 -ppm -outfile testoutint7_4.ppm $(srcdir)/testimages/testorig.jpg;
+	md5/md5cmp $(MD5_PPM_INT_7_4) testoutint7_4.ppm;
+	./djpeg -dct int -nosmooth -scale 13/8 -ppm -outfile testoutint13_8.ppm $(srcdir)/testimages/testorig.jpg;
+	md5/md5cmp $(MD5_PPM_INT_13_8) testoutint13_8.ppm;
+	./djpeg -dct int -nosmooth -scale 3/2 -ppm -outfile testoutint3_2.ppm $(srcdir)/testimages/testorig.jpg;
+	md5/md5cmp $(MD5_PPM_INT_3_2) testoutint3_2.ppm;
+	./djpeg -dct int -nosmooth -scale 11/8 -ppm -outfile testoutint11_8.ppm $(srcdir)/testimages/testorig.jpg;
+	md5/md5cmp $(MD5_PPM_INT_11_8) testoutint11_8.ppm;
+	./djpeg -dct int -nosmooth -scale 5/4 -ppm -outfile testoutint5_4.ppm $(srcdir)/testimages/testorig.jpg;
+	md5/md5cmp $(MD5_PPM_INT_5_4) testoutint5_4.ppm;
+	./djpeg -dct int -nosmooth -scale 9/8 -ppm -outfile testoutint9_8.ppm $(srcdir)/testimages/testorig.jpg;
+	md5/md5cmp $(MD5_PPM_INT_9_8) testoutint9_8.ppm;
+	./djpeg -dct int -nosmooth -scale 7/8 -ppm -outfile testoutint7_8.ppm $(srcdir)/testimages/testorig.jpg;
+	md5/md5cmp $(MD5_PPM_INT_7_8) testoutint7_8.ppm;
+	./djpeg -dct int -nosmooth -scale 3/4 -ppm -outfile testoutint3_4.ppm $(srcdir)/testimages/testorig.jpg;
+	md5/md5cmp $(MD5_PPM_INT_3_4) testoutint3_4.ppm;
+	./djpeg -dct int -nosmooth -scale 5/8 -ppm -outfile testoutint5_8.ppm $(srcdir)/testimages/testorig.jpg;
+	md5/md5cmp $(MD5_PPM_INT_5_8) testoutint5_8.ppm;
+	./djpeg -dct int -nosmooth -scale 1/2 -ppm -outfile testoutint1_2.ppm $(srcdir)/testimages/testorig.jpg;
+	md5/md5cmp $(MD5_PPM_INT_1_2) testoutint1_2.ppm;
+	./djpeg -dct int -nosmooth -scale 3/8 -ppm -outfile testoutint3_8.ppm $(srcdir)/testimages/testorig.jpg;
+	md5/md5cmp $(MD5_PPM_INT_3_8) testoutint3_8.ppm;
+	./djpeg -dct int -nosmooth -scale 1/4 -ppm -outfile testoutint1_4.ppm $(srcdir)/testimages/testorig.jpg;
+	md5/md5cmp $(MD5_PPM_INT_1_4) testoutint1_4.ppm;
+	./djpeg -dct int -nosmooth -scale 1/8 -ppm -outfile testoutint1_8.ppm $(srcdir)/testimages/testorig.jpg;
+	md5/md5cmp $(MD5_PPM_INT_1_8) testoutint1_8.ppm;
 	./djpeg -dct fast -scale 1/2 -ppm -outfile testoutfst1_2.ppm $(srcdir)/testimages/testorig.jpg
-	sh $(srcdir)/md5cmp $(MD5_PPM_FAST_1_2) testoutfst1_2.ppm
+	md5/md5cmp $(MD5_PPM_FAST_1_2) testoutfst1_2.ppm
 	./djpeg -dct int -bmp -colors 256 -outfile testout.bmp $(srcdir)/testimages/testorig.jpg
-	sh $(srcdir)/md5cmp $(MD5_BMP_256) testout.bmp
+	md5/md5cmp $(MD5_BMP_256) testout.bmp
 if WITH_ARITH_ENC
 	./cjpeg -dct int -arithmetic -outfile testoutari.jpg $(srcdir)/testimages/testorig.ppm
-	sh $(srcdir)/md5cmp $(MD5_JPEG_ARI) testoutari.jpg
+	md5/md5cmp $(MD5_JPEG_ARI) testoutari.jpg
 	./jpegtran -arithmetic -outfile testouta.jpg $(srcdir)/testimages/testimgint.jpg
-	sh $(srcdir)/md5cmp $(MD5_JPEG_ARI) testouta.jpg
+	md5/md5cmp $(MD5_JPEG_ARI) testouta.jpg
 endif
 if WITH_ARITH_DEC
 	./djpeg -dct int -fast -ppm -outfile testoutari.ppm $(srcdir)/testimages/testimgari.jpg
-	sh $(srcdir)/md5cmp $(MD5_PPM_ARI) testoutari.ppm
+	md5/md5cmp $(MD5_PPM_ARI) testoutari.ppm
 	./jpegtran -outfile testouta.jpg $(srcdir)/testimages/testimgari.jpg
-	sh $(srcdir)/md5cmp $(MD5_JPEG_INT) testouta.jpg
+	md5/md5cmp $(MD5_JPEG_INT) testouta.jpg
 endif
 	./cjpeg -dct int -progressive -outfile testoutp.jpg $(srcdir)/testimages/testorig.ppm
-	sh $(srcdir)/md5cmp $(MD5_JPEG_PROG) testoutp.jpg
+	md5/md5cmp $(MD5_JPEG_PROG) testoutp.jpg
 	./jpegtran -outfile testoutt.jpg testoutp.jpg
-	sh $(srcdir)/md5cmp $(MD5_JPEG_INT) testoutt.jpg
+	md5/md5cmp $(MD5_JPEG_INT) testoutt.jpg
 	./jpegtran -crop 120x90+20+50 -transpose -perfect -outfile testoutcrop.jpg $(srcdir)/testimages/testorig.jpg
-	sh $(srcdir)/md5cmp $(MD5_JPEG_CROP) testoutcrop.jpg
+	md5/md5cmp $(MD5_JPEG_CROP) testoutcrop.jpg
 
 
 testclean:
@@ -309,79 +320,83 @@ if WITH_JAVA
 endif
 
 
-if X86_64
+pkgscripts/libjpeg-turbo.spec: pkgscripts/libjpeg-turbo.spec.tmpl
+	cat pkgscripts/libjpeg-turbo.spec.tmpl | sed s@%{__prefix}@$(prefix)@g | \
+		sed s@%{__bindir}@$(bindir)@g | sed s@%{__datadir}@$(datadir)@g | \
+		sed s@%{__docdir}@$(docdir)@g | sed s@%{__includedir}@$(includedir)@g | \
+		sed s@%{__libdir}@$(libdir)@g | sed s@%{__mandir}@$(mandir)@g \
+		> pkgscripts/libjpeg-turbo.spec
 
-install-exec-hook:
-	__PREFIX=`echo ${prefix} | sed -e 's@\/*$$@@'`;  \
-	if [ "$$__PREFIX" = "/opt/libjpeg-turbo" ]; then  \
-		cd $(DESTDIR)/${prefix};  \
-		if [ -d lib -a ! -d lib64 -a ! -h lib64 ]; then  \
-			$(LN_S) lib lib64;  \
-		fi  \
-	fi
-
-else
-
-install-exec-hook:
-	__PREFIX=`echo ${prefix} | sed -e 's@\/*$$@@'`;  \
-	if [ "$$__PREFIX" = "/opt/libjpeg-turbo" ]; then  \
-		cd $(DESTDIR)/${prefix};  \
-		if [ -d lib -a ! -d lib32 -a ! -h lib32 ]; then  \
-			$(LN_S) lib lib32;  \
-		fi  \
-	fi
-
-endif
-
-rpm: all
+rpm: all pkgscripts/libjpeg-turbo.spec
 	TMPDIR=`mktemp -d /tmp/${PACKAGE_NAME}-build.XXXXXX`; \
 	mkdir -p $$TMPDIR/RPMS; \
 	ln -fs `pwd` $$TMPDIR/BUILD; \
-	rm -f ${PACKAGE_NAME}-${VERSION}.${RPMARCH}.rpm; \
+	rm -f ${PKGNAME}-${VERSION}.${RPMARCH}.rpm; \
 	rpmbuild -bb --define "_blddir $$TMPDIR/buildroot"  \
 		--define "_topdir $$TMPDIR" \
 		--target ${RPMARCH} pkgscripts/libjpeg-turbo.spec; \
-	cp $$TMPDIR/RPMS/${RPMARCH}/${PACKAGE_NAME}-${VERSION}-${BUILD}.${RPMARCH}.rpm \
-		${PACKAGE_NAME}-${VERSION}.${RPMARCH}.rpm; \
+	cp $$TMPDIR/RPMS/${RPMARCH}/${PKGNAME}-${VERSION}-${BUILD}.${RPMARCH}.rpm \
+		${PKGNAME}-${VERSION}.${RPMARCH}.rpm; \
 	rm -rf $$TMPDIR
 
-srpm: dist-gzip
+srpm: dist-gzip pkgscripts/libjpeg-turbo.spec
 	TMPDIR=`mktemp -d /tmp/${PACKAGE_NAME}-build.XXXXXX`; \
 	mkdir -p $$TMPDIR/RPMS; \
 	mkdir -p $$TMPDIR/SRPMS; \
 	mkdir -p $$TMPDIR/BUILD; \
 	mkdir -p $$TMPDIR/SOURCES; \
 	mkdir -p $$TMPDIR/SPECS; \
-	rm -f ${PACKAGE_NAME}-${VERSION}.src.rpm; \
+	rm -f ${PKGNAME}-${VERSION}.src.rpm; \
 	cp ${PACKAGE_NAME}-${VERSION}.tar.gz $$TMPDIR/SOURCES; \
 	cat pkgscripts/libjpeg-turbo.spec | sed s/%{_blddir}/%{_tmppath}/g \
 		| sed s/#--\>//g \
 		> $$TMPDIR/SPECS/libjpeg-turbo.spec; \
 	rpmbuild -bs --define "_topdir $$TMPDIR" $$TMPDIR/SPECS/libjpeg-turbo.spec; \
-	cp $$TMPDIR/SRPMS/${PACKAGE_NAME}-${VERSION}-${BUILD}.src.rpm \
-		${PACKAGE_NAME}-${VERSION}.src.rpm; \
+	cp $$TMPDIR/SRPMS/${PKGNAME}-${VERSION}-${BUILD}.src.rpm \
+		${PKGNAME}-${VERSION}.src.rpm; \
 	rm -rf $$TMPDIR
 
-deb: all
+pkgscripts/makedpkg: pkgscripts/makedpkg.tmpl
+	cat pkgscripts/makedpkg.tmpl | sed s@%{__prefix}@$(prefix)@g | \
+		sed s@%{__docdir}@$(docdir)@g | sed s@%{__libdir}@$(libdir)@g \
+		> pkgscripts/makedpkg
+
+deb: all pkgscripts/makedpkg
 	sh pkgscripts/makedpkg
+
+pkgscripts/uninstall: pkgscripts/uninstall.tmpl
+	cat pkgscripts/uninstall.tmpl | sed s@%{__prefix}@$(prefix)@g | \
+		sed s@%{__bindir}@$(bindir)@g | sed s@%{__datadir}@$(datadir)@g | \
+		sed s@%{__includedir}@$(includedir)@g | sed s@%{__libdir}@$(libdir)@g | \
+		sed s@%{__mandir}@$(mandir)@g > pkgscripts/uninstall
+
+pkgscripts/makemacpkg: pkgscripts/makemacpkg.tmpl
+	cat pkgscripts/makemacpkg.tmpl | sed s@%{__prefix}@$(prefix)@g | \
+		sed s@%{__bindir}@$(bindir)@g | sed s@%{__docdir}@$(docdir)@g | \
+		sed s@%{__libdir}@$(libdir)@g > pkgscripts/makemacpkg
 
 if X86_64
 
-udmg: all
+udmg: all pkgscripts/makemacpkg pkgscripts/uninstall
 	sh pkgscripts/makemacpkg -build32 ${BUILDDIR32}
 
-iosdmg: all
+iosdmg: all pkgscripts/makemacpkg pkgscripts/uninstall
 	sh pkgscripts/makemacpkg -build32 ${BUILDDIR32} -buildarmv6 ${BUILDDIRARMV6} -buildarmv7 ${BUILDDIRARMV7} -buildarmv7s ${BUILDDIRARMV7S}
 
 else
 
-iosdmg: all
+iosdmg: all pkgscripts/makemacpkg pkgscripts/uninstall
 	sh pkgscripts/makemacpkg -buildarmv6 ${BUILDDIRARMV6} -buildarmv7 ${BUILDDIRARMV7} -buildarmv7s ${BUILDDIRARMV7S}
 
 endif
 
-dmg: all
+dmg: all pkgscripts/makemacpkg pkgscripts/uninstall
 	sh pkgscripts/makemacpkg
 
-cygwinpkg: all
+pkgscripts/makecygwinpkg: pkgscripts/makecygwinpkg.tmpl
+	cat pkgscripts/makecygwinpkg.tmpl | sed s@%{__prefix}@$(prefix)@g | \
+		sed s@%{__docdir}@$(docdir)@g | sed s@%{__libdir}@$(libdir)@g \
+		> pkgscripts/makecygwinpkg
+
+cygwinpkg: all pkgscripts/makecygwinpkg
 	sh pkgscripts/makecygwinpkg
