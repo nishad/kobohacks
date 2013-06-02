@@ -32,7 +32,7 @@ kobohack-j.zip : KoboRoot.tgz KoboRoot_hack.tgz README.wiki u-boot_hack.bin
 	( cd ../rootfs/lib && ln -s libpng12.so.0.50.0 libpng.so && ln -s libpng12.so.0.50.0 libpng12.so && ln -s libpng12.so.0.50.0 libpng12.so.0 ) 
 	( cd ../rootfs/lib && ln -s libexpat.so.1.6.0 libexpat.so && ln -s libexpat.so.1.6.0 libexpat.so.1 ) 
 	( cd ../rootfs/usr/lib && ln -s libxml2.so.2.7.8 libxml2.so && ln -s libxml2.so.2.7.8 libxml2.so.2 ) 
-	( cd ../rootfs/usr/lib && ln -s libfreetype.so.6.10.0 libfreetype.so && ln -s libfreetype.so.6.10.0 libfreetype.so.6 ) 
+	( cd ../rootfs/usr/lib && ln -s libfreetype.so.6.10.1 libfreetype.so && ln -s libfreetype.so.6.10.1 libfreetype.so.6 ) 
 	( cd ../rootfs && tar --exclude-from=../script/hackfiles.txt --owner=root --group=root -zcvf ../script/KoboRoot.tgz ./lib ./usr/lib ./bin )
 	( cd ../rootfs && find . -type l | xargs rm -f )
 	( cd ../rootfs/bin && ln -s dropbearmulti dropbear && ln -s dropbearmulti dropbearkey && ln -s dropbearmulti dropbearconvert && ln -s dropbearmulti dbclient ) 
