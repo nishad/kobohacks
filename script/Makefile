@@ -27,7 +27,7 @@ kobohack-j.zip : KoboRoot.tgz KoboRoot_hack.tgz README.wiki u-boot_hack.bin
 	rm -f KoboRoot.tgz KoboRoot_hack.tgz
 	( cd ../rootfs && find . -type l | xargs rm -f )
 	( cd ../rootfs && git pull )
-	( cd ../rootfs/lib && ln -s libz.so.1.2.7 libz.so && ln -s libz.so.1.2.7 libz.so.1 ) 
+	( cd ../rootfs/lib && ln -s libz.so.1.2.8 libz.so && ln -s libz.so.1.2.8 libz.so.1 ) 
 	( cd ../rootfs/lib && ln -s libpng.so.3.50.0 libpng.so.3 ) 
 	( cd ../rootfs/lib && ln -s libpng12.so.0.50.0 libpng.so && ln -s libpng12.so.0.50.0 libpng12.so && ln -s libpng12.so.0.50.0 libpng12.so.0 ) 
 	( cd ../rootfs/lib && ln -s libexpat.so.1.6.0 libexpat.so && ln -s libexpat.so.1.6.0 libexpat.so.1 ) 
