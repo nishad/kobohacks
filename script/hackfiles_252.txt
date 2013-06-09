@@ -1,0 +1,10 @@
+./bin/dropbearmulti
+./bin/dropbear
+./bin/dropbearkey
+./bin/dbclient
+./bin/gdbserver
+./bin/i2cdetect
+./bin/i2cdump
+./bin/i2cget
+./bin/i2cset
+./bin/strace
