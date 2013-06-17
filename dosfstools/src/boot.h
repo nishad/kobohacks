@@ -16,7 +16,7 @@
    You should have received a copy of the GNU General Public License
    along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-   On Debian systems, the complete text of the GNU General Public License
+   The complete text of the GNU General Public License
    can be found in /usr/share/common-licenses/GPL-3 file.
 */
 
@@ -25,7 +25,7 @@
 
 void read_boot(DOS_FS * fs);
 void write_label(DOS_FS * fs, char *label);
-loff_t find_volume_de(DOS_FS *fs, DIR_ENT *de);
+loff_t find_volume_de(DOS_FS * fs, DIR_ENT * de);
 
 /* Reads the boot sector from the currently open device and initializes *FS */
 

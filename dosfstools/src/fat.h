@@ -16,7 +16,7 @@
    You should have received a copy of the GNU General Public License
    along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-   On Debian systems, the complete text of the GNU General Public License
+   THe complete text of the GNU General Public License
    can be found in /usr/share/common-licenses/GPL-3 file.
 */
 
@@ -25,7 +25,7 @@
 
 void read_fat(DOS_FS * fs);
 
-/* Loads the FAT of the file system described by FS. Initializes the FAT,
+/* Loads the FAT of the filesystem described by FS. Initializes the FAT,
    replaces broken FATs and rejects invalid cluster entries. */
 
 void get_fat(FAT_ENTRY * entry, void *fat, unsigned long cluster, DOS_FS * fs);

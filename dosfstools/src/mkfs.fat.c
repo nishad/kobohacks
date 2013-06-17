@@ -1,4 +1,4 @@
-/* mkdosfs.c - utility to create FAT/MS-DOS filesystems
+/* mkfs.fat.c - utility to create FAT/MS-DOS filesystems
 
    Copyright (C) 1991 Linus Torvalds <torvalds@klaava.helsinki.fi>
    Copyright (C) 1992-1993 Remy Card <card@masi.ibp.fr>
@@ -20,7 +20,7 @@
    You should have received a copy of the GNU General Public License
    along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-   On Debian systems, the complete text of the GNU General Public License
+   The complete text of the GNU General Public License
    can be found in /usr/share/common-licenses/GPL-3 file.
 */
 
@@ -28,7 +28,7 @@
    under Linux.  A lot of the basic structure of this program has been
    borrowed from Remy Card's "mke2fs" code.
 
-   As far as possible the aim here is to make the "mkdosfs" command
+   As far as possible the aim here is to make the "mkfs.fat" command
    look almost identical to the other Linux filesystem make utilties,
    eg bad blocks are still specified as blocks, not sectors, but when
    it comes down to it, DOS is tied to the idea of a sector (512 bytes
@@ -67,7 +67,6 @@
 #include <endian.h>
 
 #include <asm/types.h>
-
 
 /* In earlier versions, an own llseek() was used, but glibc lseek() is
  * sufficient (or even better :) for 64 bit offsets in the meantime */
@@ -249,7 +248,7 @@ char dummy_boot_code[BOOTCODE_SIZE] = "\x0e"	/* push cs */
 
 /* Global variables - the root of all evil :-) - see these and weep! */
 
-static char *program_name = "mkdosfs";	/* Name of the program */
+static char *program_name = "mkfs.fat";	/* Name of the program */
 static char *device_name = NULL;	/* Name of the device on which to create the filesystem */
 static int atari_format = 0;	/* Use Atari variation of MS-DOS FS format */
 static int check = FALSE;	/* Default to no readablity checking */
@@ -486,7 +485,6 @@ static int valid_offset(int fd, loff_t offset)
 /* Given a filename, look to see how many blocks of BLOCK_SIZE are present, returning the answer */
 
 static unsigned long long count_blocks(char *filename, int *remainder)
-
 {
     loff_t high, low;
     int fd;
@@ -512,8 +510,8 @@ static unsigned long long count_blocks(char *filename, int *remainder)
     }
 
     close(fd);
-    *remainder = (low%BLOCK_SIZE)/sector_size;
-    return(low / BLOCK_SIZE);
+    *remainder = (low % BLOCK_SIZE) / sector_size;
+    return (low / BLOCK_SIZE);
 }
 
 /* Check to see if the specified device is currently mounted - abort if it is */
@@ -527,7 +525,7 @@ static void check_mount(char *device_name)
 	return;
     while ((mnt = getmntent(f)) != NULL)
 	if (strcmp(device_name, mnt->mnt_fsname) == 0)
-	    die("%s contains a mounted file system.");
+	    die("%s contains a mounted filesystem.");
     endmntent(f);
 }
 
@@ -694,18 +692,18 @@ def_hd_params:
 	}
 	if (size_fat == 32) {
 	    /* For FAT32, try to do the same as M$'s format command
-	     * (see http://www.win.tue.nl/~aeb/linux/fs/fat/fatgen103.pdf p. 20):
-	     * fs size <= 260M: 0.5k clusters
-	     * fs size <=   8G: 4k clusters
-	     * fs size <=  16G: 8k clusters
-	     * fs size >   16G: 16k clusters
+	     * (http://technet.microsoft.com/en-us/library/cc938438.aspx):
+	     * fs size <   8G:  4k clusters
+	     * fs size <  16G:  8k clusters
+	     * fs size <  32G: 16k clusters
+	     * fs size >= 32G: 32k clusters
 	     */
 	    unsigned long sz_mb =
 		(blocks + (1 << (20 - BLOCK_SIZE_BITS)) - 1) >> (20 -
 								 BLOCK_SIZE_BITS);
 	    bs.cluster_size =
-		sz_mb > 16 * 1024 ? 32 : sz_mb > 8 * 1024 ? 16 : sz_mb >
-		260 ? 8 : 1;
+		sz_mb >= 32 * 1024 ? 64 : sz_mb >= 16 * 1024 ? 32 : sz_mb >=
+		8 * 1024 ? 16 : 8;
 	} else {
 	    /* FAT12 and FAT16: start at 4 sectors per cluster */
 	    bs.cluster_size = (char)4;
@@ -743,10 +741,9 @@ static void setup_tables(void)
 	 * differently: The jump code is only 2 bytes (and m68k machine code
 	 * :-), then 6 bytes filler (ignored), then 3 byte serial number. */
 	bs.boot_jump[2] = 'm';
-	strcpy((char *)bs.system_id, "kdosf");
-    }
-    else
-	strcpy((char *)bs.system_id, "mkdosfs");
+	memcpy((char *)bs.system_id, "kdosf", strlen("kdosf"));
+    } else
+	memcpy((char *)bs.system_id, "mkfs.fat", strlen("mkfs.fat"));
     if (sectors_per_cluster)
 	bs.cluster_size = (char)sectors_per_cluster;
     if (size_fat == 32) {
@@ -815,7 +812,8 @@ static void setup_tables(void)
 	memcpy(&bs.hidden, &hidden, 2);
     }
 
-    num_sectors = (long long)(blocks *BLOCK_SIZE / sector_size)+orphaned_sectors;
+    num_sectors =
+	(long long)(blocks * BLOCK_SIZE / sector_size) + orphaned_sectors;
 
     if (!atari_format) {
 	unsigned fatdata1216;	/* Sectors for FATs + data area (FAT12/16) */
@@ -844,8 +842,7 @@ static void setup_tables(void)
 	    maxclustsize = 128;
 
 	do {
-	    fatdata32 = num_sectors
-		- align_object(reserved_sectors, bs.cluster_size);
+	    fatdata32 = num_sectors - reserved_sectors;
 	    fatdata1216 = fatdata32
 		- align_object(root_dir_sectors, bs.cluster_size);
 
@@ -907,7 +904,6 @@ static void setup_tables(void)
 	    clust32 = ((long long)fatdata32 * sector_size + nr_fats * 8) /
 		((int)bs.cluster_size * sector_size + nr_fats * 4);
 	    fatlength32 = cdiv((clust32 + 2) * 4, sector_size);
-	    fatlength32 = align_object(fatlength32, bs.cluster_size);
 	    /* Need to recalculate number of clusters, since the unused parts of the
 	     * FATS and data area together could make up space for an additional,
 	     * not really present cluster. */
@@ -969,7 +965,7 @@ static void setup_tables(void)
 			    "the total number of clusters becomes less than the "
 			    "threshold value for\n"
 			    "distinction between 12 and 16 bit FATs.\n");
-		    die("Make the file system a bit smaller manually.");
+		    die("Make the filesystem a bit smaller manually.");
 		}
 	    }
 	    cluster_count = clust16;
@@ -994,10 +990,6 @@ static void setup_tables(void)
 	    die("FAT not 12, 16 or 32 bits");
 	}
 
-	/* Adjust the reserved number of sectors for alignment */
-	reserved_sectors = align_object(reserved_sectors, bs.cluster_size);
-	bs.reserved = htole16(reserved_sectors);
-
 	/* Adjust the number of root directory entries to help enforce alignment */
 	if (align_structures) {
 	    root_dir_entries = align_object(root_dir_sectors, bs.cluster_size)
@@ -1007,7 +999,7 @@ static void setup_tables(void)
 	unsigned clusters, maxclust, fatdata;
 
 	/* GEMDOS always uses a 12 bit FAT on floppies, and always a 16 bit FAT on
-	 * hard disks. So use 12 bit if the size of the file system suggests that
+	 * hard disks. So use 12 bit if the size of the filesystem suggests that
 	 * this fs is for a floppy disk, if the user hasn't explicitly requested a
 	 * size.
 	 */
@@ -1139,9 +1131,9 @@ static void setup_tables(void)
 
     if (!cluster_count) {
 	if (sectors_per_cluster)	/* If yes, die if we'd spec'd sectors per cluster */
-	    die("Too many clusters for file system - try more sectors per cluster");
+	    die("Too many clusters for filesystem - try more sectors per cluster");
 	else
-	    die("Attempting to create a too large file system");
+	    die("Attempting to create a too large filesystem");
     }
 
     /* The two following vars are in hard sectors, i.e. 512 byte sectors! */
@@ -1150,8 +1142,8 @@ static void setup_tables(void)
     start_data_block = (start_data_sector + SECTORS_PER_BLOCK - 1) /
 	SECTORS_PER_BLOCK;
 
-    if (blocks < start_data_block + 32)	/* Arbitrary undersize file system! */
-	die("Too few blocks for viable file system");
+    if (blocks < start_data_block + 32)	/* Arbitrary undersize filesystem! */
+	die("Too few blocks for viable filesystem");
 
     if (verbose) {
 	printf("%s has %d head%s and %d sector%s per track,\n",
@@ -1161,7 +1153,7 @@ static void setup_tables(void)
 	printf("logical sector size is %d,\n", sector_size);
 	printf("using 0x%02x media descriptor, with %d sectors;\n",
 	       (int)(bs.media), num_sectors);
-	printf("file system has %d %d-bit FAT%s and %d sector%s per cluster.\n",
+	printf("filesystem has %d %d-bit FAT%s and %d sector%s per cluster.\n",
 	       (int)(bs.fats), size_fat, (bs.fats != 1) ? "s" : "",
 	       (int)(bs.cluster_size), (bs.cluster_size != 1) ? "s" : "");
 	printf("FAT size is %d sector%s, and provides %d cluster%s.\n",
@@ -1348,7 +1340,7 @@ static void write_tables(void)
 static void usage(void)
 {
     fatal_error("\
-Usage: mkdosfs [-a][-A][-c][-C][-v][-I][-l bad-block-file][-b backup-boot-sector]\n\
+Usage: mkfs.fat [-a][-A][-c][-C][-v][-I][-l bad-block-file][-b backup-boot-sector]\n\
        [-m boot-msg-file][-n volume-name][-i volume-id]\n\
        [-s sectors-per-cluster][-S logical-sector-size][-f number-of-FATs]\n\
        [-h hidden-sectors][-F fat-size][-r root-dir-entries][-R reserved-sectors]\n\
@@ -1410,7 +1402,7 @@ int main(int argc, char **argv)
     volume_id = (u_int32_t) ((create_timeval.tv_sec << 20) | create_timeval.tv_usec);	/* Default volume ID = creation time, fudged for more uniqueness */
     check_atari();
 
-    printf("%s " VERSION " (" VERSION_DATE ")\n", program_name);
+    printf("mkfs.fat " VERSION " (" VERSION_DATE ")\n");
 
     while ((c = getopt(argc, argv, "aAb:cCf:F:Ii:l:m:n:r:R:s:S:h:v")) != EOF)
 	/* Scan the command line for options */
@@ -1544,8 +1536,8 @@ int main(int argc, char **argv)
 
 	case 'n':		/* n : Volume name */
 	    sprintf(volume_name, "%-11.11s", optarg);
-            for (i = 0; i < 11; i++)
-              volume_name[i] = toupper(volume_name[i]);
+	    for (i = 0; i < 11; i++)
+		volume_name[i] = toupper(volume_name[i]);
 
 	    break;
 
@@ -1700,14 +1692,14 @@ int main(int argc, char **argv)
     establish_params(statbuf.st_rdev, statbuf.st_size);
     /* Establish the media parameters */
 
-    setup_tables();		/* Establish the file system tables */
+    setup_tables();		/* Establish the filesystem tables */
 
     if (check)			/* Determine any bad block locations and mark them */
 	check_blocks();
     else if (listfile)
 	get_list_blocks(listfile);
 
-    write_tables();		/* Write the file system tables away! */
+    write_tables();		/* Write the filesystem tables away! */
 
     exit(0);			/* Terminate with no errors! */
 }

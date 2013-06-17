@@ -1,4 +1,4 @@
-/* dosfsck.h  -  Common data structures and global variables
+/* fsck.fat.h  -  Common data structures and global variables
 
    Copyright (C) 1993 Werner Almesberger <werner.almesberger@lrc.di.epfl.ch>
    Copyright (C) 1998 Roman Hodek <Roman.Hodek@informatik.uni-erlangen.de>
@@ -17,7 +17,7 @@
    You should have received a copy of the GNU General Public License
    along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-   On Debian systems, the complete text of the GNU General Public License
+   The complete text of the GNU General Public License
    can be found in /usr/share/common-licenses/GPL-3 file.
 */
 
@@ -172,7 +172,6 @@ typedef struct {
     DOS_FILE **cluster_owner;
     char *label;
 } DOS_FS;
-
 
 extern int interactive, rw, list, verbose, test, write_immed;
 extern int atari_format;

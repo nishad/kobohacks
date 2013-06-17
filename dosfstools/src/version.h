@@ -16,14 +16,14 @@
    You should have received a copy of the GNU General Public License
    along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-   On Debian systems, the complete text of the GNU General Public License
+   The complete text of the GNU General Public License
    can be found in /usr/share/common-licenses/GPL-3 file.
 */
 
 #ifndef _version_h
 #define _version_h
 
-#define VERSION "3.0.17"
-#define VERSION_DATE "29 May 2013"
+#define VERSION "3.0.20"
+#define VERSION_DATE "12 Jun 2013"
 
 #endif

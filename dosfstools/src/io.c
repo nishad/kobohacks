@@ -17,7 +17,7 @@
    You should have received a copy of the GNU General Public License
    along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-   On Debian systems, the complete text of the GNU General Public License
+   The complete text of the GNU General Public License
    can be found in /usr/share/common-licenses/GPL-3 file.
 */
 
@@ -42,7 +42,7 @@
 #include <fcntl.h>
 #include <linux/fd.h>
 
-#include "dosfsck.h"
+#include "fsck.fat.h"
 #include "common.h"
 #include "io.h"
 
@@ -133,9 +133,11 @@ void fs_read(loff_t pos, int size, void *data)
 	if (walk->pos < pos + size && walk->pos + walk->size > pos) {
 	    if (walk->pos < pos)
 		memcpy(data, (char *)walk->data + pos - walk->pos, min(size,
-								       walk->size
-								       - pos +
-								       walk->pos));
+								       walk->
+								       size -
+								       pos +
+								       walk->
+								       pos));
 	    else
 		memcpy((char *)data + walk->pos - pos, walk->data,
 		       min(walk->size, size + pos - walk->pos));
@@ -221,7 +223,7 @@ int fs_close(int write)
 	    changes = next;
 	}
     if (close(fd) < 0)
-	pdie("closing file system");
+	pdie("closing filesystem");
     return changed || did_change;
 }
 

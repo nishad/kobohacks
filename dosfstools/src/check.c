@@ -1,4 +1,4 @@
-/* check.c - Check and repair a PC/MS-DOS file system
+/* check.c - Check and repair a PC/MS-DOS filesystem
 
    Copyright (C) 1993 Werner Almesberger <werner.almesberger@lrc.di.epfl.ch>
    Copyright (C) 1998 Roman Hodek <Roman.Hodek@informatik.uni-erlangen.de>
@@ -17,7 +17,7 @@
    You should have received a copy of the GNU General Public License
    along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-   On Debian systems, the complete text of the GNU General Public License
+   The complete text of the GNU General Public License
    can be found in /usr/share/common-licenses/GPL-3 file.
 */
 
@@ -31,7 +31,7 @@
 #include <time.h>
 
 #include "common.h"
-#include "dosfsck.h"
+#include "fsck.fat.h"
 #include "io.h"
 #include "fat.h"
 #include "file.h"

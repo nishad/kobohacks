@@ -1,4 +1,4 @@
-/* dosfsck.c - User interface
+/* fsck.fat.c - User interface
 
    Copyright (C) 1993 Werner Almesberger <werner.almesberger@lrc.di.epfl.ch>
    Copyright (C) 1998 Roman Hodek <Roman.Hodek@informatik.uni-erlangen.de>
@@ -17,7 +17,7 @@
    You should have received a copy of the GNU General Public License
    along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-   On Debian systems, the complete text of the GNU General Public License
+   The complete text of the GNU General Public License
    can be found in /usr/share/common-licenses/GPL-3 file.
 */
 
@@ -34,7 +34,7 @@
 #include <getopt.h>
 
 #include "common.h"
-#include "dosfsck.h"
+#include "fsck.fat.h"
 #include "io.h"
 #include "boot.h"
 #include "fat.h"
@@ -51,17 +51,19 @@ static void usage(char *name)
 {
     fprintf(stderr, "usage: %s [-aAbflrtvVwy] [-d path -d ...] "
 	    "[-u path -u ...]\n%15sdevice\n", name, "");
-    fprintf(stderr, "  -a       automatically repair the file system\n");
-    fprintf(stderr, "  -A       toggle Atari file system format\n");
+    fprintf(stderr, "  -a       automatically repair the filesystem\n");
+    fprintf(stderr, "  -A       toggle Atari filesystem format\n");
     fprintf(stderr, "  -b       make read-only boot sector check\n");
-    fprintf(stderr, "  -c N     use DOS codepage N to decode short file names (default: %d)\n", DEFAULT_DOS_CODEPAGE);
+    fprintf(stderr,
+	    "  -c N     use DOS codepage N to decode short file names (default: %d)\n",
+	    DEFAULT_DOS_CODEPAGE);
     fprintf(stderr, "  -d path  drop that file\n");
     fprintf(stderr, "  -f       salvage unused chains to files\n");
     fprintf(stderr, "  -l       list path names\n");
     fprintf(stderr,
 	    "  -n       no-op, check non-interactively without changing\n");
     fprintf(stderr, "  -p       same as -a, for compat with other *fsck\n");
-    fprintf(stderr, "  -r       interactively repair the file system\n");
+    fprintf(stderr, "  -r       interactively repair the filesystem\n");
     fprintf(stderr, "  -t       test for bad clusters\n");
     fprintf(stderr, "  -u path  try to undelete that (non-directory) file\n");
     fprintf(stderr, "  -v       verbose mode\n");
@@ -156,7 +158,7 @@ int main(int argc, char **argv)
 	    break;
 	case 'v':
 	    verbose = 1;
-	    printf("dosfsck " VERSION " (" VERSION_DATE ")\n");
+	    printf("fsck.fat " VERSION " (" VERSION_DATE ")\n");
 	    break;
 	case 'V':
 	    verify = 1;
@@ -175,12 +177,12 @@ int main(int argc, char **argv)
     if (optind != argc - 1)
 	usage(argv[0]);
 
-    printf("dosfsck " VERSION ", " VERSION_DATE ", FAT32, LFN\n");
+    printf("fsck.fat " VERSION " (" VERSION_DATE ")\n");
     fs_open(argv[optind], rw);
 
     read_boot(&fs);
     if (boot_only)
-        goto exit;
+	goto exit;
 
     if (verify)
 	printf("Starting check/repair pass.\n");
@@ -214,7 +216,7 @@ exit:
 	    else
 		printf("Performing changes.\n");
 	} else
-	    printf("Leaving file system unchanged.\n");
+	    printf("Leaving filesystem unchanged.\n");
     }
 
     if (!boot_only)

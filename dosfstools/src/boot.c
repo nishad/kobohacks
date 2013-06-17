@@ -17,7 +17,7 @@
    You should have received a copy of the GNU General Public License
    along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-   On Debian systems, the complete text of the GNU General Public License
+   The complete text of the GNU General Public License
    can be found in /usr/share/common-licenses/GPL-3 file.
 */
 
@@ -31,7 +31,7 @@
 #include <time.h>
 
 #include "common.h"
-#include "dosfsck.h"
+#include "fsck.fat.h"
 #include "fat.h"
 #include "io.h"
 #include "boot.h"
@@ -89,8 +89,8 @@ static void dump_boot(DOS_FS * fs, struct boot_sector *b, unsigned lss)
 	/* On Atari, a 24 bit serial number is stored at offset 8 of the boot
 	 * sector */
 	printf("Serial number 0x%x\n",
-	       b->system_id[5] | (b->
-				  system_id[6] << 8) | (b->system_id[7] << 16));
+	       b->system_id[5] | (b->system_id[6] << 8) | (b->
+							   system_id[7] << 16));
     }
     printf("Media byte 0x%02x (%s)\n", b->media, get_media_descr(b->media));
     printf("%10d bytes per logical sector\n", GET_UNALIGNED_W(b->sector_size));
@@ -171,7 +171,7 @@ static void check_backup_boot(DOS_FS * fs, struct boot_sector *b, int lss)
 	char buf[20];
 
 	printf("There are differences between boot sector and its backup.\n");
-	printf("Differences: (offset:original/backup)\n  ");
+	printf("This is mostly harmless. Differences: (offset:original/backup)\n  ");
 	pos = 2;
 	for (p = (__u8 *) b, q = (__u8 *) & b2, i = 0; i < sizeof(b2);
 	     ++p, ++q, ++i) {
@@ -286,39 +286,38 @@ static void read_fsinfo(DOS_FS * fs, struct boot_sector *b, int lss)
 static char print_fat_dirty_state(void)
 {
     printf("Dirty bit is set. Fs was not properly unmounted and"
-           " some data may be corrupt.\n");
+	   " some data may be corrupt.\n");
 
     if (interactive) {
-        printf("1) Remove dirty bit\n"
-               "2) No action\n");
-        return get_key("12", "?");
+	printf("1) Remove dirty bit\n" "2) No action\n");
+	return get_key("12", "?");
     } else
-        printf(" Automaticaly removing dirty bit.\n");
+	printf(" Automatically removing dirty bit.\n");
     return '1';
 }
 
-static void check_fat_state_bit(DOS_FS *fs, void *b)
+static void check_fat_state_bit(DOS_FS * fs, void *b)
 {
     if (fs->fat_bits == 32) {
-        struct boot_sector *b32 = b;
+	struct boot_sector *b32 = b;
 
-        if (b32->reserved3 & FAT_STATE_DIRTY) {
-            printf("0x41: ");
-            if (print_fat_dirty_state() == '1') {
-                b32->reserved3 &= ~FAT_STATE_DIRTY;
-                fs_write(0, sizeof(*b32), b32);
-            }
-        }
+	if (b32->reserved3 & FAT_STATE_DIRTY) {
+	    printf("0x41: ");
+	    if (print_fat_dirty_state() == '1') {
+		b32->reserved3 &= ~FAT_STATE_DIRTY;
+		fs_write(0, sizeof(*b32), b32);
+	    }
+	}
     } else {
-        struct boot_sector_16 *b16 = b;
+	struct boot_sector_16 *b16 = b;
 
-        if (b16->reserved2 & FAT_STATE_DIRTY) {
-            printf("0x25: ");
-            if (print_fat_dirty_state() == '1') {
-                b16->reserved2 &= ~FAT_STATE_DIRTY;
-                fs_write(0, sizeof(*b16), b16);
-            }
-        }
+	if (b16->reserved2 & FAT_STATE_DIRTY) {
+	    printf("0x25: ");
+	    if (print_fat_dirty_state() == '1') {
+		b16->reserved2 &= ~FAT_STATE_DIRTY;
+		fs_write(0, sizeof(*b16), b16);
+	    }
+	}
     }
 }
 
@@ -442,7 +441,7 @@ void read_boot(DOS_FS * fs)
 
     if (fs->clusters >
 	((unsigned long long)fs->fat_size * 8 / fs->fat_bits) - 2)
-	die("File system has %d clusters but only space for %d FAT entries.",
+	die("Filesystem has %d clusters but only space for %d FAT entries.",
 	    fs->clusters,
 	    ((unsigned long long)fs->fat_size * 8 / fs->fat_bits) - 2);
     if (!fs->root_entries && !fs->root_cluster)
@@ -532,10 +531,9 @@ static void write_volume_label(DOS_FS * fs, char *label)
 
     created = 0;
     offset = find_volume_de(fs, &de);
-    if (offset == 0)
-    {
-      created = 1;
-      offset = alloc_rootdir_entry(fs, &de, label);
+    if (offset == 0) {
+	created = 1;
+	offset = alloc_rootdir_entry(fs, &de, label);
     }
     memcpy(de.name, label, 11);
     de.time = htole16((unsigned short)((mtime->tm_sec >> 1) +
@@ -544,16 +542,15 @@ static void write_volume_label(DOS_FS * fs, char *label)
     de.date = htole16((unsigned short)(mtime->tm_mday +
 				       ((mtime->tm_mon + 1) << 5) +
 				       ((mtime->tm_year - 80) << 9)));
-    if (created)
-    {
-      de.attr = ATTR_VOLUME;
-      de.ctime_ms = 0;
-      de.ctime = de.time;
-      de.cdate = de.date;
-      de.adate = de.date;
-      de.starthi = 0;
-      de.start = 0;
-      de.size = 0;
+    if (created) {
+	de.attr = ATTR_VOLUME;
+	de.ctime_ms = 0;
+	de.ctime = de.time;
+	de.cdate = de.date;
+	de.adate = de.date;
+	de.starthi = 0;
+	de.start = 0;
+	de.size = 0;
     }
 
     fs_write(offset, sizeof(DIR_ENT), &de);
