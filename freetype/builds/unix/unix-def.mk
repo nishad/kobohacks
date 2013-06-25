@@ -56,7 +56,7 @@ includedir   := ${prefix}/include
 datarootdir  := ${prefix}/share
 datadir      := ${datarootdir}
 
-version_info := 16:1:10
+version_info := 16:2:10
 
 # Variables needed for `freetype-config' and `freetype.pc'.
 #
@@ -64,7 +64,7 @@ FT2_EXTRA_LIBS     :=
 LIBBZ2             := 
 LIBZ               := 
 build_libtool_libs := 
-ft_version         := 16.1.10
+ft_version         := 16.2.10
 
 # The directory where all library files are placed.
 #

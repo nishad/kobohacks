@@ -62,7 +62,7 @@ build_old_libs=yes
 pic_mode=default
 
 # Whether or not to optimize for fast installation.
-fast_install=needless
+fast_install=yes
 
 # Shell to use when invoking shell scripts.
 SHELL="/bin/bash"
@@ -164,10 +164,10 @@ old_postuninstall_cmds=""
 lock_old_archive_extraction=no
 
 # A C compiler.
-LTCC="/opt/freescale/usr/local/gcc-4.4.4-glibc-2.11.1-multilib-1.0/arm-fsl-linux-gnueabi/bin/arm-fsl-linux-gnueabi-gcc"
+LTCC="/opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc"
 
 # LTCC compiler flags.
-LTCFLAGS="-g -O2"
+LTCFLAGS="-g -O2 -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG"
 
 # Take the output of nm and produce a listing of raw symbols and C names.
 global_symbol_pipe="sed -n -e 's/^.*[	 ]\\([ABCDGIRSTW][ABCDGIRSTW]*\\)[	 ][	 ]*\\([_A-Za-z][_A-Za-z0-9]*\\)\$/\\1 \\2 \\2/p' | sed '/ __gnu_lto/d'"
@@ -243,7 +243,7 @@ runpath_var=LD_RUN_PATH
 shlibpath_var=LD_LIBRARY_PATH
 
 # Is shlibpath searched before the hard-coded library search path?
-shlibpath_overrides_runpath=yes
+shlibpath_overrides_runpath=no
 
 # Format of library name prefix.
 libname_spec="lib\$name"
@@ -275,7 +275,7 @@ finish_eval=""
 hardcode_into_libs=yes
 
 # Compile-time system search path for libraries.
-sys_lib_search_path_spec="/opt/freescale/usr/local/gcc-4.4.4-glibc-2.11.1-multilib-1.0/arm-fsl-linux-gnueabi/lib/gcc/arm-fsl-linux-gnueabi/4.4.4 /opt/freescale/usr/local/gcc-4.4.4-glibc-2.11.1-multilib-1.0/arm-fsl-linux-gnueabi/lib/gcc /opt/freescale/usr/local/gcc-4.4.4-glibc-2.11.1-multilib-1.0/arm-fsl-linux-gnueabi/arm-fsl-linux-gnueabi/multi-libs/lib /opt/freescale/usr/local/gcc-4.4.4-glibc-2.11.1-multilib-1.0/arm-fsl-linux-gnueabi/arm-fsl-linux-gnueabi/multi-libs/usr/lib "
+sys_lib_search_path_spec="/opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/lib/gcc/arm-linux-gnueabihf/4.8.1 /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/lib/gcc /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/lib/gcc/arm-linux-gnueabihf /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/arm-linux-gnueabihf/lib /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/arm-linux-gnueabihf/libc/lib /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/arm-linux-gnueabihf/libc/lib/arm-linux-gnueabihf /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/arm-linux-gnueabihf/libc/usr/lib /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/arm-linux-gnueabihf/libc/usr/lib/arm-linux-gnueabihf "
 
 # Run-time system search path for libraries.
 sys_lib_dlsearch_path_spec="/lib /usr/lib /usr/lib/i386-linux-gnu/mesa /lib/i386-linux-gnu /usr/lib/i386-linux-gnu /lib/i686-linux-gnu /usr/lib/i686-linux-gnu /usr/local/lib "
@@ -295,7 +295,7 @@ striplib="strip --strip-unneeded"
 
 
 # The linker used to build libraries.
-LD="/opt/freescale/usr/local/gcc-4.4.4-glibc-2.11.1-multilib-1.0/arm-fsl-linux-gnueabi/arm-fsl-linux-gnueabi/bin/ld"
+LD="/opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/arm-linux-gnueabihf/bin/ld"
 
 # How to create reloadable object files.
 reload_flag=" -r"
@@ -305,7 +305,7 @@ reload_cmds="\$LD\$reload_flag -o \$output\$reload_objs"
 old_archive_cmds="\$AR \$AR_FLAGS \$oldlib\$oldobjs~\$RANLIB \$tool_oldlib"
 
 # A language specific compiler.
-CC="/opt/freescale/usr/local/gcc-4.4.4-glibc-2.11.1-multilib-1.0/arm-fsl-linux-gnueabi/bin/arm-fsl-linux-gnueabi-gcc"
+CC="/opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc"
 
 # Is the compiler the GNU compiler?
 with_gcc=yes

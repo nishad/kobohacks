@@ -12,7 +12,7 @@
 # fully.
 
 
-CC           := /opt/freescale/usr/local/gcc-4.4.4-glibc-2.11.1-multilib-1.0/arm-fsl-linux-gnueabi/bin/arm-fsl-linux-gnueabi-gcc
+CC           := /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc
 COMPILER_SEP := $(SEP)
 FT_LIBTOOL_DIR ?= $(BUILD_DIR)
 
@@ -79,7 +79,7 @@ T := -o$(space)
 #   We use our own FreeType configuration file.
 #
 CPPFLAGS := 
-CFLAGS   := -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -mfloat-abi=softfp -ftree-vectorize -DFT_CONFIG_CONFIG_H="<ftconfig.h>"
+CFLAGS   := -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG -DFT_CONFIG_CONFIG_H="<ftconfig.h>"
 
 # ANSIFLAGS: Put there the flags used to make your compiler ANSI-compliant.
 #
@@ -93,7 +93,7 @@ CC    := $(LIBTOOL) --mode=compile $(CCraw)
 
 # Linker flags.
 #
-LDFLAGS := -L/opt/local/lib -lz
+LDFLAGS :=  -L/opt/local/lib -lz -lpng
 
 
 # export symbols

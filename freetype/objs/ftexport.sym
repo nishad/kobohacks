@@ -6,8 +6,6 @@ FTC_ImageCache_New
 FTC_Manager_Done
 FTC_Manager_LookupFace
 FTC_Manager_LookupSize
-FTC_Manager_Lookup_Face
-FTC_Manager_Lookup_Size
 FTC_Manager_New
 FTC_Manager_RemoveFaceID
 FTC_Manager_Reset
@@ -143,6 +141,8 @@ FT_Outline_Render
 FT_Outline_Reverse
 FT_Outline_Transform
 FT_Outline_Translate
+FT_Property_Get
+FT_Property_Set
 FT_Reference_Face
 FT_Reference_Library
 FT_Remove_Module
