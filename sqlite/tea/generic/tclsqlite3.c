@@ -58,15 +58,8 @@
 #define NUM_PREPARED_STMTS 10
 #define MAX_PREPARED_STMTS 100
 
-/*
-** If TCL uses UTF-8 and SQLite is configured to use iso8859, then we
-** have to do a translation when going between the two.  Set the 
-** UTF_TRANSLATION_NEEDED macro to indicate that we need to do
-** this translation.  
-*/
-#if defined(TCL_UTF_MAX) && !defined(SQLITE_UTF8)
-# define UTF_TRANSLATION_NEEDED 1
-#endif
+/* Forward declaration */
+typedef struct SqliteDb SqliteDb;
 
 /*
 ** New SQL functions can be created as TCL scripts.  Each such function
@@ -76,6 +69,7 @@ typedef struct SqlFunc SqlFunc;
 struct SqlFunc {
   Tcl_Interp *interp;   /* The TCL interpret to execute the function */
   Tcl_Obj *pScript;     /* The Tcl_Obj representation of the script */
+  SqliteDb *pDb;        /* Database connection that owns this function */
   int useEvalObjv;      /* True if it is safe to use Tcl_EvalObjv */
   char *zName;          /* Name of this function */
   SqlFunc *pNext;       /* Next function on the list of them all */
@@ -112,8 +106,12 @@ typedef struct IncrblobChannel IncrblobChannel;
 /*
 ** There is one instance of this structure for each SQLite database
 ** that has been opened by the SQLite TCL interface.
+**
+** If this module is built with SQLITE_TEST defined (to create the SQLite
+** testfixture executable), then it may be configured to use either
+** sqlite3_prepare_v2() or sqlite3_prepare() to prepare SQL statements.
+** If SqliteDb.bLegacyPrepare is true, sqlite3_prepare() is used.
 */
-typedef struct SqliteDb SqliteDb;
 struct SqliteDb {
   sqlite3 *db;               /* The "real" database structure. MUST BE FIRST */
   Tcl_Interp *interp;        /* The interpreter used for this database */
@@ -140,6 +138,9 @@ struct SqliteDb {
   IncrblobChannel *pIncrblob;/* Linked list of open incrblob channels */
   int nStep, nSort, nIndex;  /* Statistics for most recent operation */
   int nTransaction;          /* Number of nested [transaction] methods */
+#ifdef SQLITE_TEST
+  int bLegacyPrepare;        /* True to use sqlite3_prepare() */
+#endif
 };
 
 struct IncrblobChannel {
@@ -428,6 +429,7 @@ static SqlFunc *findSqlFunc(SqliteDb *pDb, const char *zName){
     }
   }
   pNew->interp = pDb->interp;
+  pNew->pDb = pDb;
   pNew->pScript = 0;
   pNew->pNext = pDb->pFunc;
   pDb->pFunc = pNew;
@@ -435,19 +437,32 @@ static SqlFunc *findSqlFunc(SqliteDb *pDb, const char *zName){
 }
 
 /*
+** Free a single SqlPreparedStmt object.
+*/
+static void dbFreeStmt(SqlPreparedStmt *pStmt){
+#ifdef SQLITE_TEST
+  if( sqlite3_sql(pStmt->pStmt)==0 ){
+    Tcl_Free((char *)pStmt->zSql);
+  }
+#endif
+  sqlite3_finalize(pStmt->pStmt);
+  Tcl_Free((char *)pStmt);
+}
+
+/*
 ** Finalize and free a list of prepared statements
 */
-static void flushStmtCache( SqliteDb *pDb ){
+static void flushStmtCache(SqliteDb *pDb){
   SqlPreparedStmt *pPreStmt;
+  SqlPreparedStmt *pNext;
 
-  while(  pDb->stmtList ){
-    sqlite3_finalize( pDb->stmtList->pStmt );
-    pPreStmt = pDb->stmtList;
-    pDb->stmtList = pDb->stmtList->pNext;
-    Tcl_Free( (char*)pPreStmt );
+  for(pPreStmt = pDb->stmtList; pPreStmt; pPreStmt=pNext){
+    pNext = pPreStmt->pNext;
+    dbFreeStmt(pPreStmt);
   }
   pDb->nStmt = 0;
   pDb->stmtLast = 0;
+  pDb->stmtList = 0;
 }
 
 /*
@@ -462,6 +477,7 @@ static void DbDeleteCmd(void *db){
   while( pDb->pFunc ){
     SqlFunc *pFunc = pDb->pFunc;
     pDb->pFunc = pFunc->pNext;
+    assert( pFunc->pDb==pDb );
     Tcl_DecrRefCount(pFunc->pScript);
     Tcl_Free((char*)pFunc);
   }
@@ -778,7 +794,7 @@ static void tclSqlFunc(sqlite3_context *context, int argc, sqlite3_value**argv){
           break;
         }
         case SQLITE_NULL: {
-          pVal = Tcl_NewStringObj("", 0);
+          pVal = Tcl_NewStringObj(p->pDb->zNull, -1);
           break;
         }
         default: {
@@ -903,7 +919,7 @@ static int auth_callback(
   Tcl_DStringAppendElement(&str, zArg4 ? zArg4 : "");
   rc = Tcl_GlobalEval(pDb->interp, Tcl_DStringValue(&str));
   Tcl_DStringFree(&str);
-  zReply = Tcl_GetStringResult(pDb->interp);
+  zReply = rc==TCL_OK ? Tcl_GetStringResult(pDb->interp) : "SQLITE_DENY";
   if( strcmp(zReply,"SQLITE_OK")==0 ){
     rc = SQLITE_OK;
   }else if( strcmp(zReply,"SQLITE_DENY")==0 ){
@@ -916,26 +932,6 @@ static int auth_callback(
   return rc;
 }
 #endif /* SQLITE_OMIT_AUTHORIZATION */
-
-/*
-** zText is a pointer to text obtained via an sqlite3_result_text()
-** or similar interface. This routine returns a Tcl string object, 
-** reference count set to 0, containing the text. If a translation
-** between iso8859 and UTF-8 is required, it is preformed.
-*/
-static Tcl_Obj *dbTextToObj(char const *zText){
-  Tcl_Obj *pVal;
-#ifdef UTF_TRANSLATION_NEEDED
-  Tcl_DString dCol;
-  Tcl_DStringInit(&dCol);
-  Tcl_ExternalToUtfDString(NULL, zText, -1, &dCol);
-  pVal = Tcl_NewStringObj(Tcl_DStringValue(&dCol), -1);
-  Tcl_DStringFree(&dCol);
-#else
-  pVal = Tcl_NewStringObj(zText, -1);
-#endif
-  return pVal;
-}
 
 /*
 ** This routine reads a line of text from FILE in, stores
@@ -952,14 +948,12 @@ static char *local_getline(char *zPrompt, FILE *in){
   char *zLine;
   int nLine;
   int n;
-  int eol;
 
   nLine = 100;
   zLine = malloc( nLine );
   if( zLine==0 ) return 0;
   n = 0;
-  eol = 0;
-  while( !eol ){
+  while( 1 ){
     if( n+100>nLine ){
       nLine = nLine*2 + 100;
       zLine = realloc(zLine, nLine);
@@ -971,14 +965,13 @@ static char *local_getline(char *zPrompt, FILE *in){
         return 0;
       }
       zLine[n] = 0;
-      eol = 1;
       break;
     }
     while( zLine[n] ){ n++; }
     if( n>0 && zLine[n-1]=='\n' ){
       n--;
       zLine[n] = 0;
-      eol = 1;
+      break;
     }
   }
   zLine = realloc( zLine, n+1 );
@@ -1017,7 +1010,7 @@ static int DbTransPostCmd(
       /* This is a tricky scenario to handle. The most likely cause of an
       ** error is that the exec() above was an attempt to commit the 
       ** top-level transaction that returned SQLITE_BUSY. Or, less likely,
-      ** that an IO-error has occured. In either case, throw a Tcl exception
+      ** that an IO-error has occurred. In either case, throw a Tcl exception
       ** and try to rollback the transaction.
       **
       ** But it could also be that the user executed one or more BEGIN, 
@@ -1033,6 +1026,27 @@ static int DbTransPostCmd(
   pDb->disableAuth--;
 
   return rc;
+}
+
+/*
+** Unless SQLITE_TEST is defined, this function is a simple wrapper around
+** sqlite3_prepare_v2(). If SQLITE_TEST is defined, then it uses either
+** sqlite3_prepare_v2() or legacy interface sqlite3_prepare(), depending
+** on whether or not the [db_use_legacy_prepare] command has been used to 
+** configure the connection.
+*/
+static int dbPrepare(
+  SqliteDb *pDb,                  /* Database object */
+  const char *zSql,               /* SQL to compile */
+  sqlite3_stmt **ppStmt,          /* OUT: Prepared statement */
+  const char **pzOut              /* OUT: Pointer to next SQL statement */
+){
+#ifdef SQLITE_TEST
+  if( pDb->bLegacyPrepare ){
+    return sqlite3_prepare(pDb->db, zSql, -1, ppStmt, pzOut);
+  }
+#endif
+  return sqlite3_prepare_v2(pDb->db, zSql, -1, ppStmt, pzOut);
 }
 
 /*
@@ -1105,14 +1119,14 @@ static int dbPrepareAndBind(
   if( pPreStmt==0 ){
     int nByte;
 
-    if( SQLITE_OK!=sqlite3_prepare_v2(pDb->db, zSql, -1, &pStmt, pzOut) ){
-      Tcl_SetObjResult(interp, dbTextToObj(sqlite3_errmsg(pDb->db)));
+    if( SQLITE_OK!=dbPrepare(pDb, zSql, &pStmt, pzOut) ){
+      Tcl_SetObjResult(interp, Tcl_NewStringObj(sqlite3_errmsg(pDb->db), -1));
       return TCL_ERROR;
     }
     if( pStmt==0 ){
       if( SQLITE_OK!=sqlite3_errcode(pDb->db) ){
         /* A compile-time error in the statement. */
-        Tcl_SetObjResult(interp, dbTextToObj(sqlite3_errmsg(pDb->db)));
+        Tcl_SetObjResult(interp, Tcl_NewStringObj(sqlite3_errmsg(pDb->db), -1));
         return TCL_ERROR;
       }else{
         /* The statement was a no-op.  Continue to the next statement
@@ -1129,9 +1143,17 @@ static int dbPrepareAndBind(
     memset(pPreStmt, 0, nByte);
 
     pPreStmt->pStmt = pStmt;
-    pPreStmt->nSql = (*pzOut - zSql);
+    pPreStmt->nSql = (int)(*pzOut - zSql);
     pPreStmt->zSql = sqlite3_sql(pStmt);
     pPreStmt->apParm = (Tcl_Obj **)&pPreStmt[1];
+#ifdef SQLITE_TEST
+    if( pPreStmt->zSql==0 ){
+      char *zCopy = Tcl_Alloc(pPreStmt->nSql + 1);
+      memcpy(zCopy, zSql, pPreStmt->nSql);
+      zCopy[pPreStmt->nSql] = '\0';
+      pPreStmt->zSql = zCopy;
+    }
+#endif
   }
   assert( pPreStmt );
   assert( strlen30(pPreStmt->zSql)==pPreStmt->nSql );
@@ -1185,7 +1207,6 @@ static int dbPrepareAndBind(
   return TCL_OK;
 }
 
-
 /*
 ** Release a statement reference obtained by calling dbPrepareAndBind().
 ** There should be exactly one call to this function for each call to
@@ -1210,8 +1231,7 @@ static void dbReleaseStmt(
 
   if( pDb->maxStmt<=0 || discard ){
     /* If the cache is turned off, deallocated the statement */
-    sqlite3_finalize(pPreStmt->pStmt);
-    Tcl_Free((char *)pPreStmt);
+    dbFreeStmt(pPreStmt);
   }else{
     /* Add the prepared statement to the beginning of the cache list. */
     pPreStmt->pNext = pDb->stmtList;
@@ -1231,11 +1251,11 @@ static void dbReleaseStmt(
     /* If we have too many statement in cache, remove the surplus from 
     ** the end of the cache list.  */
     while( pDb->nStmt>pDb->maxStmt ){
-      sqlite3_finalize(pDb->stmtLast->pStmt);
-      pDb->stmtLast = pDb->stmtLast->pPrev;
-      Tcl_Free((char*)pDb->stmtLast->pNext);
+      SqlPreparedStmt *pLast = pDb->stmtLast;
+      pDb->stmtLast = pLast->pPrev;
       pDb->stmtLast->pNext = 0;
       pDb->nStmt--;
+      dbFreeStmt(pLast);
     }
   }
 }
@@ -1325,7 +1345,7 @@ static void dbEvalRowInfo(
     if( nCol>0 && (papColName || p->pArray) ){
       apColName = (Tcl_Obj**)Tcl_Alloc( sizeof(Tcl_Obj*)*nCol );
       for(i=0; i<nCol; i++){
-        apColName[i] = dbTextToObj(sqlite3_column_name(pStmt,i));
+        apColName[i] = Tcl_NewStringObj(sqlite3_column_name(pStmt,i), -1);
         Tcl_IncrRefCount(apColName[i]);
       }
       p->apColName = apColName;
@@ -1368,9 +1388,12 @@ static void dbEvalRowInfo(
 ** no further rows available. This is similar to SQLITE_DONE.
 */
 static int dbEvalStep(DbEvalContext *p){
+  const char *zPrevSql = 0;       /* Previous value of p->zSql */
+
   while( p->zSql[0] || p->pPreStmt ){
     int rc;
     if( p->pPreStmt==0 ){
+      zPrevSql = (p->zSql==zPrevSql ? 0 : p->zSql);
       rc = dbPrepareAndBind(p->pDb, p->zSql, &p->zSql, &p->pPreStmt);
       if( rc!=TCL_OK ) return rc;
     }else{
@@ -1397,8 +1420,20 @@ static int dbEvalStep(DbEvalContext *p){
       if( rcs!=SQLITE_OK ){
         /* If a run-time error occurs, report the error and stop reading
         ** the SQL.  */
-        Tcl_SetObjResult(pDb->interp, dbTextToObj(sqlite3_errmsg(pDb->db)));
         dbReleaseStmt(pDb, pPreStmt, 1);
+#if SQLITE_TEST
+        if( p->pDb->bLegacyPrepare && rcs==SQLITE_SCHEMA && zPrevSql ){
+          /* If the runtime error was an SQLITE_SCHEMA, and the database
+          ** handle is configured to use the legacy sqlite3_prepare() 
+          ** interface, retry prepare()/step() on the same SQL statement.
+          ** This only happens once. If there is a second SQLITE_SCHEMA
+          ** error, the error will be returned to the caller. */
+          p->zSql = zPrevSql;
+          continue;
+        }
+#endif
+        Tcl_SetObjResult(pDb->interp,
+                         Tcl_NewStringObj(sqlite3_errmsg(pDb->db), -1));
         return TCL_ERROR;
       }else{
         dbReleaseStmt(pDb, pPreStmt, 0);
@@ -1455,11 +1490,11 @@ static Tcl_Obj *dbEvalColumnValue(DbEvalContext *p, int iCol){
       return Tcl_NewDoubleObj(sqlite3_column_double(pStmt, iCol));
     }
     case SQLITE_NULL: {
-      return dbTextToObj(p->pDb->zNull);
+      return Tcl_NewStringObj(p->pDb->zNull, -1);
     }
   }
 
-  return dbTextToObj((char *)sqlite3_column_text(pStmt, iCol));
+  return Tcl_NewStringObj((char*)sqlite3_column_text(pStmt, iCol), -1);
 }
 
 /*
@@ -2064,7 +2099,6 @@ static int DbObjCmd(void *cd, Tcl_Interp *interp, int objc,Tcl_Obj *const*objv){
     zCommit = "COMMIT";
     while( (zLine = local_getline(0, in))!=0 ){
       char *z;
-      i = 0;
       lineno++;
       azCol[0] = zLine;
       for(i=0, z=zLine; *z; z++){
@@ -2185,6 +2219,8 @@ static int DbObjCmd(void *cd, Tcl_Interp *interp, int objc,Tcl_Obj *const*objv){
     if( choice==DB_ONECOLUMN ){
       if( rc==TCL_OK ){
         Tcl_SetObjResult(interp, dbEvalColumnValue(&sEval, 0));
+      }else if( rc==TCL_BREAK ){
+        Tcl_ResetResult(interp);
       }
     }else if( rc==TCL_BREAK || rc==TCL_OK ){
       Tcl_SetObjResult(interp, Tcl_NewBooleanObj(rc==TCL_OK));
@@ -2312,7 +2348,7 @@ static int DbObjCmd(void *cd, Tcl_Interp *interp, int objc,Tcl_Obj *const*objv){
     const char *zDb = "main";
     const char *zTable;
     const char *zColumn;
-    sqlite_int64 iRow;
+    Tcl_WideInt iRow;
 
     /* Check for the -readonly option */
     if( objc>3 && strcmp(Tcl_GetString(objv[2]), "-readonly")==0 ){
@@ -2378,7 +2414,7 @@ static int DbObjCmd(void *cd, Tcl_Interp *interp, int objc,Tcl_Obj *const*objv){
         pDb->zNull = 0;
       }
     }
-    Tcl_SetObjResult(interp, dbTextToObj(pDb->zNull));
+    Tcl_SetObjResult(interp, Tcl_NewStringObj(pDb->zNull, -1));
     break;
   }
 
@@ -2491,17 +2527,19 @@ static int DbObjCmd(void *cd, Tcl_Interp *interp, int objc,Tcl_Obj *const*objv){
   ** Change the encryption key on the currently open database.
   */
   case DB_REKEY: {
+#ifdef SQLITE_HAS_CODEC
     int nKey;
     void *pKey;
+#endif
     if( objc!=3 ){
       Tcl_WrongNumArgs(interp, 2, objv, "KEY");
       return TCL_ERROR;
     }
-    pKey = Tcl_GetByteArrayFromObj(objv[2], &nKey);
 #ifdef SQLITE_HAS_CODEC
+    pKey = Tcl_GetByteArrayFromObj(objv[2], &nKey);
     rc = sqlite3_rekey(pDb->db, pKey, nKey);
     if( rc ){
-      Tcl_AppendResult(interp, sqlite3ErrStr(rc), 0);
+      Tcl_AppendResult(interp, sqlite3_errstr(rc), 0);
       rc = TCL_ERROR;
     }
 #endif
@@ -2861,8 +2899,6 @@ static int DbObjCmdAdaptor(
 */
 static int DbMain(void *cd, Tcl_Interp *interp, int objc,Tcl_Obj *const*objv){
   SqliteDb *p;
-  void *pKey = 0;
-  int nKey = 0;
   const char *zArg;
   char *zErrMsg;
   int i;
@@ -2870,6 +2906,11 @@ static int DbMain(void *cd, Tcl_Interp *interp, int objc,Tcl_Obj *const*objv){
   const char *zVfs = 0;
   int flags;
   Tcl_DString translatedFilename;
+#ifdef SQLITE_HAS_CODEC
+  void *pKey = 0;
+  int nKey = 0;
+#endif
+  int rc;
 
   /* In normal use, each TCL interpreter runs in a single thread.  So
   ** by default, we can turn of mutexing on SQLite database connections.
@@ -2901,7 +2942,9 @@ static int DbMain(void *cd, Tcl_Interp *interp, int objc,Tcl_Obj *const*objv){
   for(i=3; i+1<objc; i+=2){
     zArg = Tcl_GetString(objv[i]);
     if( strcmp(zArg,"-key")==0 ){
+#ifdef SQLITE_HAS_CODEC
       pKey = Tcl_GetByteArrayFromObj(objv[i+1], &nKey);
+#endif
     }else if( strcmp(zArg, "-vfs")==0 ){
       zVfs = Tcl_GetString(objv[i+1]);
     }else if( strcmp(zArg, "-readonly")==0 ){
@@ -2931,7 +2974,7 @@ static int DbMain(void *cd, Tcl_Interp *interp, int objc,Tcl_Obj *const*objv){
       }else{
         flags &= ~SQLITE_OPEN_NOMUTEX;
       }
-   }else if( strcmp(zArg, "-fullmutex")==0 ){
+    }else if( strcmp(zArg, "-fullmutex")==0 ){
       int b;
       if( Tcl_GetBooleanFromObj(interp, objv[i+1], &b) ) return TCL_ERROR;
       if( b ){
@@ -2939,6 +2982,14 @@ static int DbMain(void *cd, Tcl_Interp *interp, int objc,Tcl_Obj *const*objv){
         flags &= ~SQLITE_OPEN_NOMUTEX;
       }else{
         flags &= ~SQLITE_OPEN_FULLMUTEX;
+      }
+    }else if( strcmp(zArg, "-uri")==0 ){
+      int b;
+      if( Tcl_GetBooleanFromObj(interp, objv[i+1], &b) ) return TCL_ERROR;
+      if( b ){
+        flags |= SQLITE_OPEN_URI;
+      }else{
+        flags &= ~SQLITE_OPEN_URI;
       }
     }else{
       Tcl_AppendResult(interp, "unknown option: ", zArg, (char*)0);
@@ -2948,7 +2999,7 @@ static int DbMain(void *cd, Tcl_Interp *interp, int objc,Tcl_Obj *const*objv){
   if( objc<3 || (objc&1)!=1 ){
     Tcl_WrongNumArgs(interp, 1, objv, 
       "HANDLE FILENAME ?-vfs VFSNAME? ?-readonly BOOLEAN? ?-create BOOLEAN?"
-      " ?-nomutex BOOLEAN? ?-fullmutex BOOLEAN?"
+      " ?-nomutex BOOLEAN? ?-fullmutex BOOLEAN? ?-uri BOOLEAN?"
 #ifdef SQLITE_HAS_CODEC
       " ?-key CODECKEY?"
 #endif
@@ -2964,12 +3015,16 @@ static int DbMain(void *cd, Tcl_Interp *interp, int objc,Tcl_Obj *const*objv){
   memset(p, 0, sizeof(*p));
   zFile = Tcl_GetStringFromObj(objv[2], 0);
   zFile = Tcl_TranslateFileName(interp, zFile, &translatedFilename);
-  sqlite3_open_v2(zFile, &p->db, flags, zVfs);
+  rc = sqlite3_open_v2(zFile, &p->db, flags, zVfs);
   Tcl_DStringFree(&translatedFilename);
-  if( SQLITE_OK!=sqlite3_errcode(p->db) ){
-    zErrMsg = sqlite3_mprintf("%s", sqlite3_errmsg(p->db));
-    sqlite3_close(p->db);
-    p->db = 0;
+  if( p->db ){
+    if( SQLITE_OK!=sqlite3_errcode(p->db) ){
+      zErrMsg = sqlite3_mprintf("%s", sqlite3_errmsg(p->db));
+      sqlite3_close(p->db);
+      p->db = 0;
+    }
+  }else{
+    zErrMsg = sqlite3_mprintf("%s", sqlite3_errstr(rc));
   }
 #ifdef SQLITE_HAS_CODEC
   if( p->db ){
@@ -3039,23 +3094,19 @@ EXTERN int Sqlite3_Init(Tcl_Interp *interp){
   return TCL_OK;
 }
 EXTERN int Tclsqlite3_Init(Tcl_Interp *interp){ return Sqlite3_Init(interp); }
-EXTERN int Sqlite3_SafeInit(Tcl_Interp *interp){ return TCL_OK; }
-EXTERN int Tclsqlite3_SafeInit(Tcl_Interp *interp){ return TCL_OK; }
 EXTERN int Sqlite3_Unload(Tcl_Interp *interp, int flags){ return TCL_OK; }
 EXTERN int Tclsqlite3_Unload(Tcl_Interp *interp, int flags){ return TCL_OK; }
-EXTERN int Sqlite3_SafeUnload(Tcl_Interp *interp, int flags){ return TCL_OK; }
-EXTERN int Tclsqlite3_SafeUnload(Tcl_Interp *interp, int flags){ return TCL_OK;}
 
+/* Because it accesses the file-system and uses persistent state, SQLite
+** is not considered appropriate for safe interpreters.  Hence, we deliberately
+** omit the _SafeInit() interfaces.
+*/
 
 #ifndef SQLITE_3_SUFFIX_ONLY
 int Sqlite_Init(Tcl_Interp *interp){ return Sqlite3_Init(interp); }
 int Tclsqlite_Init(Tcl_Interp *interp){ return Sqlite3_Init(interp); }
-int Sqlite_SafeInit(Tcl_Interp *interp){ return TCL_OK; }
-int Tclsqlite_SafeInit(Tcl_Interp *interp){ return TCL_OK; }
 int Sqlite_Unload(Tcl_Interp *interp, int flags){ return TCL_OK; }
 int Tclsqlite_Unload(Tcl_Interp *interp, int flags){ return TCL_OK; }
-int Sqlite_SafeUnload(Tcl_Interp *interp, int flags){ return TCL_OK; }
-int Tclsqlite_SafeUnload(Tcl_Interp *interp, int flags){ return TCL_OK;}
 #endif
 
 #ifdef TCLSH
@@ -3405,7 +3456,7 @@ static int md5file_cmd(void*cd, Tcl_Interp*interp, int argc, const char **argv){
   MD5Init(&ctx);
   for(;;){
     int n;
-    n = fread(zBuf, 1, sizeof(zBuf), in);
+    n = (int)fread(zBuf, 1, sizeof(zBuf), in);
     if( n<=0 ) break;
     MD5Update(&ctx, (unsigned char*)zBuf, (unsigned)n);
   }
@@ -3451,7 +3502,7 @@ static void md5step(sqlite3_context *context, int argc, sqlite3_value **argv){
   for(i=0; i<argc; i++){
     const char *zData = (char*)sqlite3_value_text(argv[i]);
     if( zData ){
-      MD5Update(p, (unsigned char*)zData, strlen(zData));
+      MD5Update(p, (unsigned char*)zData, (int)strlen(zData));
     }
   }
 }
@@ -3480,33 +3531,34 @@ int Md5_Register(sqlite3 *db){
 ** the TCL interpreter reads and evaluates that file.
 */
 #if TCLSH==1
-static char zMainloop[] =
-  "set line {}\n"
-  "while {![eof stdin]} {\n"
-    "if {$line!=\"\"} {\n"
-      "puts -nonewline \"> \"\n"
-    "} else {\n"
-      "puts -nonewline \"% \"\n"
-    "}\n"
-    "flush stdout\n"
-    "append line [gets stdin]\n"
-    "if {[info complete $line]} {\n"
-      "if {[catch {uplevel #0 $line} result]} {\n"
-        "puts stderr \"Error: $result\"\n"
-      "} elseif {$result!=\"\"} {\n"
-        "puts $result\n"
+static const char *tclsh_main_loop(void){
+  static const char zMainloop[] =
+    "set line {}\n"
+    "while {![eof stdin]} {\n"
+      "if {$line!=\"\"} {\n"
+        "puts -nonewline \"> \"\n"
+      "} else {\n"
+        "puts -nonewline \"% \"\n"
       "}\n"
-      "set line {}\n"
-    "} else {\n"
-      "append line \\n\n"
+      "flush stdout\n"
+      "append line [gets stdin]\n"
+      "if {[info complete $line]} {\n"
+        "if {[catch {uplevel #0 $line} result]} {\n"
+          "puts stderr \"Error: $result\"\n"
+        "} elseif {$result!=\"\"} {\n"
+          "puts $result\n"
+        "}\n"
+        "set line {}\n"
+      "} else {\n"
+        "append line \\n\n"
+      "}\n"
     "}\n"
-  "}\n"
-;
+  ;
+  return zMainloop;
+}
 #endif
 #if TCLSH==2
-static char zMainloop[] = 
-#include "spaceanal_tcl.h"
-;
+static const char *tclsh_main_loop(void);
 #endif
 
 #ifdef SQLITE_TEST
@@ -3532,6 +3584,44 @@ static int init_all_cmd(
   init_all(slave);
   return TCL_OK;
 }
+
+/*
+** Tclcmd: db_use_legacy_prepare DB BOOLEAN
+**
+**   The first argument to this command must be a database command created by
+**   [sqlite3]. If the second argument is true, then the handle is configured
+**   to use the sqlite3_prepare_v2() function to prepare statements. If it
+**   is false, sqlite3_prepare().
+*/
+static int db_use_legacy_prepare_cmd(
+  ClientData cd,
+  Tcl_Interp *interp,
+  int objc,
+  Tcl_Obj *CONST objv[]
+){
+  Tcl_CmdInfo cmdInfo;
+  SqliteDb *pDb;
+  int bPrepare;
+
+  if( objc!=3 ){
+    Tcl_WrongNumArgs(interp, 1, objv, "DB BOOLEAN");
+    return TCL_ERROR;
+  }
+
+  if( !Tcl_GetCommandInfo(interp, Tcl_GetString(objv[1]), &cmdInfo) ){
+    Tcl_AppendResult(interp, "no such db: ", Tcl_GetString(objv[1]), (char*)0);
+    return TCL_ERROR;
+  }
+  pDb = (SqliteDb*)cmdInfo.objClientData;
+  if( Tcl_GetBooleanFromObj(interp, objv[2], &bPrepare) ){
+    return TCL_ERROR;
+  }
+
+  pDb->bLegacyPrepare = bPrepare;
+
+  Tcl_ResetResult(interp);
+  return TCL_OK;
+}
 #endif
 
 /*
@@ -3550,6 +3640,17 @@ static void init_all(Tcl_Interp *interp){
 
 #if defined(SQLITE_TEST) || defined(SQLITE_TCLMD5)
   Md5_Init(interp);
+#endif
+
+  /* Install the [register_dbstat_vtab] command to access the implementation
+  ** of virtual table dbstat (source file test_stat.c). This command is
+  ** required for testfixture and sqlite3_analyzer, but not by the production
+  ** Tcl extension.  */
+#if defined(SQLITE_TEST) || TCLSH==2
+  {
+    extern int SqlitetestStat_Init(Tcl_Interp*);
+    SqlitetestStat_Init(interp);
+  }
 #endif
 
 #ifdef SQLITE_TEST
@@ -3575,20 +3676,18 @@ static void init_all(Tcl_Interp *interp){
     extern int Sqlitetestschema_Init(Tcl_Interp*);
     extern int Sqlitetestsse_Init(Tcl_Interp*);
     extern int Sqlitetesttclvar_Init(Tcl_Interp*);
+    extern int Sqlitetestfs_Init(Tcl_Interp*);
     extern int SqlitetestThread_Init(Tcl_Interp*);
     extern int SqlitetestOnefile_Init();
     extern int SqlitetestOsinst_Init(Tcl_Interp*);
     extern int Sqlitetestbackup_Init(Tcl_Interp*);
     extern int Sqlitetestintarray_Init(Tcl_Interp*);
     extern int Sqlitetestvfs_Init(Tcl_Interp *);
-    extern int SqlitetestStat_Init(Tcl_Interp*);
     extern int Sqlitetestrtree_Init(Tcl_Interp*);
     extern int Sqlitequota_Init(Tcl_Interp*);
     extern int Sqlitemultiplex_Init(Tcl_Interp*);
     extern int SqliteSuperlock_Init(Tcl_Interp*);
     extern int SqlitetestSyscall_Init(Tcl_Interp*);
-    extern int Sqlitetestfuzzer_Init(Tcl_Interp*);
-    extern int Sqlitetestwholenumber_Init(Tcl_Interp*);
 
 #if defined(SQLITE_ENABLE_FTS3) || defined(SQLITE_ENABLE_FTS4)
     extern int Sqlitetestfts3_Init(Tcl_Interp *interp);
@@ -3619,26 +3718,29 @@ static void init_all(Tcl_Interp *interp){
     Sqlitetest_mutex_Init(interp);
     Sqlitetestschema_Init(interp);
     Sqlitetesttclvar_Init(interp);
+    Sqlitetestfs_Init(interp);
     SqlitetestThread_Init(interp);
     SqlitetestOnefile_Init(interp);
     SqlitetestOsinst_Init(interp);
     Sqlitetestbackup_Init(interp);
     Sqlitetestintarray_Init(interp);
     Sqlitetestvfs_Init(interp);
-    SqlitetestStat_Init(interp);
     Sqlitetestrtree_Init(interp);
     Sqlitequota_Init(interp);
     Sqlitemultiplex_Init(interp);
     SqliteSuperlock_Init(interp);
     SqlitetestSyscall_Init(interp);
-    Sqlitetestfuzzer_Init(interp);
-    Sqlitetestwholenumber_Init(interp);
 
 #if defined(SQLITE_ENABLE_FTS3) || defined(SQLITE_ENABLE_FTS4)
     Sqlitetestfts3_Init(interp);
 #endif
 
-    Tcl_CreateObjCommand(interp,"load_testfixture_extensions",init_all_cmd,0,0);
+    Tcl_CreateObjCommand(
+        interp, "load_testfixture_extensions", init_all_cmd, 0, 0
+    );
+    Tcl_CreateObjCommand(
+        interp, "db_use_legacy_prepare", db_use_legacy_prepare_cmd, 0, 0
+    );
 
 #ifdef SQLITE_SSE
     Sqlitetestsse_Init(interp);
@@ -3656,12 +3758,13 @@ int TCLSH_MAIN(int argc, char **argv){
   ** sqlite3_initialize() is. */
   sqlite3_shutdown();
 
+  Tcl_FindExecutable(argv[0]);
+  interp = Tcl_CreateInterp();
+
 #if TCLSH==2
   sqlite3_config(SQLITE_CONFIG_SINGLETHREAD);
 #endif
-  Tcl_FindExecutable(argv[0]);
 
-  interp = Tcl_CreateInterp();
   init_all(interp);
   if( argc>=2 ){
     int i;
@@ -3682,7 +3785,7 @@ int TCLSH_MAIN(int argc, char **argv){
     }
   }
   if( TCLSH==2 || argc<=1 ){
-    Tcl_GlobalEval(interp, zMainloop);
+    Tcl_GlobalEval(interp, tclsh_main_loop());
   }
   return 0;
 }
