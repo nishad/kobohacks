@@ -1,5 +1,8 @@
 /* config.h.in.  Generated from configure.ac by autoheader.  */
 
+/* Define for the AArch64 architecture. */
+#undef AARCH64
+
 /* Define if building universal (internal helper macro) */
 #undef AC_APPLE_UNIVERSAL_BUILD
 
@@ -36,6 +39,14 @@
 
 /* Define to 1 if you have BLKGETSIZE64. */
 #undef HAVE_BLKGETSIZE64
+
+/* Define to 1 if you have the declaration of `IO_CMD_PWRITE', and to 0 if you
+   don't. */
+#undef HAVE_DECL_IO_CMD_PWRITE
+
+/* Define to 1 if you have the declaration of `IO_CMD_PWRITEV', and to 0 if
+   you don't. */
+#undef HAVE_DECL_IO_CMD_PWRITEV
 
 /* Define to 1 if you have the declaration of `LO_FLAGS_AUTOCLEAR', and to 0
    if you don't. */
@@ -121,6 +132,9 @@
    */
 #undef HAVE_DIRENT_H
 
+/* Define to 1 if you have the <elf.h> header file. */
+#undef HAVE_ELF_H
+
 /* Define to 1 if you have the `fork' function. */
 #undef HAVE_FORK
 
@@ -153,6 +167,9 @@
 
 /* Define to 1 if you have the <linux/netlink.h> header file. */
 #undef HAVE_LINUX_NETLINK_H
+
+/* Define to 1 if you have the <linux/perf_event.h> header file. */
+#undef HAVE_LINUX_PERF_EVENT_H
 
 /* Define to 1 if you have the <linux/ptrace.h> header file. */
 #undef HAVE_LINUX_PTRACE_H
@@ -246,6 +263,9 @@
 
 /* Define to 1 if the system has the type `struct ia64_fpreg'. */
 #undef HAVE_STRUCT_IA64_FPREG
+
+/* Define to 1 if `u.c.flags' is a member of `struct iocb'. */
+#undef HAVE_STRUCT_IOCB_U_C_FLAGS
 
 /* Define to 1 if `msg_control' is a member of `struct msghdr'. */
 #undef HAVE_STRUCT_MSGHDR_MSG_CONTROL
@@ -389,11 +409,17 @@
    <sysmacros.h>. */
 #undef MAJOR_IN_SYSMACROS
 
+/* Define for the Meta architecture. */
+#undef METAG
+
 /* Define for the MicroBlaze architecture. */
 #undef MICROBLAZE
 
 /* Define for the MIPS architecture. */
 #undef MIPS
+
+/* Define for the OpenRISC 1000 architecture. */
+#undef OR1K
 
 /* Name of package */
 #undef PACKAGE
@@ -439,6 +465,9 @@
 
 /* The size of `long', as computed by sizeof. */
 #undef SIZEOF_LONG
+
+/* The size of `long long', as computed by sizeof. */
+#undef SIZEOF_LONG_LONG
 
 /* The size of `rlim_t', as computed by sizeof. */
 #undef SIZEOF_RLIM_T
@@ -500,6 +529,9 @@
 
 /* Define for the 64bit AMD x86-64 architecture. */
 #undef X86_64
+
+/* Define for the Xtensa architecture */
+#undef XTENSA
 
 /* Define to 1 if on MINIX. */
 #undef _MINIX

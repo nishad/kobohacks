@@ -1,10 +1,12 @@
 dnl Process this file with autoconf to create configure.  Use autoreconf.
 AC_PREREQ(2.57)
-AC_INIT([strace],[4.7])
+AC_INIT([strace],
+	m4_esyscmd([./git-version-gen .tarball-version]),
+	[strace-devel@lists.sourceforge.net])
 AC_CONFIG_SRCDIR([strace.c])
 AC_CONFIG_AUX_DIR([.])
-AM_CONFIG_HEADER([config.h])
-AM_INIT_AUTOMAKE([foreign check-news dist-xz no-dist-gzip silent-rules])
+AC_CONFIG_HEADERS([config.h])
+AM_INIT_AUTOMAKE([foreign dist-xz no-dist-gzip silent-rules])
 AM_MAINTAINER_MODE
 AC_CANONICAL_HOST
 
@@ -37,6 +39,10 @@ sparc*)
 	arch=sparc
 	AC_DEFINE([SPARC], 1, [Define for the SPARC architecture.])
 	;;
+metag*)
+	arch=metag
+	AC_DEFINE([METAG], 1, [Define for the Meta architecture.])
+	;;
 mips*)
 	arch=mips
 	AC_DEFINE([MIPS], 1, [Define for the MIPS architecture.])
@@ -55,6 +61,10 @@ powerpc*)
 arm*)
 	arch=arm
 	AC_DEFINE([ARM], 1, [Define for the ARM architecture.])
+	;;
+aarch64*)
+	arch=aarch64
+	AC_DEFINE([AARCH64], 1, [Define for the AArch64 architecture.])
 	;;
 avr32*)
 	arch=avr32
@@ -107,6 +117,16 @@ microblaze*)
 	arch=microblaze
 	AC_DEFINE([MICROBLAZE], 1, [Define for the MicroBlaze architecture.])
 	;;
+or1k*)
+	arch=or1k
+	AC_DEFINE([OR1K], 1, [Define for the OpenRISC 1000 architecture.])
+	;;
+
+xtensa*)
+	arch=xtensa
+	AC_DEFINE([XTENSA], 1, [Define for the Xtensa architecture])
+	;;
+
 *)
 	AC_MSG_RESULT([NO!])
 	AC_MSG_ERROR([architecture $host_cpu is not supported by strace])
@@ -124,6 +144,14 @@ AC_INCLUDEDIR
 
 gl_WARN_ADD([-Wall])
 gl_WARN_ADD([-Wwrite-strings])
+AC_ARG_ENABLE([gcc-Werror],
+  [AS_HELP_STRING([--enable-gcc-Werror], [turn on gcc's -Werror option])],
+  [case $enableval in
+     yes) gl_WARN_ADD([-Werror]) ;;
+     no)  ;;
+     *)   AC_MSG_ERROR([bad value $enableval for gcc-Werror option]) ;;
+   esac]
+)
 AC_SUBST([WARN_CFLAGS])
 
 AC_PROG_CPP
@@ -180,10 +208,11 @@ AC_CHECK_FUNCS(m4_normalize([
 AC_CHECK_HEADERS(m4_normalize([
 	asm/cachectl.h
 	asm/sysmips.h
+	elf.h
 	inttypes.h
 	ioctls.h
-	libaio.h
 	linux/capability.h
+	linux/perf_event.h
 	linux/ptrace.h
 	linux/utsname.h
 	mqueue.h
@@ -269,7 +298,13 @@ AC_CACHE_CHECK([for BLKGETSIZE64], [ac_cv_have_blkgetsize64],
 	fi)
 
 AC_CHECK_SIZEOF([long])
+AC_CHECK_SIZEOF([long long])
 AC_CHECK_SIZEOF([rlim_t],,[#include <sys/resource.h>])
+
+AC_CHECK_HEADERS([libaio.h], [
+	AC_CHECK_MEMBERS([struct iocb.u.c.flags],,, [#include <libaio.h>])
+	AC_CHECK_DECLS([IO_CMD_PWRITE, IO_CMD_PWRITEV],,, [#include <libaio.h>])
+])
 
 AC_PATH_PROG([PERL], [perl])
 
