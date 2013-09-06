@@ -62,7 +62,7 @@ version_info := 16:2:10
 #
 FT2_EXTRA_LIBS     := 
 LIBBZ2             := 
-LIBZ               := 
+LIBZ               := -lz
 build_libtool_libs := 
 ft_version         := 16.2.10
 
@@ -81,7 +81,7 @@ ftmac_c :=
 # The SYSTEM_ZLIB macro is defined if the user wishes to link dynamically
 # with its system wide zlib. If SYSTEM_ZLIB is 'yes', the zlib part of the
 # ftgzip module is not compiled in.
-SYSTEM_ZLIB := 
+SYSTEM_ZLIB := yes
 
 
 # The NO_OUTPUT macro is appended to command lines in order to ignore

@@ -1,0 +1,808 @@
+./builds/unix/libtool --mode=compile /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG -DFT_CONFIG_CONFIG_H="<ftconfig.h>" -DFT2_BUILD_LIBRARY -DFT_CONFIG_MODULES_H="<ftmodule.h>"  -o /home/yochy/kobo/kobohack-j/freetype/objs/ftsystem.lo /home/yochy/kobo/kobohack-j/freetype/src/base/ftsystem.c
+libtool: compile:  /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG "-DFT_CONFIG_CONFIG_H=<ftconfig.h>" -DFT2_BUILD_LIBRARY "-DFT_CONFIG_MODULES_H=<ftmodule.h>" /home/yochy/kobo/kobohack-j/freetype/src/base/ftsystem.c  -fPIC -DPIC -o /home/yochy/kobo/kobohack-j/freetype/objs/.libs/ftsystem.o
+In file included from ./builds/unix/ftconfig.h:42:0,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/base/ftsystem.c:29:
+/home/yochy/kobo/kobohack-j/freetype/include/freetype/config/ftoption.h:187:0: warning: "FT_CONFIG_OPTION_SYSTEM_ZLIB" redefined [enabled by default]
+ #define FT_CONFIG_OPTION_SYSTEM_ZLIB
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+In file included from ./builds/unix/ftconfig.h:42:0,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/base/ftsystem.c:29:
+/home/yochy/kobo/kobohack-j/freetype/include/freetype/config/ftoption.h:228:0: warning: "FT_CONFIG_OPTION_USE_PNG" redefined [enabled by default]
+ #define FT_CONFIG_OPTION_USE_PNG
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+libtool: compile:  /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG "-DFT_CONFIG_CONFIG_H=<ftconfig.h>" -DFT2_BUILD_LIBRARY "-DFT_CONFIG_MODULES_H=<ftmodule.h>" /home/yochy/kobo/kobohack-j/freetype/src/base/ftsystem.c -o /home/yochy/kobo/kobohack-j/freetype/objs/ftsystem.o >/dev/null 2>&1
+./builds/unix/libtool --mode=compile /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG -DFT_CONFIG_CONFIG_H="<ftconfig.h>" -DFT2_BUILD_LIBRARY -DFT_CONFIG_MODULES_H="<ftmodule.h>"  -o /home/yochy/kobo/kobohack-j/freetype/objs/ftdebug.lo /home/yochy/kobo/kobohack-j/freetype/src/base/ftdebug.c
+libtool: compile:  /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG "-DFT_CONFIG_CONFIG_H=<ftconfig.h>" -DFT2_BUILD_LIBRARY "-DFT_CONFIG_MODULES_H=<ftmodule.h>" /home/yochy/kobo/kobohack-j/freetype/src/base/ftdebug.c  -fPIC -DPIC -o /home/yochy/kobo/kobohack-j/freetype/objs/.libs/ftdebug.o
+In file included from ./builds/unix/ftconfig.h:42:0,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/freetype.h:33,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/base/ftdebug.c:45:
+/home/yochy/kobo/kobohack-j/freetype/include/freetype/config/ftoption.h:187:0: warning: "FT_CONFIG_OPTION_SYSTEM_ZLIB" redefined [enabled by default]
+ #define FT_CONFIG_OPTION_SYSTEM_ZLIB
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+In file included from ./builds/unix/ftconfig.h:42:0,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/freetype.h:33,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/base/ftdebug.c:45:
+/home/yochy/kobo/kobohack-j/freetype/include/freetype/config/ftoption.h:228:0: warning: "FT_CONFIG_OPTION_USE_PNG" redefined [enabled by default]
+ #define FT_CONFIG_OPTION_USE_PNG
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+libtool: compile:  /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG "-DFT_CONFIG_CONFIG_H=<ftconfig.h>" -DFT2_BUILD_LIBRARY "-DFT_CONFIG_MODULES_H=<ftmodule.h>" /home/yochy/kobo/kobohack-j/freetype/src/base/ftdebug.c -o /home/yochy/kobo/kobohack-j/freetype/objs/ftdebug.o >/dev/null 2>&1
+./builds/unix/libtool --mode=compile /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG -DFT_CONFIG_CONFIG_H="<ftconfig.h>" -DFT2_BUILD_LIBRARY -DFT_CONFIG_MODULES_H="<ftmodule.h>"  -o /home/yochy/kobo/kobohack-j/freetype/objs/ftinit.lo /home/yochy/kobo/kobohack-j/freetype/src/base/ftinit.c
+libtool: compile:  /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG "-DFT_CONFIG_CONFIG_H=<ftconfig.h>" -DFT2_BUILD_LIBRARY "-DFT_CONFIG_MODULES_H=<ftmodule.h>" /home/yochy/kobo/kobohack-j/freetype/src/base/ftinit.c  -fPIC -DPIC -o /home/yochy/kobo/kobohack-j/freetype/objs/.libs/ftinit.o
+In file included from ./builds/unix/ftconfig.h:42:0,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/base/ftinit.c:41:
+/home/yochy/kobo/kobohack-j/freetype/include/freetype/config/ftoption.h:187:0: warning: "FT_CONFIG_OPTION_SYSTEM_ZLIB" redefined [enabled by default]
+ #define FT_CONFIG_OPTION_SYSTEM_ZLIB
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+In file included from ./builds/unix/ftconfig.h:42:0,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/base/ftinit.c:41:
+/home/yochy/kobo/kobohack-j/freetype/include/freetype/config/ftoption.h:228:0: warning: "FT_CONFIG_OPTION_USE_PNG" redefined [enabled by default]
+ #define FT_CONFIG_OPTION_USE_PNG
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+libtool: compile:  /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG "-DFT_CONFIG_CONFIG_H=<ftconfig.h>" -DFT2_BUILD_LIBRARY "-DFT_CONFIG_MODULES_H=<ftmodule.h>" /home/yochy/kobo/kobohack-j/freetype/src/base/ftinit.c -o /home/yochy/kobo/kobohack-j/freetype/objs/ftinit.o >/dev/null 2>&1
+./builds/unix/libtool --mode=compile /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG -DFT_CONFIG_CONFIG_H="<ftconfig.h>" -DFT2_BUILD_LIBRARY -DFT_CONFIG_MODULES_H="<ftmodule.h>"  -I/home/yochy/kobo/kobohack-j/freetype/src/base -o /home/yochy/kobo/kobohack-j/freetype/objs/ftbase.lo /home/yochy/kobo/kobohack-j/freetype/src/base/ftbase.c
+libtool: compile:  /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG "-DFT_CONFIG_CONFIG_H=<ftconfig.h>" -DFT2_BUILD_LIBRARY "-DFT_CONFIG_MODULES_H=<ftmodule.h>" -I/home/yochy/kobo/kobohack-j/freetype/src/base /home/yochy/kobo/kobohack-j/freetype/src/base/ftbase.c  -fPIC -DPIC -o /home/yochy/kobo/kobohack-j/freetype/objs/.libs/ftbase.o
+In file included from ./builds/unix/ftconfig.h:42:0,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/freetype.h:33,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/base/ftpic.c:20,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/base/ftbase.c:23:
+/home/yochy/kobo/kobohack-j/freetype/include/freetype/config/ftoption.h:187:0: warning: "FT_CONFIG_OPTION_SYSTEM_ZLIB" redefined [enabled by default]
+ #define FT_CONFIG_OPTION_SYSTEM_ZLIB
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+In file included from ./builds/unix/ftconfig.h:42:0,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/freetype.h:33,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/base/ftpic.c:20,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/base/ftbase.c:23:
+/home/yochy/kobo/kobohack-j/freetype/include/freetype/config/ftoption.h:228:0: warning: "FT_CONFIG_OPTION_USE_PNG" redefined [enabled by default]
+ #define FT_CONFIG_OPTION_USE_PNG
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+libtool: compile:  /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG "-DFT_CONFIG_CONFIG_H=<ftconfig.h>" -DFT2_BUILD_LIBRARY "-DFT_CONFIG_MODULES_H=<ftmodule.h>" -I/home/yochy/kobo/kobohack-j/freetype/src/base /home/yochy/kobo/kobohack-j/freetype/src/base/ftbase.c -o /home/yochy/kobo/kobohack-j/freetype/objs/ftbase.o >/dev/null 2>&1
+./builds/unix/libtool --mode=compile /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG -DFT_CONFIG_CONFIG_H="<ftconfig.h>" -DFT2_BUILD_LIBRARY -DFT_CONFIG_MODULES_H="<ftmodule.h>"  -I/home/yochy/kobo/kobohack-j/freetype/src/base -o /home/yochy/kobo/kobohack-j/freetype/objs/ftbbox.lo /home/yochy/kobo/kobohack-j/freetype/src/base/ftbbox.c
+libtool: compile:  /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG "-DFT_CONFIG_CONFIG_H=<ftconfig.h>" -DFT2_BUILD_LIBRARY "-DFT_CONFIG_MODULES_H=<ftmodule.h>" -I/home/yochy/kobo/kobohack-j/freetype/src/base /home/yochy/kobo/kobohack-j/freetype/src/base/ftbbox.c  -fPIC -DPIC -o /home/yochy/kobo/kobohack-j/freetype/objs/.libs/ftbbox.o
+In file included from ./builds/unix/ftconfig.h:42:0,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/internal/ftdebug.h:29,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/base/ftbbox.c:28:
+/home/yochy/kobo/kobohack-j/freetype/include/freetype/config/ftoption.h:187:0: warning: "FT_CONFIG_OPTION_SYSTEM_ZLIB" redefined [enabled by default]
+ #define FT_CONFIG_OPTION_SYSTEM_ZLIB
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+In file included from ./builds/unix/ftconfig.h:42:0,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/internal/ftdebug.h:29,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/base/ftbbox.c:28:
+/home/yochy/kobo/kobohack-j/freetype/include/freetype/config/ftoption.h:228:0: warning: "FT_CONFIG_OPTION_USE_PNG" redefined [enabled by default]
+ #define FT_CONFIG_OPTION_USE_PNG
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+libtool: compile:  /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG "-DFT_CONFIG_CONFIG_H=<ftconfig.h>" -DFT2_BUILD_LIBRARY "-DFT_CONFIG_MODULES_H=<ftmodule.h>" -I/home/yochy/kobo/kobohack-j/freetype/src/base /home/yochy/kobo/kobohack-j/freetype/src/base/ftbbox.c -o /home/yochy/kobo/kobohack-j/freetype/objs/ftbbox.o >/dev/null 2>&1
+./builds/unix/libtool --mode=compile /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG -DFT_CONFIG_CONFIG_H="<ftconfig.h>" -DFT2_BUILD_LIBRARY -DFT_CONFIG_MODULES_H="<ftmodule.h>"  -I/home/yochy/kobo/kobohack-j/freetype/src/base -o /home/yochy/kobo/kobohack-j/freetype/objs/ftbdf.lo /home/yochy/kobo/kobohack-j/freetype/src/base/ftbdf.c
+libtool: compile:  /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG "-DFT_CONFIG_CONFIG_H=<ftconfig.h>" -DFT2_BUILD_LIBRARY "-DFT_CONFIG_MODULES_H=<ftmodule.h>" -I/home/yochy/kobo/kobohack-j/freetype/src/base /home/yochy/kobo/kobohack-j/freetype/src/base/ftbdf.c  -fPIC -DPIC -o /home/yochy/kobo/kobohack-j/freetype/objs/.libs/ftbdf.o
+In file included from ./builds/unix/ftconfig.h:42:0,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/freetype.h:33,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/ftmodapi.h:24,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/ftrender.h:24,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/internal/ftobjs.h:30,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/base/ftbdf.c:20:
+/home/yochy/kobo/kobohack-j/freetype/include/freetype/config/ftoption.h:187:0: warning: "FT_CONFIG_OPTION_SYSTEM_ZLIB" redefined [enabled by default]
+ #define FT_CONFIG_OPTION_SYSTEM_ZLIB
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+In file included from ./builds/unix/ftconfig.h:42:0,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/freetype.h:33,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/ftmodapi.h:24,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/ftrender.h:24,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/internal/ftobjs.h:30,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/base/ftbdf.c:20:
+/home/yochy/kobo/kobohack-j/freetype/include/freetype/config/ftoption.h:228:0: warning: "FT_CONFIG_OPTION_USE_PNG" redefined [enabled by default]
+ #define FT_CONFIG_OPTION_USE_PNG
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+libtool: compile:  /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG "-DFT_CONFIG_CONFIG_H=<ftconfig.h>" -DFT2_BUILD_LIBRARY "-DFT_CONFIG_MODULES_H=<ftmodule.h>" -I/home/yochy/kobo/kobohack-j/freetype/src/base /home/yochy/kobo/kobohack-j/freetype/src/base/ftbdf.c -o /home/yochy/kobo/kobohack-j/freetype/objs/ftbdf.o >/dev/null 2>&1
+./builds/unix/libtool --mode=compile /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG -DFT_CONFIG_CONFIG_H="<ftconfig.h>" -DFT2_BUILD_LIBRARY -DFT_CONFIG_MODULES_H="<ftmodule.h>"  -I/home/yochy/kobo/kobohack-j/freetype/src/base -o /home/yochy/kobo/kobohack-j/freetype/objs/ftbitmap.lo /home/yochy/kobo/kobohack-j/freetype/src/base/ftbitmap.c
+libtool: compile:  /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG "-DFT_CONFIG_CONFIG_H=<ftconfig.h>" -DFT2_BUILD_LIBRARY "-DFT_CONFIG_MODULES_H=<ftmodule.h>" -I/home/yochy/kobo/kobohack-j/freetype/src/base /home/yochy/kobo/kobohack-j/freetype/src/base/ftbitmap.c  -fPIC -DPIC -o /home/yochy/kobo/kobohack-j/freetype/objs/.libs/ftbitmap.o
+In file included from ./builds/unix/ftconfig.h:42:0,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/internal/ftdebug.h:29,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/base/ftbitmap.c:20:
+/home/yochy/kobo/kobohack-j/freetype/include/freetype/config/ftoption.h:187:0: warning: "FT_CONFIG_OPTION_SYSTEM_ZLIB" redefined [enabled by default]
+ #define FT_CONFIG_OPTION_SYSTEM_ZLIB
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+In file included from ./builds/unix/ftconfig.h:42:0,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/internal/ftdebug.h:29,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/base/ftbitmap.c:20:
+/home/yochy/kobo/kobohack-j/freetype/include/freetype/config/ftoption.h:228:0: warning: "FT_CONFIG_OPTION_USE_PNG" redefined [enabled by default]
+ #define FT_CONFIG_OPTION_USE_PNG
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+libtool: compile:  /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG "-DFT_CONFIG_CONFIG_H=<ftconfig.h>" -DFT2_BUILD_LIBRARY "-DFT_CONFIG_MODULES_H=<ftmodule.h>" -I/home/yochy/kobo/kobohack-j/freetype/src/base /home/yochy/kobo/kobohack-j/freetype/src/base/ftbitmap.c -o /home/yochy/kobo/kobohack-j/freetype/objs/ftbitmap.o >/dev/null 2>&1
+./builds/unix/libtool --mode=compile /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG -DFT_CONFIG_CONFIG_H="<ftconfig.h>" -DFT2_BUILD_LIBRARY -DFT_CONFIG_MODULES_H="<ftmodule.h>"  -I/home/yochy/kobo/kobohack-j/freetype/src/base -o /home/yochy/kobo/kobohack-j/freetype/objs/ftcid.lo /home/yochy/kobo/kobohack-j/freetype/src/base/ftcid.c
+libtool: compile:  /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG "-DFT_CONFIG_CONFIG_H=<ftconfig.h>" -DFT2_BUILD_LIBRARY "-DFT_CONFIG_MODULES_H=<ftmodule.h>" -I/home/yochy/kobo/kobohack-j/freetype/src/base /home/yochy/kobo/kobohack-j/freetype/src/base/ftcid.c  -fPIC -DPIC -o /home/yochy/kobo/kobohack-j/freetype/objs/.libs/ftcid.o
+In file included from ./builds/unix/ftconfig.h:42:0,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/freetype.h:33,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/ftcid.h:22,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/base/ftcid.c:19:
+/home/yochy/kobo/kobohack-j/freetype/include/freetype/config/ftoption.h:187:0: warning: "FT_CONFIG_OPTION_SYSTEM_ZLIB" redefined [enabled by default]
+ #define FT_CONFIG_OPTION_SYSTEM_ZLIB
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+In file included from ./builds/unix/ftconfig.h:42:0,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/freetype.h:33,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/ftcid.h:22,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/base/ftcid.c:19:
+/home/yochy/kobo/kobohack-j/freetype/include/freetype/config/ftoption.h:228:0: warning: "FT_CONFIG_OPTION_USE_PNG" redefined [enabled by default]
+ #define FT_CONFIG_OPTION_USE_PNG
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+libtool: compile:  /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG "-DFT_CONFIG_CONFIG_H=<ftconfig.h>" -DFT2_BUILD_LIBRARY "-DFT_CONFIG_MODULES_H=<ftmodule.h>" -I/home/yochy/kobo/kobohack-j/freetype/src/base /home/yochy/kobo/kobohack-j/freetype/src/base/ftcid.c -o /home/yochy/kobo/kobohack-j/freetype/objs/ftcid.o >/dev/null 2>&1
+./builds/unix/libtool --mode=compile /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG -DFT_CONFIG_CONFIG_H="<ftconfig.h>" -DFT2_BUILD_LIBRARY -DFT_CONFIG_MODULES_H="<ftmodule.h>"  -I/home/yochy/kobo/kobohack-j/freetype/src/base -o /home/yochy/kobo/kobohack-j/freetype/objs/ftfstype.lo /home/yochy/kobo/kobohack-j/freetype/src/base/ftfstype.c
+libtool: compile:  /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG "-DFT_CONFIG_CONFIG_H=<ftconfig.h>" -DFT2_BUILD_LIBRARY "-DFT_CONFIG_MODULES_H=<ftmodule.h>" -I/home/yochy/kobo/kobohack-j/freetype/src/base /home/yochy/kobo/kobohack-j/freetype/src/base/ftfstype.c  -fPIC -DPIC -o /home/yochy/kobo/kobohack-j/freetype/objs/.libs/ftfstype.o
+In file included from ./builds/unix/ftconfig.h:42:0,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/freetype.h:33,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/t1tables.h:25,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/base/ftfstype.c:19:
+/home/yochy/kobo/kobohack-j/freetype/include/freetype/config/ftoption.h:187:0: warning: "FT_CONFIG_OPTION_SYSTEM_ZLIB" redefined [enabled by default]
+ #define FT_CONFIG_OPTION_SYSTEM_ZLIB
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+In file included from ./builds/unix/ftconfig.h:42:0,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/freetype.h:33,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/t1tables.h:25,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/base/ftfstype.c:19:
+/home/yochy/kobo/kobohack-j/freetype/include/freetype/config/ftoption.h:228:0: warning: "FT_CONFIG_OPTION_USE_PNG" redefined [enabled by default]
+ #define FT_CONFIG_OPTION_USE_PNG
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+libtool: compile:  /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG "-DFT_CONFIG_CONFIG_H=<ftconfig.h>" -DFT2_BUILD_LIBRARY "-DFT_CONFIG_MODULES_H=<ftmodule.h>" -I/home/yochy/kobo/kobohack-j/freetype/src/base /home/yochy/kobo/kobohack-j/freetype/src/base/ftfstype.c -o /home/yochy/kobo/kobohack-j/freetype/objs/ftfstype.o >/dev/null 2>&1
+./builds/unix/libtool --mode=compile /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG -DFT_CONFIG_CONFIG_H="<ftconfig.h>" -DFT2_BUILD_LIBRARY -DFT_CONFIG_MODULES_H="<ftmodule.h>"  -I/home/yochy/kobo/kobohack-j/freetype/src/base -o /home/yochy/kobo/kobohack-j/freetype/objs/ftgasp.lo /home/yochy/kobo/kobohack-j/freetype/src/base/ftgasp.c
+libtool: compile:  /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG "-DFT_CONFIG_CONFIG_H=<ftconfig.h>" -DFT2_BUILD_LIBRARY "-DFT_CONFIG_MODULES_H=<ftmodule.h>" -I/home/yochy/kobo/kobohack-j/freetype/src/base /home/yochy/kobo/kobohack-j/freetype/src/base/ftgasp.c  -fPIC -DPIC -o /home/yochy/kobo/kobohack-j/freetype/objs/.libs/ftgasp.o
+In file included from ./builds/unix/ftconfig.h:42:0,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/freetype.h:33,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/ftgasp.h:23,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/base/ftgasp.c:20:
+/home/yochy/kobo/kobohack-j/freetype/include/freetype/config/ftoption.h:187:0: warning: "FT_CONFIG_OPTION_SYSTEM_ZLIB" redefined [enabled by default]
+ #define FT_CONFIG_OPTION_SYSTEM_ZLIB
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+In file included from ./builds/unix/ftconfig.h:42:0,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/freetype.h:33,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/ftgasp.h:23,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/base/ftgasp.c:20:
+/home/yochy/kobo/kobohack-j/freetype/include/freetype/config/ftoption.h:228:0: warning: "FT_CONFIG_OPTION_USE_PNG" redefined [enabled by default]
+ #define FT_CONFIG_OPTION_USE_PNG
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+libtool: compile:  /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG "-DFT_CONFIG_CONFIG_H=<ftconfig.h>" -DFT2_BUILD_LIBRARY "-DFT_CONFIG_MODULES_H=<ftmodule.h>" -I/home/yochy/kobo/kobohack-j/freetype/src/base /home/yochy/kobo/kobohack-j/freetype/src/base/ftgasp.c -o /home/yochy/kobo/kobohack-j/freetype/objs/ftgasp.o >/dev/null 2>&1
+./builds/unix/libtool --mode=compile /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG -DFT_CONFIG_CONFIG_H="<ftconfig.h>" -DFT2_BUILD_LIBRARY -DFT_CONFIG_MODULES_H="<ftmodule.h>"  -I/home/yochy/kobo/kobohack-j/freetype/src/base -o /home/yochy/kobo/kobohack-j/freetype/objs/ftglyph.lo /home/yochy/kobo/kobohack-j/freetype/src/base/ftglyph.c
+libtool: compile:  /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG "-DFT_CONFIG_CONFIG_H=<ftconfig.h>" -DFT2_BUILD_LIBRARY "-DFT_CONFIG_MODULES_H=<ftmodule.h>" -I/home/yochy/kobo/kobohack-j/freetype/src/base /home/yochy/kobo/kobohack-j/freetype/src/base/ftglyph.c  -fPIC -DPIC -o /home/yochy/kobo/kobohack-j/freetype/objs/.libs/ftglyph.o
+In file included from ./builds/unix/ftconfig.h:42:0,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/internal/ftdebug.h:29,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/base/ftglyph.c:32:
+/home/yochy/kobo/kobohack-j/freetype/include/freetype/config/ftoption.h:187:0: warning: "FT_CONFIG_OPTION_SYSTEM_ZLIB" redefined [enabled by default]
+ #define FT_CONFIG_OPTION_SYSTEM_ZLIB
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+In file included from ./builds/unix/ftconfig.h:42:0,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/internal/ftdebug.h:29,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/base/ftglyph.c:32:
+/home/yochy/kobo/kobohack-j/freetype/include/freetype/config/ftoption.h:228:0: warning: "FT_CONFIG_OPTION_USE_PNG" redefined [enabled by default]
+ #define FT_CONFIG_OPTION_USE_PNG
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+libtool: compile:  /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG "-DFT_CONFIG_CONFIG_H=<ftconfig.h>" -DFT2_BUILD_LIBRARY "-DFT_CONFIG_MODULES_H=<ftmodule.h>" -I/home/yochy/kobo/kobohack-j/freetype/src/base /home/yochy/kobo/kobohack-j/freetype/src/base/ftglyph.c -o /home/yochy/kobo/kobohack-j/freetype/objs/ftglyph.o >/dev/null 2>&1
+./builds/unix/libtool --mode=compile /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG -DFT_CONFIG_CONFIG_H="<ftconfig.h>" -DFT2_BUILD_LIBRARY -DFT_CONFIG_MODULES_H="<ftmodule.h>"  -I/home/yochy/kobo/kobohack-j/freetype/src/base -o /home/yochy/kobo/kobohack-j/freetype/objs/ftgxval.lo /home/yochy/kobo/kobohack-j/freetype/src/base/ftgxval.c
+libtool: compile:  /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG "-DFT_CONFIG_CONFIG_H=<ftconfig.h>" -DFT2_BUILD_LIBRARY "-DFT_CONFIG_MODULES_H=<ftmodule.h>" -I/home/yochy/kobo/kobohack-j/freetype/src/base /home/yochy/kobo/kobohack-j/freetype/src/base/ftgxval.c  -fPIC -DPIC -o /home/yochy/kobo/kobohack-j/freetype/objs/.libs/ftgxval.o
+In file included from ./builds/unix/ftconfig.h:42:0,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/internal/ftdebug.h:29,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/base/ftgxval.c:29:
+/home/yochy/kobo/kobohack-j/freetype/include/freetype/config/ftoption.h:187:0: warning: "FT_CONFIG_OPTION_SYSTEM_ZLIB" redefined [enabled by default]
+ #define FT_CONFIG_OPTION_SYSTEM_ZLIB
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+In file included from ./builds/unix/ftconfig.h:42:0,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/internal/ftdebug.h:29,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/base/ftgxval.c:29:
+/home/yochy/kobo/kobohack-j/freetype/include/freetype/config/ftoption.h:228:0: warning: "FT_CONFIG_OPTION_USE_PNG" redefined [enabled by default]
+ #define FT_CONFIG_OPTION_USE_PNG
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+libtool: compile:  /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG "-DFT_CONFIG_CONFIG_H=<ftconfig.h>" -DFT2_BUILD_LIBRARY "-DFT_CONFIG_MODULES_H=<ftmodule.h>" -I/home/yochy/kobo/kobohack-j/freetype/src/base /home/yochy/kobo/kobohack-j/freetype/src/base/ftgxval.c -o /home/yochy/kobo/kobohack-j/freetype/objs/ftgxval.o >/dev/null 2>&1
+./builds/unix/libtool --mode=compile /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG -DFT_CONFIG_CONFIG_H="<ftconfig.h>" -DFT2_BUILD_LIBRARY -DFT_CONFIG_MODULES_H="<ftmodule.h>"  -I/home/yochy/kobo/kobohack-j/freetype/src/base -o /home/yochy/kobo/kobohack-j/freetype/objs/ftlcdfil.lo /home/yochy/kobo/kobohack-j/freetype/src/base/ftlcdfil.c
+libtool: compile:  /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG "-DFT_CONFIG_CONFIG_H=<ftconfig.h>" -DFT2_BUILD_LIBRARY "-DFT_CONFIG_MODULES_H=<ftmodule.h>" -I/home/yochy/kobo/kobohack-j/freetype/src/base /home/yochy/kobo/kobohack-j/freetype/src/base/ftlcdfil.c  -fPIC -DPIC -o /home/yochy/kobo/kobohack-j/freetype/objs/.libs/ftlcdfil.o
+In file included from ./builds/unix/ftconfig.h:42:0,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/internal/ftdebug.h:29,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/base/ftlcdfil.c:20:
+/home/yochy/kobo/kobohack-j/freetype/include/freetype/config/ftoption.h:187:0: warning: "FT_CONFIG_OPTION_SYSTEM_ZLIB" redefined [enabled by default]
+ #define FT_CONFIG_OPTION_SYSTEM_ZLIB
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+In file included from ./builds/unix/ftconfig.h:42:0,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/internal/ftdebug.h:29,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/base/ftlcdfil.c:20:
+/home/yochy/kobo/kobohack-j/freetype/include/freetype/config/ftoption.h:228:0: warning: "FT_CONFIG_OPTION_USE_PNG" redefined [enabled by default]
+ #define FT_CONFIG_OPTION_USE_PNG
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+libtool: compile:  /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG "-DFT_CONFIG_CONFIG_H=<ftconfig.h>" -DFT2_BUILD_LIBRARY "-DFT_CONFIG_MODULES_H=<ftmodule.h>" -I/home/yochy/kobo/kobohack-j/freetype/src/base /home/yochy/kobo/kobohack-j/freetype/src/base/ftlcdfil.c -o /home/yochy/kobo/kobohack-j/freetype/objs/ftlcdfil.o >/dev/null 2>&1
+./builds/unix/libtool --mode=compile /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG -DFT_CONFIG_CONFIG_H="<ftconfig.h>" -DFT2_BUILD_LIBRARY -DFT_CONFIG_MODULES_H="<ftmodule.h>"  -I/home/yochy/kobo/kobohack-j/freetype/src/base -o /home/yochy/kobo/kobohack-j/freetype/objs/ftmm.lo /home/yochy/kobo/kobohack-j/freetype/src/base/ftmm.c
+libtool: compile:  /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG "-DFT_CONFIG_CONFIG_H=<ftconfig.h>" -DFT2_BUILD_LIBRARY "-DFT_CONFIG_MODULES_H=<ftmodule.h>" -I/home/yochy/kobo/kobohack-j/freetype/src/base /home/yochy/kobo/kobohack-j/freetype/src/base/ftmm.c  -fPIC -DPIC -o /home/yochy/kobo/kobohack-j/freetype/objs/.libs/ftmm.o
+In file included from ./builds/unix/ftconfig.h:42:0,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/internal/ftdebug.h:29,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/base/ftmm.c:20:
+/home/yochy/kobo/kobohack-j/freetype/include/freetype/config/ftoption.h:187:0: warning: "FT_CONFIG_OPTION_SYSTEM_ZLIB" redefined [enabled by default]
+ #define FT_CONFIG_OPTION_SYSTEM_ZLIB
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+In file included from ./builds/unix/ftconfig.h:42:0,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/internal/ftdebug.h:29,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/base/ftmm.c:20:
+/home/yochy/kobo/kobohack-j/freetype/include/freetype/config/ftoption.h:228:0: warning: "FT_CONFIG_OPTION_USE_PNG" redefined [enabled by default]
+ #define FT_CONFIG_OPTION_USE_PNG
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+libtool: compile:  /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG "-DFT_CONFIG_CONFIG_H=<ftconfig.h>" -DFT2_BUILD_LIBRARY "-DFT_CONFIG_MODULES_H=<ftmodule.h>" -I/home/yochy/kobo/kobohack-j/freetype/src/base /home/yochy/kobo/kobohack-j/freetype/src/base/ftmm.c -o /home/yochy/kobo/kobohack-j/freetype/objs/ftmm.o >/dev/null 2>&1
+./builds/unix/libtool --mode=compile /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG -DFT_CONFIG_CONFIG_H="<ftconfig.h>" -DFT2_BUILD_LIBRARY -DFT_CONFIG_MODULES_H="<ftmodule.h>"  -I/home/yochy/kobo/kobohack-j/freetype/src/base -o /home/yochy/kobo/kobohack-j/freetype/objs/ftotval.lo /home/yochy/kobo/kobohack-j/freetype/src/base/ftotval.c
+libtool: compile:  /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG "-DFT_CONFIG_CONFIG_H=<ftconfig.h>" -DFT2_BUILD_LIBRARY "-DFT_CONFIG_MODULES_H=<ftmodule.h>" -I/home/yochy/kobo/kobohack-j/freetype/src/base /home/yochy/kobo/kobohack-j/freetype/src/base/ftotval.c  -fPIC -DPIC -o /home/yochy/kobo/kobohack-j/freetype/objs/.libs/ftotval.o
+In file included from ./builds/unix/ftconfig.h:42:0,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/internal/ftdebug.h:29,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/base/ftotval.c:19:
+/home/yochy/kobo/kobohack-j/freetype/include/freetype/config/ftoption.h:187:0: warning: "FT_CONFIG_OPTION_SYSTEM_ZLIB" redefined [enabled by default]
+ #define FT_CONFIG_OPTION_SYSTEM_ZLIB
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+In file included from ./builds/unix/ftconfig.h:42:0,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/internal/ftdebug.h:29,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/base/ftotval.c:19:
+/home/yochy/kobo/kobohack-j/freetype/include/freetype/config/ftoption.h:228:0: warning: "FT_CONFIG_OPTION_USE_PNG" redefined [enabled by default]
+ #define FT_CONFIG_OPTION_USE_PNG
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+libtool: compile:  /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG "-DFT_CONFIG_CONFIG_H=<ftconfig.h>" -DFT2_BUILD_LIBRARY "-DFT_CONFIG_MODULES_H=<ftmodule.h>" -I/home/yochy/kobo/kobohack-j/freetype/src/base /home/yochy/kobo/kobohack-j/freetype/src/base/ftotval.c -o /home/yochy/kobo/kobohack-j/freetype/objs/ftotval.o >/dev/null 2>&1
+./builds/unix/libtool --mode=compile /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG -DFT_CONFIG_CONFIG_H="<ftconfig.h>" -DFT2_BUILD_LIBRARY -DFT_CONFIG_MODULES_H="<ftmodule.h>"  -I/home/yochy/kobo/kobohack-j/freetype/src/base -o /home/yochy/kobo/kobohack-j/freetype/objs/ftpatent.lo /home/yochy/kobo/kobohack-j/freetype/src/base/ftpatent.c
+libtool: compile:  /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG "-DFT_CONFIG_CONFIG_H=<ftconfig.h>" -DFT2_BUILD_LIBRARY "-DFT_CONFIG_MODULES_H=<ftmodule.h>" -I/home/yochy/kobo/kobohack-j/freetype/src/base /home/yochy/kobo/kobohack-j/freetype/src/base/ftpatent.c  -fPIC -DPIC -o /home/yochy/kobo/kobohack-j/freetype/objs/.libs/ftpatent.o
+In file included from ./builds/unix/ftconfig.h:42:0,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/freetype.h:33,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/base/ftpatent.c:19:
+/home/yochy/kobo/kobohack-j/freetype/include/freetype/config/ftoption.h:187:0: warning: "FT_CONFIG_OPTION_SYSTEM_ZLIB" redefined [enabled by default]
+ #define FT_CONFIG_OPTION_SYSTEM_ZLIB
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+In file included from ./builds/unix/ftconfig.h:42:0,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/freetype.h:33,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/base/ftpatent.c:19:
+/home/yochy/kobo/kobohack-j/freetype/include/freetype/config/ftoption.h:228:0: warning: "FT_CONFIG_OPTION_USE_PNG" redefined [enabled by default]
+ #define FT_CONFIG_OPTION_USE_PNG
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+libtool: compile:  /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG "-DFT_CONFIG_CONFIG_H=<ftconfig.h>" -DFT2_BUILD_LIBRARY "-DFT_CONFIG_MODULES_H=<ftmodule.h>" -I/home/yochy/kobo/kobohack-j/freetype/src/base /home/yochy/kobo/kobohack-j/freetype/src/base/ftpatent.c -o /home/yochy/kobo/kobohack-j/freetype/objs/ftpatent.o >/dev/null 2>&1
+./builds/unix/libtool --mode=compile /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG -DFT_CONFIG_CONFIG_H="<ftconfig.h>" -DFT2_BUILD_LIBRARY -DFT_CONFIG_MODULES_H="<ftmodule.h>"  -I/home/yochy/kobo/kobohack-j/freetype/src/base -o /home/yochy/kobo/kobohack-j/freetype/objs/ftpfr.lo /home/yochy/kobo/kobohack-j/freetype/src/base/ftpfr.c
+libtool: compile:  /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG "-DFT_CONFIG_CONFIG_H=<ftconfig.h>" -DFT2_BUILD_LIBRARY "-DFT_CONFIG_MODULES_H=<ftmodule.h>" -I/home/yochy/kobo/kobohack-j/freetype/src/base /home/yochy/kobo/kobohack-j/freetype/src/base/ftpfr.c  -fPIC -DPIC -o /home/yochy/kobo/kobohack-j/freetype/objs/.libs/ftpfr.o
+In file included from ./builds/unix/ftconfig.h:42:0,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/internal/ftdebug.h:29,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/base/ftpfr.c:19:
+/home/yochy/kobo/kobohack-j/freetype/include/freetype/config/ftoption.h:187:0: warning: "FT_CONFIG_OPTION_SYSTEM_ZLIB" redefined [enabled by default]
+ #define FT_CONFIG_OPTION_SYSTEM_ZLIB
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+In file included from ./builds/unix/ftconfig.h:42:0,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/internal/ftdebug.h:29,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/base/ftpfr.c:19:
+/home/yochy/kobo/kobohack-j/freetype/include/freetype/config/ftoption.h:228:0: warning: "FT_CONFIG_OPTION_USE_PNG" redefined [enabled by default]
+ #define FT_CONFIG_OPTION_USE_PNG
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+libtool: compile:  /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG "-DFT_CONFIG_CONFIG_H=<ftconfig.h>" -DFT2_BUILD_LIBRARY "-DFT_CONFIG_MODULES_H=<ftmodule.h>" -I/home/yochy/kobo/kobohack-j/freetype/src/base /home/yochy/kobo/kobohack-j/freetype/src/base/ftpfr.c -o /home/yochy/kobo/kobohack-j/freetype/objs/ftpfr.o >/dev/null 2>&1
+./builds/unix/libtool --mode=compile /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG -DFT_CONFIG_CONFIG_H="<ftconfig.h>" -DFT2_BUILD_LIBRARY -DFT_CONFIG_MODULES_H="<ftmodule.h>"  -I/home/yochy/kobo/kobohack-j/freetype/src/base -o /home/yochy/kobo/kobohack-j/freetype/objs/ftstroke.lo /home/yochy/kobo/kobohack-j/freetype/src/base/ftstroke.c
+libtool: compile:  /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG "-DFT_CONFIG_CONFIG_H=<ftconfig.h>" -DFT2_BUILD_LIBRARY "-DFT_CONFIG_MODULES_H=<ftmodule.h>" -I/home/yochy/kobo/kobohack-j/freetype/src/base /home/yochy/kobo/kobohack-j/freetype/src/base/ftstroke.c  -fPIC -DPIC -o /home/yochy/kobo/kobohack-j/freetype/objs/.libs/ftstroke.o
+In file included from ./builds/unix/ftconfig.h:42:0,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/freetype.h:33,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/ftoutln.h:25,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/ftstroke.h:23,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/base/ftstroke.c:20:
+/home/yochy/kobo/kobohack-j/freetype/include/freetype/config/ftoption.h:187:0: warning: "FT_CONFIG_OPTION_SYSTEM_ZLIB" redefined [enabled by default]
+ #define FT_CONFIG_OPTION_SYSTEM_ZLIB
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+In file included from ./builds/unix/ftconfig.h:42:0,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/freetype.h:33,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/ftoutln.h:25,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/ftstroke.h:23,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/base/ftstroke.c:20:
+/home/yochy/kobo/kobohack-j/freetype/include/freetype/config/ftoption.h:228:0: warning: "FT_CONFIG_OPTION_USE_PNG" redefined [enabled by default]
+ #define FT_CONFIG_OPTION_USE_PNG
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+libtool: compile:  /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG "-DFT_CONFIG_CONFIG_H=<ftconfig.h>" -DFT2_BUILD_LIBRARY "-DFT_CONFIG_MODULES_H=<ftmodule.h>" -I/home/yochy/kobo/kobohack-j/freetype/src/base /home/yochy/kobo/kobohack-j/freetype/src/base/ftstroke.c -o /home/yochy/kobo/kobohack-j/freetype/objs/ftstroke.o >/dev/null 2>&1
+./builds/unix/libtool --mode=compile /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG -DFT_CONFIG_CONFIG_H="<ftconfig.h>" -DFT2_BUILD_LIBRARY -DFT_CONFIG_MODULES_H="<ftmodule.h>"  -I/home/yochy/kobo/kobohack-j/freetype/src/base -o /home/yochy/kobo/kobohack-j/freetype/objs/ftsynth.lo /home/yochy/kobo/kobohack-j/freetype/src/base/ftsynth.c
+libtool: compile:  /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG "-DFT_CONFIG_CONFIG_H=<ftconfig.h>" -DFT2_BUILD_LIBRARY "-DFT_CONFIG_MODULES_H=<ftmodule.h>" -I/home/yochy/kobo/kobohack-j/freetype/src/base /home/yochy/kobo/kobohack-j/freetype/src/base/ftsynth.c  -fPIC -DPIC -o /home/yochy/kobo/kobohack-j/freetype/objs/.libs/ftsynth.o
+In file included from ./builds/unix/ftconfig.h:42:0,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/freetype.h:33,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/ftsynth.h:49,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/base/ftsynth.c:20:
+/home/yochy/kobo/kobohack-j/freetype/include/freetype/config/ftoption.h:187:0: warning: "FT_CONFIG_OPTION_SYSTEM_ZLIB" redefined [enabled by default]
+ #define FT_CONFIG_OPTION_SYSTEM_ZLIB
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+In file included from ./builds/unix/ftconfig.h:42:0,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/freetype.h:33,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/ftsynth.h:49,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/base/ftsynth.c:20:
+/home/yochy/kobo/kobohack-j/freetype/include/freetype/config/ftoption.h:228:0: warning: "FT_CONFIG_OPTION_USE_PNG" redefined [enabled by default]
+ #define FT_CONFIG_OPTION_USE_PNG
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+libtool: compile:  /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG "-DFT_CONFIG_CONFIG_H=<ftconfig.h>" -DFT2_BUILD_LIBRARY "-DFT_CONFIG_MODULES_H=<ftmodule.h>" -I/home/yochy/kobo/kobohack-j/freetype/src/base /home/yochy/kobo/kobohack-j/freetype/src/base/ftsynth.c -o /home/yochy/kobo/kobohack-j/freetype/objs/ftsynth.o >/dev/null 2>&1
+./builds/unix/libtool --mode=compile /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG -DFT_CONFIG_CONFIG_H="<ftconfig.h>" -DFT2_BUILD_LIBRARY -DFT_CONFIG_MODULES_H="<ftmodule.h>"  -I/home/yochy/kobo/kobohack-j/freetype/src/base -o /home/yochy/kobo/kobohack-j/freetype/objs/fttype1.lo /home/yochy/kobo/kobohack-j/freetype/src/base/fttype1.c
+libtool: compile:  /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG "-DFT_CONFIG_CONFIG_H=<ftconfig.h>" -DFT2_BUILD_LIBRARY "-DFT_CONFIG_MODULES_H=<ftmodule.h>" -I/home/yochy/kobo/kobohack-j/freetype/src/base /home/yochy/kobo/kobohack-j/freetype/src/base/fttype1.c  -fPIC -DPIC -o /home/yochy/kobo/kobohack-j/freetype/objs/.libs/fttype1.o
+In file included from ./builds/unix/ftconfig.h:42:0,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/freetype.h:33,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/ftmodapi.h:24,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/ftrender.h:24,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/internal/ftobjs.h:30,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/base/fttype1.c:20:
+/home/yochy/kobo/kobohack-j/freetype/include/freetype/config/ftoption.h:187:0: warning: "FT_CONFIG_OPTION_SYSTEM_ZLIB" redefined [enabled by default]
+ #define FT_CONFIG_OPTION_SYSTEM_ZLIB
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+In file included from ./builds/unix/ftconfig.h:42:0,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/freetype.h:33,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/ftmodapi.h:24,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/ftrender.h:24,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/internal/ftobjs.h:30,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/base/fttype1.c:20:
+/home/yochy/kobo/kobohack-j/freetype/include/freetype/config/ftoption.h:228:0: warning: "FT_CONFIG_OPTION_USE_PNG" redefined [enabled by default]
+ #define FT_CONFIG_OPTION_USE_PNG
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+libtool: compile:  /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG "-DFT_CONFIG_CONFIG_H=<ftconfig.h>" -DFT2_BUILD_LIBRARY "-DFT_CONFIG_MODULES_H=<ftmodule.h>" -I/home/yochy/kobo/kobohack-j/freetype/src/base /home/yochy/kobo/kobohack-j/freetype/src/base/fttype1.c -o /home/yochy/kobo/kobohack-j/freetype/objs/fttype1.o >/dev/null 2>&1
+./builds/unix/libtool --mode=compile /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG -DFT_CONFIG_CONFIG_H="<ftconfig.h>" -DFT2_BUILD_LIBRARY -DFT_CONFIG_MODULES_H="<ftmodule.h>"  -I/home/yochy/kobo/kobohack-j/freetype/src/base -o /home/yochy/kobo/kobohack-j/freetype/objs/ftwinfnt.lo /home/yochy/kobo/kobohack-j/freetype/src/base/ftwinfnt.c
+libtool: compile:  /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG "-DFT_CONFIG_CONFIG_H=<ftconfig.h>" -DFT2_BUILD_LIBRARY "-DFT_CONFIG_MODULES_H=<ftmodule.h>" -I/home/yochy/kobo/kobohack-j/freetype/src/base /home/yochy/kobo/kobohack-j/freetype/src/base/ftwinfnt.c  -fPIC -DPIC -o /home/yochy/kobo/kobohack-j/freetype/objs/.libs/ftwinfnt.o
+In file included from ./builds/unix/ftconfig.h:42:0,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/freetype.h:33,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/ftwinfnt.h:23,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/base/ftwinfnt.c:20:
+/home/yochy/kobo/kobohack-j/freetype/include/freetype/config/ftoption.h:187:0: warning: "FT_CONFIG_OPTION_SYSTEM_ZLIB" redefined [enabled by default]
+ #define FT_CONFIG_OPTION_SYSTEM_ZLIB
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+In file included from ./builds/unix/ftconfig.h:42:0,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/freetype.h:33,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/ftwinfnt.h:23,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/base/ftwinfnt.c:20:
+/home/yochy/kobo/kobohack-j/freetype/include/freetype/config/ftoption.h:228:0: warning: "FT_CONFIG_OPTION_USE_PNG" redefined [enabled by default]
+ #define FT_CONFIG_OPTION_USE_PNG
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+libtool: compile:  /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG "-DFT_CONFIG_CONFIG_H=<ftconfig.h>" -DFT2_BUILD_LIBRARY "-DFT_CONFIG_MODULES_H=<ftmodule.h>" -I/home/yochy/kobo/kobohack-j/freetype/src/base /home/yochy/kobo/kobohack-j/freetype/src/base/ftwinfnt.c -o /home/yochy/kobo/kobohack-j/freetype/objs/ftwinfnt.o >/dev/null 2>&1
+./builds/unix/libtool --mode=compile /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG -DFT_CONFIG_CONFIG_H="<ftconfig.h>" -DFT2_BUILD_LIBRARY -DFT_CONFIG_MODULES_H="<ftmodule.h>"  -I/home/yochy/kobo/kobohack-j/freetype/src/base -o /home/yochy/kobo/kobohack-j/freetype/objs/ftxf86.lo /home/yochy/kobo/kobohack-j/freetype/src/base/ftxf86.c
+libtool: compile:  /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG "-DFT_CONFIG_CONFIG_H=<ftconfig.h>" -DFT2_BUILD_LIBRARY "-DFT_CONFIG_MODULES_H=<ftmodule.h>" -I/home/yochy/kobo/kobohack-j/freetype/src/base /home/yochy/kobo/kobohack-j/freetype/src/base/ftxf86.c  -fPIC -DPIC -o /home/yochy/kobo/kobohack-j/freetype/objs/.libs/ftxf86.o
+In file included from ./builds/unix/ftconfig.h:42:0,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/freetype.h:33,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/ftxf86.h:23,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/base/ftxf86.c:20:
+/home/yochy/kobo/kobohack-j/freetype/include/freetype/config/ftoption.h:187:0: warning: "FT_CONFIG_OPTION_SYSTEM_ZLIB" redefined [enabled by default]
+ #define FT_CONFIG_OPTION_SYSTEM_ZLIB
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+In file included from ./builds/unix/ftconfig.h:42:0,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/freetype.h:33,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/ftxf86.h:23,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/base/ftxf86.c:20:
+/home/yochy/kobo/kobohack-j/freetype/include/freetype/config/ftoption.h:228:0: warning: "FT_CONFIG_OPTION_USE_PNG" redefined [enabled by default]
+ #define FT_CONFIG_OPTION_USE_PNG
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+libtool: compile:  /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG "-DFT_CONFIG_CONFIG_H=<ftconfig.h>" -DFT2_BUILD_LIBRARY "-DFT_CONFIG_MODULES_H=<ftmodule.h>" -I/home/yochy/kobo/kobohack-j/freetype/src/base /home/yochy/kobo/kobohack-j/freetype/src/base/ftxf86.c -o /home/yochy/kobo/kobohack-j/freetype/objs/ftxf86.o >/dev/null 2>&1
+./builds/unix/libtool --mode=compile /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG -DFT_CONFIG_CONFIG_H="<ftconfig.h>" -DFT2_BUILD_LIBRARY -DFT_CONFIG_MODULES_H="<ftmodule.h>"  -I/home/yochy/kobo/kobohack-j/freetype/src/truetype -o /home/yochy/kobo/kobohack-j/freetype/objs/truetype.lo /home/yochy/kobo/kobohack-j/freetype/src/truetype/truetype.c
+libtool: compile:  /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG "-DFT_CONFIG_CONFIG_H=<ftconfig.h>" -DFT2_BUILD_LIBRARY "-DFT_CONFIG_MODULES_H=<ftmodule.h>" -I/home/yochy/kobo/kobohack-j/freetype/src/truetype /home/yochy/kobo/kobohack-j/freetype/src/truetype/truetype.c  -fPIC -DPIC -o /home/yochy/kobo/kobohack-j/freetype/objs/.libs/truetype.o
+In file included from ./builds/unix/ftconfig.h:42:0,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/freetype.h:33,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/truetype/ttpic.c:20,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/truetype/truetype.c:22:
+/home/yochy/kobo/kobohack-j/freetype/include/freetype/config/ftoption.h:187:0: warning: "FT_CONFIG_OPTION_SYSTEM_ZLIB" redefined [enabled by default]
+ #define FT_CONFIG_OPTION_SYSTEM_ZLIB
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+In file included from ./builds/unix/ftconfig.h:42:0,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/freetype.h:33,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/truetype/ttpic.c:20,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/truetype/truetype.c:22:
+/home/yochy/kobo/kobohack-j/freetype/include/freetype/config/ftoption.h:228:0: warning: "FT_CONFIG_OPTION_USE_PNG" redefined [enabled by default]
+ #define FT_CONFIG_OPTION_USE_PNG
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+libtool: compile:  /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG "-DFT_CONFIG_CONFIG_H=<ftconfig.h>" -DFT2_BUILD_LIBRARY "-DFT_CONFIG_MODULES_H=<ftmodule.h>" -I/home/yochy/kobo/kobohack-j/freetype/src/truetype /home/yochy/kobo/kobohack-j/freetype/src/truetype/truetype.c -o /home/yochy/kobo/kobohack-j/freetype/objs/truetype.o >/dev/null 2>&1
+./builds/unix/libtool --mode=compile /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG -DFT_CONFIG_CONFIG_H="<ftconfig.h>" -DFT2_BUILD_LIBRARY -DFT_CONFIG_MODULES_H="<ftmodule.h>"  -I/home/yochy/kobo/kobohack-j/freetype/src/type1 -o /home/yochy/kobo/kobohack-j/freetype/objs/type1.lo /home/yochy/kobo/kobohack-j/freetype/src/type1/type1.c
+libtool: compile:  /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG "-DFT_CONFIG_CONFIG_H=<ftconfig.h>" -DFT2_BUILD_LIBRARY "-DFT_CONFIG_MODULES_H=<ftmodule.h>" -I/home/yochy/kobo/kobohack-j/freetype/src/type1 /home/yochy/kobo/kobohack-j/freetype/src/type1/type1.c  -fPIC -DPIC -o /home/yochy/kobo/kobohack-j/freetype/objs/.libs/type1.o
+In file included from ./builds/unix/ftconfig.h:42:0,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/internal/ftdebug.h:29,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/type1/t1parse.c:37,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/type1/type1.c:22:
+/home/yochy/kobo/kobohack-j/freetype/include/freetype/config/ftoption.h:187:0: warning: "FT_CONFIG_OPTION_SYSTEM_ZLIB" redefined [enabled by default]
+ #define FT_CONFIG_OPTION_SYSTEM_ZLIB
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+In file included from ./builds/unix/ftconfig.h:42:0,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/internal/ftdebug.h:29,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/type1/t1parse.c:37,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/type1/type1.c:22:
+/home/yochy/kobo/kobohack-j/freetype/include/freetype/config/ftoption.h:228:0: warning: "FT_CONFIG_OPTION_USE_PNG" redefined [enabled by default]
+ #define FT_CONFIG_OPTION_USE_PNG
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+libtool: compile:  /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG "-DFT_CONFIG_CONFIG_H=<ftconfig.h>" -DFT2_BUILD_LIBRARY "-DFT_CONFIG_MODULES_H=<ftmodule.h>" -I/home/yochy/kobo/kobohack-j/freetype/src/type1 /home/yochy/kobo/kobohack-j/freetype/src/type1/type1.c -o /home/yochy/kobo/kobohack-j/freetype/objs/type1.o >/dev/null 2>&1
+./builds/unix/libtool --mode=compile /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG -DFT_CONFIG_CONFIG_H="<ftconfig.h>" -DFT2_BUILD_LIBRARY -DFT_CONFIG_MODULES_H="<ftmodule.h>"  -I/home/yochy/kobo/kobohack-j/freetype/src/cff -o /home/yochy/kobo/kobohack-j/freetype/objs/cff.lo /home/yochy/kobo/kobohack-j/freetype/src/cff/cff.c
+libtool: compile:  /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG "-DFT_CONFIG_CONFIG_H=<ftconfig.h>" -DFT2_BUILD_LIBRARY "-DFT_CONFIG_MODULES_H=<ftmodule.h>" -I/home/yochy/kobo/kobohack-j/freetype/src/cff /home/yochy/kobo/kobohack-j/freetype/src/cff/cff.c  -fPIC -DPIC -o /home/yochy/kobo/kobohack-j/freetype/objs/.libs/cff.o
+In file included from ./builds/unix/ftconfig.h:42:0,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/freetype.h:33,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/cff/cffpic.c:20,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/cff/cff.c:23:
+/home/yochy/kobo/kobohack-j/freetype/include/freetype/config/ftoption.h:187:0: warning: "FT_CONFIG_OPTION_SYSTEM_ZLIB" redefined [enabled by default]
+ #define FT_CONFIG_OPTION_SYSTEM_ZLIB
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+In file included from ./builds/unix/ftconfig.h:42:0,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/freetype.h:33,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/cff/cffpic.c:20,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/cff/cff.c:23:
+/home/yochy/kobo/kobohack-j/freetype/include/freetype/config/ftoption.h:228:0: warning: "FT_CONFIG_OPTION_USE_PNG" redefined [enabled by default]
+ #define FT_CONFIG_OPTION_USE_PNG
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+libtool: compile:  /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG "-DFT_CONFIG_CONFIG_H=<ftconfig.h>" -DFT2_BUILD_LIBRARY "-DFT_CONFIG_MODULES_H=<ftmodule.h>" -I/home/yochy/kobo/kobohack-j/freetype/src/cff /home/yochy/kobo/kobohack-j/freetype/src/cff/cff.c -o /home/yochy/kobo/kobohack-j/freetype/objs/cff.o >/dev/null 2>&1
+./builds/unix/libtool --mode=compile /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG -DFT_CONFIG_CONFIG_H="<ftconfig.h>" -DFT2_BUILD_LIBRARY -DFT_CONFIG_MODULES_H="<ftmodule.h>"  -I/home/yochy/kobo/kobohack-j/freetype/src/cid -o /home/yochy/kobo/kobohack-j/freetype/objs/type1cid.lo /home/yochy/kobo/kobohack-j/freetype/src/cid/type1cid.c
+libtool: compile:  /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG "-DFT_CONFIG_CONFIG_H=<ftconfig.h>" -DFT2_BUILD_LIBRARY "-DFT_CONFIG_MODULES_H=<ftmodule.h>" -I/home/yochy/kobo/kobohack-j/freetype/src/cid /home/yochy/kobo/kobohack-j/freetype/src/cid/type1cid.c  -fPIC -DPIC -o /home/yochy/kobo/kobohack-j/freetype/objs/.libs/type1cid.o
+In file included from ./builds/unix/ftconfig.h:42:0,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/internal/ftdebug.h:29,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/cid/cidparse.c:20,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/cid/type1cid.c:22:
+/home/yochy/kobo/kobohack-j/freetype/include/freetype/config/ftoption.h:187:0: warning: "FT_CONFIG_OPTION_SYSTEM_ZLIB" redefined [enabled by default]
+ #define FT_CONFIG_OPTION_SYSTEM_ZLIB
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+In file included from ./builds/unix/ftconfig.h:42:0,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/internal/ftdebug.h:29,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/cid/cidparse.c:20,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/cid/type1cid.c:22:
+/home/yochy/kobo/kobohack-j/freetype/include/freetype/config/ftoption.h:228:0: warning: "FT_CONFIG_OPTION_USE_PNG" redefined [enabled by default]
+ #define FT_CONFIG_OPTION_USE_PNG
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+libtool: compile:  /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG "-DFT_CONFIG_CONFIG_H=<ftconfig.h>" -DFT2_BUILD_LIBRARY "-DFT_CONFIG_MODULES_H=<ftmodule.h>" -I/home/yochy/kobo/kobohack-j/freetype/src/cid /home/yochy/kobo/kobohack-j/freetype/src/cid/type1cid.c -o /home/yochy/kobo/kobohack-j/freetype/objs/type1cid.o >/dev/null 2>&1
+./builds/unix/libtool --mode=compile /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG -DFT_CONFIG_CONFIG_H="<ftconfig.h>" -DFT2_BUILD_LIBRARY -DFT_CONFIG_MODULES_H="<ftmodule.h>"  -I/home/yochy/kobo/kobohack-j/freetype/src/pfr -o /home/yochy/kobo/kobohack-j/freetype/objs/pfr.lo /home/yochy/kobo/kobohack-j/freetype/src/pfr/pfr.c
+libtool: compile:  /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG "-DFT_CONFIG_CONFIG_H=<ftconfig.h>" -DFT2_BUILD_LIBRARY "-DFT_CONFIG_MODULES_H=<ftmodule.h>" -I/home/yochy/kobo/kobohack-j/freetype/src/pfr /home/yochy/kobo/kobohack-j/freetype/src/pfr/pfr.c  -fPIC -DPIC -o /home/yochy/kobo/kobohack-j/freetype/objs/.libs/pfr.o
+In file included from ./builds/unix/ftconfig.h:42:0,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/freetype.h:33,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/ftmodapi.h:24,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/ftrender.h:24,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/internal/ftobjs.h:30,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/pfr/pfrtypes.h:23,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/pfr/pfrobjs.h:22,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/pfr/pfrload.h:22,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/pfr/pfrload.c:19,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/pfr/pfr.c:22:
+/home/yochy/kobo/kobohack-j/freetype/include/freetype/config/ftoption.h:187:0: warning: "FT_CONFIG_OPTION_SYSTEM_ZLIB" redefined [enabled by default]
+ #define FT_CONFIG_OPTION_SYSTEM_ZLIB
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+In file included from ./builds/unix/ftconfig.h:42:0,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/freetype.h:33,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/ftmodapi.h:24,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/ftrender.h:24,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/internal/ftobjs.h:30,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/pfr/pfrtypes.h:23,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/pfr/pfrobjs.h:22,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/pfr/pfrload.h:22,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/pfr/pfrload.c:19,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/pfr/pfr.c:22:
+/home/yochy/kobo/kobohack-j/freetype/include/freetype/config/ftoption.h:228:0: warning: "FT_CONFIG_OPTION_USE_PNG" redefined [enabled by default]
+ #define FT_CONFIG_OPTION_USE_PNG
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+libtool: compile:  /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG "-DFT_CONFIG_CONFIG_H=<ftconfig.h>" -DFT2_BUILD_LIBRARY "-DFT_CONFIG_MODULES_H=<ftmodule.h>" -I/home/yochy/kobo/kobohack-j/freetype/src/pfr /home/yochy/kobo/kobohack-j/freetype/src/pfr/pfr.c -o /home/yochy/kobo/kobohack-j/freetype/objs/pfr.o >/dev/null 2>&1
+./builds/unix/libtool --mode=compile /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG -DFT_CONFIG_CONFIG_H="<ftconfig.h>" -DFT2_BUILD_LIBRARY -DFT_CONFIG_MODULES_H="<ftmodule.h>"  -I/home/yochy/kobo/kobohack-j/freetype/src/type42 -o /home/yochy/kobo/kobohack-j/freetype/objs/type42.lo /home/yochy/kobo/kobohack-j/freetype/src/type42/type42.c
+libtool: compile:  /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG "-DFT_CONFIG_CONFIG_H=<ftconfig.h>" -DFT2_BUILD_LIBRARY "-DFT_CONFIG_MODULES_H=<ftmodule.h>" -I/home/yochy/kobo/kobohack-j/freetype/src/type42 /home/yochy/kobo/kobohack-j/freetype/src/type42/type42.c  -fPIC -DPIC -o /home/yochy/kobo/kobohack-j/freetype/objs/.libs/type42.o
+In file included from ./builds/unix/ftconfig.h:42:0,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/freetype.h:33,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/type42/t42objs.h:22,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/type42/t42objs.c:19,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/type42/type42.c:21:
+/home/yochy/kobo/kobohack-j/freetype/include/freetype/config/ftoption.h:187:0: warning: "FT_CONFIG_OPTION_SYSTEM_ZLIB" redefined [enabled by default]
+ #define FT_CONFIG_OPTION_SYSTEM_ZLIB
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+In file included from ./builds/unix/ftconfig.h:42:0,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/freetype.h:33,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/type42/t42objs.h:22,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/type42/t42objs.c:19,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/type42/type42.c:21:
+/home/yochy/kobo/kobohack-j/freetype/include/freetype/config/ftoption.h:228:0: warning: "FT_CONFIG_OPTION_USE_PNG" redefined [enabled by default]
+ #define FT_CONFIG_OPTION_USE_PNG
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+libtool: compile:  /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG "-DFT_CONFIG_CONFIG_H=<ftconfig.h>" -DFT2_BUILD_LIBRARY "-DFT_CONFIG_MODULES_H=<ftmodule.h>" -I/home/yochy/kobo/kobohack-j/freetype/src/type42 /home/yochy/kobo/kobohack-j/freetype/src/type42/type42.c -o /home/yochy/kobo/kobohack-j/freetype/objs/type42.o >/dev/null 2>&1
+./builds/unix/libtool --mode=compile /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG -DFT_CONFIG_CONFIG_H="<ftconfig.h>" -DFT2_BUILD_LIBRARY -DFT_CONFIG_MODULES_H="<ftmodule.h>"  -I/home/yochy/kobo/kobohack-j/freetype/src/winfonts -o /home/yochy/kobo/kobohack-j/freetype/objs/winfnt.lo /home/yochy/kobo/kobohack-j/freetype/src/winfonts/winfnt.c
+libtool: compile:  /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG "-DFT_CONFIG_CONFIG_H=<ftconfig.h>" -DFT2_BUILD_LIBRARY "-DFT_CONFIG_MODULES_H=<ftmodule.h>" -I/home/yochy/kobo/kobohack-j/freetype/src/winfonts /home/yochy/kobo/kobohack-j/freetype/src/winfonts/winfnt.c  -fPIC -DPIC -o /home/yochy/kobo/kobohack-j/freetype/objs/.libs/winfnt.o
+In file included from ./builds/unix/ftconfig.h:42:0,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/freetype.h:33,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/ftwinfnt.h:23,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/winfonts/winfnt.c:22:
+/home/yochy/kobo/kobohack-j/freetype/include/freetype/config/ftoption.h:187:0: warning: "FT_CONFIG_OPTION_SYSTEM_ZLIB" redefined [enabled by default]
+ #define FT_CONFIG_OPTION_SYSTEM_ZLIB
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+In file included from ./builds/unix/ftconfig.h:42:0,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/freetype.h:33,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/ftwinfnt.h:23,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/winfonts/winfnt.c:22:
+/home/yochy/kobo/kobohack-j/freetype/include/freetype/config/ftoption.h:228:0: warning: "FT_CONFIG_OPTION_USE_PNG" redefined [enabled by default]
+ #define FT_CONFIG_OPTION_USE_PNG
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+libtool: compile:  /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG "-DFT_CONFIG_CONFIG_H=<ftconfig.h>" -DFT2_BUILD_LIBRARY "-DFT_CONFIG_MODULES_H=<ftmodule.h>" -I/home/yochy/kobo/kobohack-j/freetype/src/winfonts /home/yochy/kobo/kobohack-j/freetype/src/winfonts/winfnt.c -o /home/yochy/kobo/kobohack-j/freetype/objs/winfnt.o >/dev/null 2>&1
+./builds/unix/libtool --mode=compile /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG -DFT_CONFIG_CONFIG_H="<ftconfig.h>" -DFT2_BUILD_LIBRARY -DFT_CONFIG_MODULES_H="<ftmodule.h>"  -I/home/yochy/kobo/kobohack-j/freetype/src/pcf -o /home/yochy/kobo/kobohack-j/freetype/objs/pcf.lo /home/yochy/kobo/kobohack-j/freetype/src/pcf/pcf.c
+libtool: compile:  /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG "-DFT_CONFIG_CONFIG_H=<ftconfig.h>" -DFT2_BUILD_LIBRARY "-DFT_CONFIG_MODULES_H=<ftmodule.h>" -I/home/yochy/kobo/kobohack-j/freetype/src/pcf /home/yochy/kobo/kobohack-j/freetype/src/pcf/pcf.c  -fPIC -DPIC -o /home/yochy/kobo/kobohack-j/freetype/objs/.libs/pcf.o
+In file included from ./builds/unix/ftconfig.h:42:0,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/pcf/pcfutil.h:33,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/pcf/pcfutil.c:36,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/pcf/pcf.c:32:
+/home/yochy/kobo/kobohack-j/freetype/include/freetype/config/ftoption.h:187:0: warning: "FT_CONFIG_OPTION_SYSTEM_ZLIB" redefined [enabled by default]
+ #define FT_CONFIG_OPTION_SYSTEM_ZLIB
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+In file included from ./builds/unix/ftconfig.h:42:0,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/pcf/pcfutil.h:33,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/pcf/pcfutil.c:36,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/pcf/pcf.c:32:
+/home/yochy/kobo/kobohack-j/freetype/include/freetype/config/ftoption.h:228:0: warning: "FT_CONFIG_OPTION_USE_PNG" redefined [enabled by default]
+ #define FT_CONFIG_OPTION_USE_PNG
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+libtool: compile:  /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG "-DFT_CONFIG_CONFIG_H=<ftconfig.h>" -DFT2_BUILD_LIBRARY "-DFT_CONFIG_MODULES_H=<ftmodule.h>" -I/home/yochy/kobo/kobohack-j/freetype/src/pcf /home/yochy/kobo/kobohack-j/freetype/src/pcf/pcf.c -o /home/yochy/kobo/kobohack-j/freetype/objs/pcf.o >/dev/null 2>&1
+./builds/unix/libtool --mode=compile /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG -DFT_CONFIG_CONFIG_H="<ftconfig.h>" -DFT2_BUILD_LIBRARY -DFT_CONFIG_MODULES_H="<ftmodule.h>"  -I/home/yochy/kobo/kobohack-j/freetype/src/bdf -o /home/yochy/kobo/kobohack-j/freetype/objs/bdf.lo /home/yochy/kobo/kobohack-j/freetype/src/bdf/bdf.c
+libtool: compile:  /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG "-DFT_CONFIG_CONFIG_H=<ftconfig.h>" -DFT2_BUILD_LIBRARY "-DFT_CONFIG_MODULES_H=<ftmodule.h>" -I/home/yochy/kobo/kobohack-j/freetype/src/bdf /home/yochy/kobo/kobohack-j/freetype/src/bdf/bdf.c  -fPIC -DPIC -o /home/yochy/kobo/kobohack-j/freetype/objs/.libs/bdf.o
+In file included from ./builds/unix/ftconfig.h:42:0,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/freetype.h:33,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/bdf/bdflib.c:36,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/bdf/bdf.c:30:
+/home/yochy/kobo/kobohack-j/freetype/include/freetype/config/ftoption.h:187:0: warning: "FT_CONFIG_OPTION_SYSTEM_ZLIB" redefined [enabled by default]
+ #define FT_CONFIG_OPTION_SYSTEM_ZLIB
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+In file included from ./builds/unix/ftconfig.h:42:0,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/freetype.h:33,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/bdf/bdflib.c:36,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/bdf/bdf.c:30:
+/home/yochy/kobo/kobohack-j/freetype/include/freetype/config/ftoption.h:228:0: warning: "FT_CONFIG_OPTION_USE_PNG" redefined [enabled by default]
+ #define FT_CONFIG_OPTION_USE_PNG
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+libtool: compile:  /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG "-DFT_CONFIG_CONFIG_H=<ftconfig.h>" -DFT2_BUILD_LIBRARY "-DFT_CONFIG_MODULES_H=<ftmodule.h>" -I/home/yochy/kobo/kobohack-j/freetype/src/bdf /home/yochy/kobo/kobohack-j/freetype/src/bdf/bdf.c -o /home/yochy/kobo/kobohack-j/freetype/objs/bdf.o >/dev/null 2>&1
+./builds/unix/libtool --mode=compile /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG -DFT_CONFIG_CONFIG_H="<ftconfig.h>" -DFT2_BUILD_LIBRARY -DFT_CONFIG_MODULES_H="<ftmodule.h>"  -I/home/yochy/kobo/kobohack-j/freetype/src/sfnt -o /home/yochy/kobo/kobohack-j/freetype/objs/sfnt.lo /home/yochy/kobo/kobohack-j/freetype/src/sfnt/sfnt.c
+libtool: compile:  /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG "-DFT_CONFIG_CONFIG_H=<ftconfig.h>" -DFT2_BUILD_LIBRARY "-DFT_CONFIG_MODULES_H=<ftmodule.h>" -I/home/yochy/kobo/kobohack-j/freetype/src/sfnt /home/yochy/kobo/kobohack-j/freetype/src/sfnt/sfnt.c  -fPIC -DPIC -o /home/yochy/kobo/kobohack-j/freetype/objs/.libs/sfnt.o
+In file included from ./builds/unix/ftconfig.h:42:0,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/freetype.h:33,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/sfnt/sfntpic.c:20,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/sfnt/sfnt.c:22:
+/home/yochy/kobo/kobohack-j/freetype/include/freetype/config/ftoption.h:187:0: warning: "FT_CONFIG_OPTION_SYSTEM_ZLIB" redefined [enabled by default]
+ #define FT_CONFIG_OPTION_SYSTEM_ZLIB
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+In file included from ./builds/unix/ftconfig.h:42:0,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/freetype.h:33,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/sfnt/sfntpic.c:20,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/sfnt/sfnt.c:22:
+/home/yochy/kobo/kobohack-j/freetype/include/freetype/config/ftoption.h:228:0: warning: "FT_CONFIG_OPTION_USE_PNG" redefined [enabled by default]
+ #define FT_CONFIG_OPTION_USE_PNG
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+libtool: compile:  /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG "-DFT_CONFIG_CONFIG_H=<ftconfig.h>" -DFT2_BUILD_LIBRARY "-DFT_CONFIG_MODULES_H=<ftmodule.h>" -I/home/yochy/kobo/kobohack-j/freetype/src/sfnt /home/yochy/kobo/kobohack-j/freetype/src/sfnt/sfnt.c -o /home/yochy/kobo/kobohack-j/freetype/objs/sfnt.o >/dev/null 2>&1
+./builds/unix/libtool --mode=compile /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG -DFT_CONFIG_CONFIG_H="<ftconfig.h>" -DFT2_BUILD_LIBRARY -DFT_CONFIG_MODULES_H="<ftmodule.h>"  -I/home/yochy/kobo/kobohack-j/freetype/src/autofit -o /home/yochy/kobo/kobohack-j/freetype/objs/autofit.lo /home/yochy/kobo/kobohack-j/freetype/src/autofit/autofit.c
+libtool: compile:  /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG "-DFT_CONFIG_CONFIG_H=<ftconfig.h>" -DFT2_BUILD_LIBRARY "-DFT_CONFIG_MODULES_H=<ftmodule.h>" -I/home/yochy/kobo/kobohack-j/freetype/src/autofit /home/yochy/kobo/kobohack-j/freetype/src/autofit/autofit.c  -fPIC -DPIC -o /home/yochy/kobo/kobohack-j/freetype/objs/.libs/autofit.o
+In file included from ./builds/unix/ftconfig.h:42:0,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/freetype.h:33,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/autofit/afpic.c:20,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/autofit/autofit.c:21:
+/home/yochy/kobo/kobohack-j/freetype/include/freetype/config/ftoption.h:187:0: warning: "FT_CONFIG_OPTION_SYSTEM_ZLIB" redefined [enabled by default]
+ #define FT_CONFIG_OPTION_SYSTEM_ZLIB
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+In file included from ./builds/unix/ftconfig.h:42:0,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/freetype.h:33,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/autofit/afpic.c:20,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/autofit/autofit.c:21:
+/home/yochy/kobo/kobohack-j/freetype/include/freetype/config/ftoption.h:228:0: warning: "FT_CONFIG_OPTION_USE_PNG" redefined [enabled by default]
+ #define FT_CONFIG_OPTION_USE_PNG
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+libtool: compile:  /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG "-DFT_CONFIG_CONFIG_H=<ftconfig.h>" -DFT2_BUILD_LIBRARY "-DFT_CONFIG_MODULES_H=<ftmodule.h>" -I/home/yochy/kobo/kobohack-j/freetype/src/autofit /home/yochy/kobo/kobohack-j/freetype/src/autofit/autofit.c -o /home/yochy/kobo/kobohack-j/freetype/objs/autofit.o >/dev/null 2>&1
+./builds/unix/libtool --mode=compile /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG -DFT_CONFIG_CONFIG_H="<ftconfig.h>" -DFT2_BUILD_LIBRARY -DFT_CONFIG_MODULES_H="<ftmodule.h>"  -I/home/yochy/kobo/kobohack-j/freetype/src/pshinter -o /home/yochy/kobo/kobohack-j/freetype/objs/pshinter.lo /home/yochy/kobo/kobohack-j/freetype/src/pshinter/pshinter.c
+libtool: compile:  /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG "-DFT_CONFIG_CONFIG_H=<ftconfig.h>" -DFT2_BUILD_LIBRARY "-DFT_CONFIG_MODULES_H=<ftmodule.h>" -I/home/yochy/kobo/kobohack-j/freetype/src/pshinter /home/yochy/kobo/kobohack-j/freetype/src/pshinter/pshinter.c  -fPIC -DPIC -o /home/yochy/kobo/kobohack-j/freetype/objs/.libs/pshinter.o
+In file included from ./builds/unix/ftconfig.h:42:0,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/freetype.h:33,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/pshinter/pshpic.c:20,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/pshinter/pshinter.c:22:
+/home/yochy/kobo/kobohack-j/freetype/include/freetype/config/ftoption.h:187:0: warning: "FT_CONFIG_OPTION_SYSTEM_ZLIB" redefined [enabled by default]
+ #define FT_CONFIG_OPTION_SYSTEM_ZLIB
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+In file included from ./builds/unix/ftconfig.h:42:0,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/freetype.h:33,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/pshinter/pshpic.c:20,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/pshinter/pshinter.c:22:
+/home/yochy/kobo/kobohack-j/freetype/include/freetype/config/ftoption.h:228:0: warning: "FT_CONFIG_OPTION_USE_PNG" redefined [enabled by default]
+ #define FT_CONFIG_OPTION_USE_PNG
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+libtool: compile:  /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG "-DFT_CONFIG_CONFIG_H=<ftconfig.h>" -DFT2_BUILD_LIBRARY "-DFT_CONFIG_MODULES_H=<ftmodule.h>" -I/home/yochy/kobo/kobohack-j/freetype/src/pshinter /home/yochy/kobo/kobohack-j/freetype/src/pshinter/pshinter.c -o /home/yochy/kobo/kobohack-j/freetype/objs/pshinter.o >/dev/null 2>&1
+./builds/unix/libtool --mode=compile /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG -DFT_CONFIG_CONFIG_H="<ftconfig.h>" -DFT2_BUILD_LIBRARY -DFT_CONFIG_MODULES_H="<ftmodule.h>"  -I/home/yochy/kobo/kobohack-j/freetype/src/raster -o /home/yochy/kobo/kobohack-j/freetype/objs/raster.lo /home/yochy/kobo/kobohack-j/freetype/src/raster/raster.c
+libtool: compile:  /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG "-DFT_CONFIG_CONFIG_H=<ftconfig.h>" -DFT2_BUILD_LIBRARY "-DFT_CONFIG_MODULES_H=<ftmodule.h>" -I/home/yochy/kobo/kobohack-j/freetype/src/raster /home/yochy/kobo/kobohack-j/freetype/src/raster/raster.c  -fPIC -DPIC -o /home/yochy/kobo/kobohack-j/freetype/objs/.libs/raster.o
+In file included from ./builds/unix/ftconfig.h:42:0,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/freetype.h:33,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/raster/rastpic.c:20,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/raster/raster.c:22:
+/home/yochy/kobo/kobohack-j/freetype/include/freetype/config/ftoption.h:187:0: warning: "FT_CONFIG_OPTION_SYSTEM_ZLIB" redefined [enabled by default]
+ #define FT_CONFIG_OPTION_SYSTEM_ZLIB
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+In file included from ./builds/unix/ftconfig.h:42:0,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/freetype.h:33,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/raster/rastpic.c:20,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/raster/raster.c:22:
+/home/yochy/kobo/kobohack-j/freetype/include/freetype/config/ftoption.h:228:0: warning: "FT_CONFIG_OPTION_USE_PNG" redefined [enabled by default]
+ #define FT_CONFIG_OPTION_USE_PNG
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+libtool: compile:  /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG "-DFT_CONFIG_CONFIG_H=<ftconfig.h>" -DFT2_BUILD_LIBRARY "-DFT_CONFIG_MODULES_H=<ftmodule.h>" -I/home/yochy/kobo/kobohack-j/freetype/src/raster /home/yochy/kobo/kobohack-j/freetype/src/raster/raster.c -o /home/yochy/kobo/kobohack-j/freetype/objs/raster.o >/dev/null 2>&1
+./builds/unix/libtool --mode=compile /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG -DFT_CONFIG_CONFIG_H="<ftconfig.h>" -DFT2_BUILD_LIBRARY -DFT_CONFIG_MODULES_H="<ftmodule.h>"  -I/home/yochy/kobo/kobohack-j/freetype/src/smooth -o /home/yochy/kobo/kobohack-j/freetype/objs/smooth.lo /home/yochy/kobo/kobohack-j/freetype/src/smooth/smooth.c
+libtool: compile:  /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG "-DFT_CONFIG_CONFIG_H=<ftconfig.h>" -DFT2_BUILD_LIBRARY "-DFT_CONFIG_MODULES_H=<ftmodule.h>" -I/home/yochy/kobo/kobohack-j/freetype/src/smooth /home/yochy/kobo/kobohack-j/freetype/src/smooth/smooth.c  -fPIC -DPIC -o /home/yochy/kobo/kobohack-j/freetype/objs/.libs/smooth.o
+In file included from ./builds/unix/ftconfig.h:42:0,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/freetype.h:33,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/smooth/ftspic.c:20,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/smooth/smooth.c:22:
+/home/yochy/kobo/kobohack-j/freetype/include/freetype/config/ftoption.h:187:0: warning: "FT_CONFIG_OPTION_SYSTEM_ZLIB" redefined [enabled by default]
+ #define FT_CONFIG_OPTION_SYSTEM_ZLIB
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+In file included from ./builds/unix/ftconfig.h:42:0,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/freetype.h:33,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/smooth/ftspic.c:20,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/smooth/smooth.c:22:
+/home/yochy/kobo/kobohack-j/freetype/include/freetype/config/ftoption.h:228:0: warning: "FT_CONFIG_OPTION_USE_PNG" redefined [enabled by default]
+ #define FT_CONFIG_OPTION_USE_PNG
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+libtool: compile:  /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG "-DFT_CONFIG_CONFIG_H=<ftconfig.h>" -DFT2_BUILD_LIBRARY "-DFT_CONFIG_MODULES_H=<ftmodule.h>" -I/home/yochy/kobo/kobohack-j/freetype/src/smooth /home/yochy/kobo/kobohack-j/freetype/src/smooth/smooth.c -o /home/yochy/kobo/kobohack-j/freetype/objs/smooth.o >/dev/null 2>&1
+./builds/unix/libtool --mode=compile /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG -DFT_CONFIG_CONFIG_H="<ftconfig.h>" -DFT2_BUILD_LIBRARY -DFT_CONFIG_MODULES_H="<ftmodule.h>"  -I/home/yochy/kobo/kobohack-j/freetype/src/cache -o /home/yochy/kobo/kobohack-j/freetype/objs/ftcache.lo /home/yochy/kobo/kobohack-j/freetype/src/cache/ftcache.c
+libtool: compile:  /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG "-DFT_CONFIG_CONFIG_H=<ftconfig.h>" -DFT2_BUILD_LIBRARY "-DFT_CONFIG_MODULES_H=<ftmodule.h>" -I/home/yochy/kobo/kobohack-j/freetype/src/cache /home/yochy/kobo/kobohack-j/freetype/src/cache/ftcache.c  -fPIC -DPIC -o /home/yochy/kobo/kobohack-j/freetype/objs/.libs/ftcache.o
+In file included from ./builds/unix/ftconfig.h:42:0,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/freetype.h:33,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/ftglyph.h:37,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/ftcache.h:24,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/cache/ftcmru.c:20,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/cache/ftcache.c:22:
+/home/yochy/kobo/kobohack-j/freetype/include/freetype/config/ftoption.h:187:0: warning: "FT_CONFIG_OPTION_SYSTEM_ZLIB" redefined [enabled by default]
+ #define FT_CONFIG_OPTION_SYSTEM_ZLIB
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+In file included from ./builds/unix/ftconfig.h:42:0,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/freetype.h:33,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/ftglyph.h:37,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/ftcache.h:24,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/cache/ftcmru.c:20,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/cache/ftcache.c:22:
+/home/yochy/kobo/kobohack-j/freetype/include/freetype/config/ftoption.h:228:0: warning: "FT_CONFIG_OPTION_USE_PNG" redefined [enabled by default]
+ #define FT_CONFIG_OPTION_USE_PNG
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+libtool: compile:  /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG "-DFT_CONFIG_CONFIG_H=<ftconfig.h>" -DFT2_BUILD_LIBRARY "-DFT_CONFIG_MODULES_H=<ftmodule.h>" -I/home/yochy/kobo/kobohack-j/freetype/src/cache /home/yochy/kobo/kobohack-j/freetype/src/cache/ftcache.c -o /home/yochy/kobo/kobohack-j/freetype/objs/ftcache.o >/dev/null 2>&1
+./builds/unix/libtool --mode=compile /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG -DFT_CONFIG_CONFIG_H="<ftconfig.h>" -DFT2_BUILD_LIBRARY -DFT_CONFIG_MODULES_H="<ftmodule.h>"  -o /home/yochy/kobo/kobohack-j/freetype/objs/ftgzip.lo /home/yochy/kobo/kobohack-j/freetype/src/gzip/ftgzip.c
+libtool: compile:  /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG "-DFT_CONFIG_CONFIG_H=<ftconfig.h>" -DFT2_BUILD_LIBRARY "-DFT_CONFIG_MODULES_H=<ftmodule.h>" /home/yochy/kobo/kobohack-j/freetype/src/gzip/ftgzip.c  -fPIC -DPIC -o /home/yochy/kobo/kobohack-j/freetype/objs/.libs/ftgzip.o
+In file included from ./builds/unix/ftconfig.h:42:0,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/internal/ftmemory.h:24,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/gzip/ftgzip.c:24:
+/home/yochy/kobo/kobohack-j/freetype/include/freetype/config/ftoption.h:187:0: warning: "FT_CONFIG_OPTION_SYSTEM_ZLIB" redefined [enabled by default]
+ #define FT_CONFIG_OPTION_SYSTEM_ZLIB
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+In file included from ./builds/unix/ftconfig.h:42:0,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/internal/ftmemory.h:24,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/gzip/ftgzip.c:24:
+/home/yochy/kobo/kobohack-j/freetype/include/freetype/config/ftoption.h:228:0: warning: "FT_CONFIG_OPTION_USE_PNG" redefined [enabled by default]
+ #define FT_CONFIG_OPTION_USE_PNG
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+libtool: compile:  /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG "-DFT_CONFIG_CONFIG_H=<ftconfig.h>" -DFT2_BUILD_LIBRARY "-DFT_CONFIG_MODULES_H=<ftmodule.h>" /home/yochy/kobo/kobohack-j/freetype/src/gzip/ftgzip.c -o /home/yochy/kobo/kobohack-j/freetype/objs/ftgzip.o >/dev/null 2>&1
+./builds/unix/libtool --mode=compile /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG -DFT_CONFIG_CONFIG_H="<ftconfig.h>" -DFT2_BUILD_LIBRARY -DFT_CONFIG_MODULES_H="<ftmodule.h>"  -I/home/yochy/kobo/kobohack-j/freetype/src/lzw -o /home/yochy/kobo/kobohack-j/freetype/objs/ftlzw.lo /home/yochy/kobo/kobohack-j/freetype/src/lzw/ftlzw.c
+libtool: compile:  /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG "-DFT_CONFIG_CONFIG_H=<ftconfig.h>" -DFT2_BUILD_LIBRARY "-DFT_CONFIG_MODULES_H=<ftmodule.h>" -I/home/yochy/kobo/kobohack-j/freetype/src/lzw /home/yochy/kobo/kobohack-j/freetype/src/lzw/ftlzw.c  -fPIC -DPIC -o /home/yochy/kobo/kobohack-j/freetype/objs/.libs/ftlzw.o
+In file included from ./builds/unix/ftconfig.h:42:0,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/internal/ftmemory.h:24,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/lzw/ftlzw.c:26:
+/home/yochy/kobo/kobohack-j/freetype/include/freetype/config/ftoption.h:187:0: warning: "FT_CONFIG_OPTION_SYSTEM_ZLIB" redefined [enabled by default]
+ #define FT_CONFIG_OPTION_SYSTEM_ZLIB
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+In file included from ./builds/unix/ftconfig.h:42:0,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/internal/ftmemory.h:24,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/lzw/ftlzw.c:26:
+/home/yochy/kobo/kobohack-j/freetype/include/freetype/config/ftoption.h:228:0: warning: "FT_CONFIG_OPTION_USE_PNG" redefined [enabled by default]
+ #define FT_CONFIG_OPTION_USE_PNG
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+libtool: compile:  /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG "-DFT_CONFIG_CONFIG_H=<ftconfig.h>" -DFT2_BUILD_LIBRARY "-DFT_CONFIG_MODULES_H=<ftmodule.h>" -I/home/yochy/kobo/kobohack-j/freetype/src/lzw /home/yochy/kobo/kobohack-j/freetype/src/lzw/ftlzw.c -o /home/yochy/kobo/kobohack-j/freetype/objs/ftlzw.o >/dev/null 2>&1
+./builds/unix/libtool --mode=compile /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG -DFT_CONFIG_CONFIG_H="<ftconfig.h>" -DFT2_BUILD_LIBRARY -DFT_CONFIG_MODULES_H="<ftmodule.h>"  -o /home/yochy/kobo/kobohack-j/freetype/objs/ftbzip2.lo /home/yochy/kobo/kobohack-j/freetype/src/bzip2/ftbzip2.c
+libtool: compile:  /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG "-DFT_CONFIG_CONFIG_H=<ftconfig.h>" -DFT2_BUILD_LIBRARY "-DFT_CONFIG_MODULES_H=<ftmodule.h>" /home/yochy/kobo/kobohack-j/freetype/src/bzip2/ftbzip2.c  -fPIC -DPIC -o /home/yochy/kobo/kobohack-j/freetype/objs/.libs/ftbzip2.o
+In file included from ./builds/unix/ftconfig.h:42:0,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/internal/ftmemory.h:24,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/bzip2/ftbzip2.c:27:
+/home/yochy/kobo/kobohack-j/freetype/include/freetype/config/ftoption.h:187:0: warning: "FT_CONFIG_OPTION_SYSTEM_ZLIB" redefined [enabled by default]
+ #define FT_CONFIG_OPTION_SYSTEM_ZLIB
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+In file included from ./builds/unix/ftconfig.h:42:0,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/internal/ftmemory.h:24,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/bzip2/ftbzip2.c:27:
+/home/yochy/kobo/kobohack-j/freetype/include/freetype/config/ftoption.h:228:0: warning: "FT_CONFIG_OPTION_USE_PNG" redefined [enabled by default]
+ #define FT_CONFIG_OPTION_USE_PNG
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+libtool: compile:  /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG "-DFT_CONFIG_CONFIG_H=<ftconfig.h>" -DFT2_BUILD_LIBRARY "-DFT_CONFIG_MODULES_H=<ftmodule.h>" /home/yochy/kobo/kobohack-j/freetype/src/bzip2/ftbzip2.c -o /home/yochy/kobo/kobohack-j/freetype/objs/ftbzip2.o >/dev/null 2>&1
+./builds/unix/libtool --mode=compile /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG -DFT_CONFIG_CONFIG_H="<ftconfig.h>" -DFT2_BUILD_LIBRARY -DFT_CONFIG_MODULES_H="<ftmodule.h>"  -I/home/yochy/kobo/kobohack-j/freetype/src/psaux -o /home/yochy/kobo/kobohack-j/freetype/objs/psaux.lo /home/yochy/kobo/kobohack-j/freetype/src/psaux/psaux.c
+libtool: compile:  /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG "-DFT_CONFIG_CONFIG_H=<ftconfig.h>" -DFT2_BUILD_LIBRARY "-DFT_CONFIG_MODULES_H=<ftmodule.h>" -I/home/yochy/kobo/kobohack-j/freetype/src/psaux /home/yochy/kobo/kobohack-j/freetype/src/psaux/psaux.c  -fPIC -DPIC -o /home/yochy/kobo/kobohack-j/freetype/objs/.libs/psaux.o
+In file included from ./builds/unix/ftconfig.h:42:0,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/freetype.h:33,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/ftmodapi.h:24,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/ftrender.h:24,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/internal/ftobjs.h:30,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/internal/psaux.h:25,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/psaux/psobjs.c:20,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/psaux/psaux.c:22:
+/home/yochy/kobo/kobohack-j/freetype/include/freetype/config/ftoption.h:187:0: warning: "FT_CONFIG_OPTION_SYSTEM_ZLIB" redefined [enabled by default]
+ #define FT_CONFIG_OPTION_SYSTEM_ZLIB
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+In file included from ./builds/unix/ftconfig.h:42:0,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/freetype.h:33,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/ftmodapi.h:24,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/ftrender.h:24,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/internal/ftobjs.h:30,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/internal/psaux.h:25,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/psaux/psobjs.c:20,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/psaux/psaux.c:22:
+/home/yochy/kobo/kobohack-j/freetype/include/freetype/config/ftoption.h:228:0: warning: "FT_CONFIG_OPTION_USE_PNG" redefined [enabled by default]
+ #define FT_CONFIG_OPTION_USE_PNG
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+libtool: compile:  /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG "-DFT_CONFIG_CONFIG_H=<ftconfig.h>" -DFT2_BUILD_LIBRARY "-DFT_CONFIG_MODULES_H=<ftmodule.h>" -I/home/yochy/kobo/kobohack-j/freetype/src/psaux /home/yochy/kobo/kobohack-j/freetype/src/psaux/psaux.c -o /home/yochy/kobo/kobohack-j/freetype/objs/psaux.o >/dev/null 2>&1
+./builds/unix/libtool --mode=compile /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG -DFT_CONFIG_CONFIG_H="<ftconfig.h>" -DFT2_BUILD_LIBRARY -DFT_CONFIG_MODULES_H="<ftmodule.h>"  -I/home/yochy/kobo/kobohack-j/freetype/src/psnames -o /home/yochy/kobo/kobohack-j/freetype/objs/psnames.lo /home/yochy/kobo/kobohack-j/freetype/src/psnames/psmodule.c
+libtool: compile:  /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG "-DFT_CONFIG_CONFIG_H=<ftconfig.h>" -DFT2_BUILD_LIBRARY "-DFT_CONFIG_MODULES_H=<ftmodule.h>" -I/home/yochy/kobo/kobohack-j/freetype/src/psnames /home/yochy/kobo/kobohack-j/freetype/src/psnames/psmodule.c  -fPIC -DPIC -o /home/yochy/kobo/kobohack-j/freetype/objs/.libs/psnames.o
+In file included from ./builds/unix/ftconfig.h:42:0,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/internal/ftdebug.h:29,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/psnames/psmodule.c:20:
+/home/yochy/kobo/kobohack-j/freetype/include/freetype/config/ftoption.h:187:0: warning: "FT_CONFIG_OPTION_SYSTEM_ZLIB" redefined [enabled by default]
+ #define FT_CONFIG_OPTION_SYSTEM_ZLIB
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+In file included from ./builds/unix/ftconfig.h:42:0,
+                 from /home/yochy/kobo/kobohack-j/freetype/include/freetype/internal/ftdebug.h:29,
+                 from /home/yochy/kobo/kobohack-j/freetype/src/psnames/psmodule.c:20:
+/home/yochy/kobo/kobohack-j/freetype/include/freetype/config/ftoption.h:228:0: warning: "FT_CONFIG_OPTION_USE_PNG" redefined [enabled by default]
+ #define FT_CONFIG_OPTION_USE_PNG
+ ^
+<command-line>:0:0: note: this is the location of the previous definition
+libtool: compile:  /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -pedantic -ansi -I/opt/local/include -I/home/yochy/kobo/kobohack-j/freetype/objs -I./builds/unix -I/home/yochy/kobo/kobohack-j/freetype/include -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG "-DFT_CONFIG_CONFIG_H=<ftconfig.h>" -DFT2_BUILD_LIBRARY "-DFT_CONFIG_MODULES_H=<ftmodule.h>" -I/home/yochy/kobo/kobohack-j/freetype/src/psnames /home/yochy/kobo/kobohack-j/freetype/src/psnames/psmodule.c -o /home/yochy/kobo/kobohack-j/freetype/objs/psnames.o >/dev/null 2>&1
+gcc		  -o /home/yochy/kobo/kobohack-j/freetype/objs/apinames /home/yochy/kobo/kobohack-j/freetype/src/tools/apinames.c 
+/home/yochy/kobo/kobohack-j/freetype/objs/apinames -o/home/yochy/kobo/kobohack-j/freetype/objs/ftexport.sym  /home/yochy/kobo/kobohack-j/freetype/include/freetype/freetype.h /home/yochy/kobo/kobohack-j/freetype/include/freetype/ftadvanc.h /home/yochy/kobo/kobohack-j/freetype/include/freetype/ftautoh.h /home/yochy/kobo/kobohack-j/freetype/include/freetype/ftbbox.h /home/yochy/kobo/kobohack-j/freetype/include/freetype/ftbdf.h /home/yochy/kobo/kobohack-j/freetype/include/freetype/ftbitmap.h /home/yochy/kobo/kobohack-j/freetype/include/freetype/ftbzip2.h /home/yochy/kobo/kobohack-j/freetype/include/freetype/ftcache.h /home/yochy/kobo/kobohack-j/freetype/include/freetype/ftcffdrv.h /home/yochy/kobo/kobohack-j/freetype/include/freetype/ftchapters.h /home/yochy/kobo/kobohack-j/freetype/include/freetype/ftcid.h /home/yochy/kobo/kobohack-j/freetype/include/freetype/fterrdef.h /home/yochy/kobo/kobohack-j/freetype/include/freetype/fterrors.h /home/yochy/kobo/kobohack-j/freetype/include/freetype/ftgasp.h /home/yochy/kobo/kobohack-j/freetype/include/freetype/ftglyph.h /home/yochy/kobo/kobohack-j/freetype/include/freetype/ftgxval.h /home/yochy/kobo/kobohack-j/freetype/include/freetype/ftgzip.h /home/yochy/kobo/kobohack-j/freetype/include/freetype/ftimage.h /home/yochy/kobo/kobohack-j/freetype/include/freetype/ftincrem.h /home/yochy/kobo/kobohack-j/freetype/include/freetype/ftlcdfil.h /home/yochy/kobo/kobohack-j/freetype/include/freetype/ftlist.h /home/yochy/kobo/kobohack-j/freetype/include/freetype/ftlzw.h /home/yochy/kobo/kobohack-j/freetype/include/freetype/ftmac.h /home/yochy/kobo/kobohack-j/freetype/include/freetype/ftmm.h /home/yochy/kobo/kobohack-j/freetype/include/freetype/ftmodapi.h /home/yochy/kobo/kobohack-j/freetype/include/freetype/ftmoderr.h /home/yochy/kobo/kobohack-j/freetype/include/freetype/ftotval.h /home/yochy/kobo/kobohack-j/freetype/include/freetype/ftoutln.h /home/yochy/kobo/kobohack-j/freetype/include/freetype/ftpfr.h /home/yochy/kobo/kobohack-j/freetype/include/freetype/ftrender.h /home/yochy/kobo/kobohack-j/freetype/include/freetype/ftsizes.h /home/yochy/kobo/kobohack-j/freetype/include/freetype/ftsnames.h /home/yochy/kobo/kobohack-j/freetype/include/freetype/ftstroke.h /home/yochy/kobo/kobohack-j/freetype/include/freetype/ftsynth.h /home/yochy/kobo/kobohack-j/freetype/include/freetype/ftsystem.h /home/yochy/kobo/kobohack-j/freetype/include/freetype/fttrigon.h /home/yochy/kobo/kobohack-j/freetype/include/freetype/ftttdrv.h /home/yochy/kobo/kobohack-j/freetype/include/freetype/fttypes.h /home/yochy/kobo/kobohack-j/freetype/include/freetype/ftwinfnt.h /home/yochy/kobo/kobohack-j/freetype/include/freetype/ftxf86.h /home/yochy/kobo/kobohack-j/freetype/include/freetype/t1tables.h /home/yochy/kobo/kobohack-j/freetype/include/freetype/ttnameid.h /home/yochy/kobo/kobohack-j/freetype/include/freetype/tttables.h /home/yochy/kobo/kobohack-j/freetype/include/freetype/tttags.h /home/yochy/kobo/kobohack-j/freetype/include/freetype/ttunpat.h
+./builds/unix/libtool --mode=link /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -o /home/yochy/kobo/kobohack-j/freetype/objs/libfreetype.la  /home/yochy/kobo/kobohack-j/freetype/objs/ftsystem.lo /home/yochy/kobo/kobohack-j/freetype/objs/ftdebug.lo /home/yochy/kobo/kobohack-j/freetype/objs/ftinit.lo /home/yochy/kobo/kobohack-j/freetype/objs/ftbase.lo /home/yochy/kobo/kobohack-j/freetype/objs/ftbbox.lo /home/yochy/kobo/kobohack-j/freetype/objs/ftbdf.lo /home/yochy/kobo/kobohack-j/freetype/objs/ftbitmap.lo /home/yochy/kobo/kobohack-j/freetype/objs/ftcid.lo /home/yochy/kobo/kobohack-j/freetype/objs/ftfstype.lo /home/yochy/kobo/kobohack-j/freetype/objs/ftgasp.lo /home/yochy/kobo/kobohack-j/freetype/objs/ftglyph.lo /home/yochy/kobo/kobohack-j/freetype/objs/ftgxval.lo /home/yochy/kobo/kobohack-j/freetype/objs/ftlcdfil.lo /home/yochy/kobo/kobohack-j/freetype/objs/ftmm.lo /home/yochy/kobo/kobohack-j/freetype/objs/ftotval.lo /home/yochy/kobo/kobohack-j/freetype/objs/ftpatent.lo /home/yochy/kobo/kobohack-j/freetype/objs/ftpfr.lo /home/yochy/kobo/kobohack-j/freetype/objs/ftstroke.lo /home/yochy/kobo/kobohack-j/freetype/objs/ftsynth.lo /home/yochy/kobo/kobohack-j/freetype/objs/fttype1.lo /home/yochy/kobo/kobohack-j/freetype/objs/ftwinfnt.lo /home/yochy/kobo/kobohack-j/freetype/objs/ftxf86.lo /home/yochy/kobo/kobohack-j/freetype/objs/truetype.lo /home/yochy/kobo/kobohack-j/freetype/objs/type1.lo /home/yochy/kobo/kobohack-j/freetype/objs/cff.lo /home/yochy/kobo/kobohack-j/freetype/objs/type1cid.lo /home/yochy/kobo/kobohack-j/freetype/objs/pfr.lo /home/yochy/kobo/kobohack-j/freetype/objs/type42.lo /home/yochy/kobo/kobohack-j/freetype/objs/winfnt.lo /home/yochy/kobo/kobohack-j/freetype/objs/pcf.lo /home/yochy/kobo/kobohack-j/freetype/objs/bdf.lo /home/yochy/kobo/kobohack-j/freetype/objs/sfnt.lo /home/yochy/kobo/kobohack-j/freetype/objs/autofit.lo /home/yochy/kobo/kobohack-j/freetype/objs/pshinter.lo /home/yochy/kobo/kobohack-j/freetype/objs/raster.lo /home/yochy/kobo/kobohack-j/freetype/objs/smooth.lo /home/yochy/kobo/kobohack-j/freetype/objs/ftcache.lo /home/yochy/kobo/kobohack-j/freetype/objs/ftgzip.lo /home/yochy/kobo/kobohack-j/freetype/objs/ftlzw.lo /home/yochy/kobo/kobohack-j/freetype/objs/ftbzip2.lo /home/yochy/kobo/kobohack-j/freetype/objs/psaux.lo /home/yochy/kobo/kobohack-j/freetype/objs/psnames.lo -rpath /opt/local/lib -version-info 16:2:10 -L/opt/local/lib -lz  -no-undefined 
+libtool: link: rm -fr  /home/yochy/kobo/kobohack-j/freetype/objs/.libs/libfreetype.a /home/yochy/kobo/kobohack-j/freetype/objs/.libs/libfreetype.la /home/yochy/kobo/kobohack-j/freetype/objs/.libs/libfreetype.lai /home/yochy/kobo/kobohack-j/freetype/objs/.libs/libfreetype.so /home/yochy/kobo/kobohack-j/freetype/objs/.libs/libfreetype.so.6 /home/yochy/kobo/kobohack-j/freetype/objs/.libs/libfreetype.so.6.10.2
+libtool: link: /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -shared  -fPIC -DPIC  /home/yochy/kobo/kobohack-j/freetype/objs/.libs/ftsystem.o /home/yochy/kobo/kobohack-j/freetype/objs/.libs/ftdebug.o /home/yochy/kobo/kobohack-j/freetype/objs/.libs/ftinit.o /home/yochy/kobo/kobohack-j/freetype/objs/.libs/ftbase.o /home/yochy/kobo/kobohack-j/freetype/objs/.libs/ftbbox.o /home/yochy/kobo/kobohack-j/freetype/objs/.libs/ftbdf.o /home/yochy/kobo/kobohack-j/freetype/objs/.libs/ftbitmap.o /home/yochy/kobo/kobohack-j/freetype/objs/.libs/ftcid.o /home/yochy/kobo/kobohack-j/freetype/objs/.libs/ftfstype.o /home/yochy/kobo/kobohack-j/freetype/objs/.libs/ftgasp.o /home/yochy/kobo/kobohack-j/freetype/objs/.libs/ftglyph.o /home/yochy/kobo/kobohack-j/freetype/objs/.libs/ftgxval.o /home/yochy/kobo/kobohack-j/freetype/objs/.libs/ftlcdfil.o /home/yochy/kobo/kobohack-j/freetype/objs/.libs/ftmm.o /home/yochy/kobo/kobohack-j/freetype/objs/.libs/ftotval.o /home/yochy/kobo/kobohack-j/freetype/objs/.libs/ftpatent.o /home/yochy/kobo/kobohack-j/freetype/objs/.libs/ftpfr.o /home/yochy/kobo/kobohack-j/freetype/objs/.libs/ftstroke.o /home/yochy/kobo/kobohack-j/freetype/objs/.libs/ftsynth.o /home/yochy/kobo/kobohack-j/freetype/objs/.libs/fttype1.o /home/yochy/kobo/kobohack-j/freetype/objs/.libs/ftwinfnt.o /home/yochy/kobo/kobohack-j/freetype/objs/.libs/ftxf86.o /home/yochy/kobo/kobohack-j/freetype/objs/.libs/truetype.o /home/yochy/kobo/kobohack-j/freetype/objs/.libs/type1.o /home/yochy/kobo/kobohack-j/freetype/objs/.libs/cff.o /home/yochy/kobo/kobohack-j/freetype/objs/.libs/type1cid.o /home/yochy/kobo/kobohack-j/freetype/objs/.libs/pfr.o /home/yochy/kobo/kobohack-j/freetype/objs/.libs/type42.o /home/yochy/kobo/kobohack-j/freetype/objs/.libs/winfnt.o /home/yochy/kobo/kobohack-j/freetype/objs/.libs/pcf.o /home/yochy/kobo/kobohack-j/freetype/objs/.libs/bdf.o /home/yochy/kobo/kobohack-j/freetype/objs/.libs/sfnt.o /home/yochy/kobo/kobohack-j/freetype/objs/.libs/autofit.o /home/yochy/kobo/kobohack-j/freetype/objs/.libs/pshinter.o /home/yochy/kobo/kobohack-j/freetype/objs/.libs/raster.o /home/yochy/kobo/kobohack-j/freetype/objs/.libs/smooth.o /home/yochy/kobo/kobohack-j/freetype/objs/.libs/ftcache.o /home/yochy/kobo/kobohack-j/freetype/objs/.libs/ftgzip.o /home/yochy/kobo/kobohack-j/freetype/objs/.libs/ftlzw.o /home/yochy/kobo/kobohack-j/freetype/objs/.libs/ftbzip2.o /home/yochy/kobo/kobohack-j/freetype/objs/.libs/psaux.o /home/yochy/kobo/kobohack-j/freetype/objs/.libs/psnames.o   -L/opt/local/lib -lz    -Wl,-soname -Wl,libfreetype.so.6 -o /home/yochy/kobo/kobohack-j/freetype/objs/.libs/libfreetype.so.6.10.2
+libtool: link: (cd "/home/yochy/kobo/kobohack-j/freetype/objs/.libs" && rm -f "libfreetype.so.6" && ln -s "libfreetype.so.6.10.2" "libfreetype.so.6")
+libtool: link: (cd "/home/yochy/kobo/kobohack-j/freetype/objs/.libs" && rm -f "libfreetype.so" && ln -s "libfreetype.so.6.10.2" "libfreetype.so")
+libtool: link: ar cru /home/yochy/kobo/kobohack-j/freetype/objs/.libs/libfreetype.a  /home/yochy/kobo/kobohack-j/freetype/objs/ftsystem.o /home/yochy/kobo/kobohack-j/freetype/objs/ftdebug.o /home/yochy/kobo/kobohack-j/freetype/objs/ftinit.o /home/yochy/kobo/kobohack-j/freetype/objs/ftbase.o /home/yochy/kobo/kobohack-j/freetype/objs/ftbbox.o /home/yochy/kobo/kobohack-j/freetype/objs/ftbdf.o /home/yochy/kobo/kobohack-j/freetype/objs/ftbitmap.o /home/yochy/kobo/kobohack-j/freetype/objs/ftcid.o /home/yochy/kobo/kobohack-j/freetype/objs/ftfstype.o /home/yochy/kobo/kobohack-j/freetype/objs/ftgasp.o /home/yochy/kobo/kobohack-j/freetype/objs/ftglyph.o /home/yochy/kobo/kobohack-j/freetype/objs/ftgxval.o /home/yochy/kobo/kobohack-j/freetype/objs/ftlcdfil.o /home/yochy/kobo/kobohack-j/freetype/objs/ftmm.o /home/yochy/kobo/kobohack-j/freetype/objs/ftotval.o /home/yochy/kobo/kobohack-j/freetype/objs/ftpatent.o /home/yochy/kobo/kobohack-j/freetype/objs/ftpfr.o /home/yochy/kobo/kobohack-j/freetype/objs/ftstroke.o /home/yochy/kobo/kobohack-j/freetype/objs/ftsynth.o /home/yochy/kobo/kobohack-j/freetype/objs/fttype1.o /home/yochy/kobo/kobohack-j/freetype/objs/ftwinfnt.o /home/yochy/kobo/kobohack-j/freetype/objs/ftxf86.o /home/yochy/kobo/kobohack-j/freetype/objs/truetype.o /home/yochy/kobo/kobohack-j/freetype/objs/type1.o /home/yochy/kobo/kobohack-j/freetype/objs/cff.o /home/yochy/kobo/kobohack-j/freetype/objs/type1cid.o /home/yochy/kobo/kobohack-j/freetype/objs/pfr.o /home/yochy/kobo/kobohack-j/freetype/objs/type42.o /home/yochy/kobo/kobohack-j/freetype/objs/winfnt.o /home/yochy/kobo/kobohack-j/freetype/objs/pcf.o /home/yochy/kobo/kobohack-j/freetype/objs/bdf.o /home/yochy/kobo/kobohack-j/freetype/objs/sfnt.o /home/yochy/kobo/kobohack-j/freetype/objs/autofit.o /home/yochy/kobo/kobohack-j/freetype/objs/pshinter.o /home/yochy/kobo/kobohack-j/freetype/objs/raster.o /home/yochy/kobo/kobohack-j/freetype/objs/smooth.o /home/yochy/kobo/kobohack-j/freetype/objs/ftcache.o /home/yochy/kobo/kobohack-j/freetype/objs/ftgzip.o /home/yochy/kobo/kobohack-j/freetype/objs/ftlzw.o /home/yochy/kobo/kobohack-j/freetype/objs/ftbzip2.o /home/yochy/kobo/kobohack-j/freetype/objs/psaux.o /home/yochy/kobo/kobohack-j/freetype/objs/psnames.o
+libtool: link: ranlib /home/yochy/kobo/kobohack-j/freetype/objs/.libs/libfreetype.a
+libtool: link: ( cd "/home/yochy/kobo/kobohack-j/freetype/objs/.libs" && rm -f "libfreetype.la" && ln -s "../libfreetype.la" "libfreetype.la" )

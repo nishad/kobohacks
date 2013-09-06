@@ -78,8 +78,8 @@ T := -o$(space)
 #
 #   We use our own FreeType configuration file.
 #
-CPPFLAGS := 
-CFLAGS   := -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG -DFT_CONFIG_CONFIG_H="<ftconfig.h>"
+CPPFLAGS := -I/opt/local/include
+CFLAGS   := -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG -DFT_CONFIG_CONFIG_H="<ftconfig.h>"
 
 # ANSIFLAGS: Put there the flags used to make your compiler ANSI-compliant.
 #
@@ -93,7 +93,7 @@ CC    := $(LIBTOOL) --mode=compile $(CCraw)
 
 # Linker flags.
 #
-LDFLAGS :=  -L/opt/local/lib -lz -lpng
+LDFLAGS := -L/opt/local/lib -lz 
 
 
 # export symbols
