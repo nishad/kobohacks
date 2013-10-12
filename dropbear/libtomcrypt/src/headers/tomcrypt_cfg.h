@@ -95,6 +95,13 @@ LTC_EXPORT int   LTC_CALL XSTRCMP(const char *s1, const char *s2);
   #endif
 #endif
 
+/* detect ARM machines somewhat */
+#if defined(__arm__)
+   #define ENDIAN_LITTLE
+   #define ENDIAN_32BITWORD
+   #define LTC_FAST
+   #define LTC_FAST_TYPE    unsigned long
+#endif
 
 #ifdef LTC_NO_FAST
    #ifdef LTC_FAST
