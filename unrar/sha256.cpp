@@ -87,8 +87,8 @@ static void sha256_transform(sha256_context *ctx)
     W[I] = sg1(W[I-2]) + W[I-7] + sg0(W[I-15]) + W[I-16];
 
   uint32 *H=ctx->H;
-  v[0]=H[0]; v[1]=H[1]; v[2]=H[2]; v[3]=H[3];
-  v[4]=H[4]; v[5]=H[5]; v[6]=H[6]; v[7]=H[7];
+  for (uint I = 0; I < 8; I++)
+    v[I]=H[I];
 
   // MSVC -O2 partially unrolls this loop automatically.
   for (uint I = 0; I < 64; I++)
@@ -112,8 +112,8 @@ static void sha256_transform(sha256_context *ctx)
     v[0] = T1 + T2;
   }
 
-  H[0]+=v[0]; H[1]+=v[1]; H[2]+=v[2]; H[3]+=v[3];
-  H[4]+=v[4]; H[5]+=v[5]; H[6]+=v[6]; H[7]+=v[7];
+  for (uint I = 0; I < 8; I++)
+    H[I]+=v[I];
 }
 
 
