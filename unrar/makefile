@@ -2,11 +2,11 @@
 # Makefile for UNIX - unrar
 
 # Linux using GCC
-CXX=g++
-CXXFLAGS=-O2
+CXX=/opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-g++
+CXXFLAGS=-O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize
 LIBFLAGS=-fPIC
 DEFINES=-D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DRAR_SMP
-STRIP=strip
+STRIP=/opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-strip
 LDFLAGS=-pthread
 DESTDIR=/usr
 
