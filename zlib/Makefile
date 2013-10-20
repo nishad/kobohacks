@@ -16,19 +16,20 @@
 # To install in $HOME instead of /usr/local, use:
 #    make install prefix=$HOME
 
-CC=/opt/freescale/usr/local/gcc-4.4.4-glibc-2.11.1-multilib-1.0/arm-fsl-linux-gnueabi/bin/arm-fsl-linux-gnueabi-gcc
+CC=clang -target arm-linux-gnueabihf
+#CC=/opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc
 
-CFLAGS=-O3  -D_LARGEFILE64_SOURCE=1 -DHAVE_HIDDEN -march=armv7-a -mtune=cortex-a8 -mfpu=neon -mfloat-abi=softfp
+CFLAGS=-O3  -D_LARGEFILE64_SOURCE=1 -DHAVE_HIDDEN -march=armv7-a -mtune=cortex-a8 -mfpu=neon -I/opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/arm-linux-gnueabihf/libc/usr/include/arm-linux-gnueabihf
 #CFLAGS=-O -DMAX_WBITS=14 -DMAX_MEM_LEVEL=7
 #CFLAGS=-g -DDEBUG
 #CFLAGS=-O3 -Wall -Wwrite-strings -Wpointer-arith -Wconversion \
 #           -Wstrict-prototypes -Wmissing-prototypes
 
-SFLAGS=-O3  -fPIC -D_LARGEFILE64_SOURCE=1 -DHAVE_HIDDEN -march=armv7-a -mtune=cortex-a8 -mfpu=neon -mfloat-abi=softfp
+SFLAGS=-O3  -fPIC -D_LARGEFILE64_SOURCE=1 -DHAVE_HIDDEN -mthumb -march=armv7-a -mtune=cortex-a8 -mfpu=neon -I/opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/arm-linux-gnueabihf/libc/usr/include/arm-linux-gnueabihf
 LDFLAGS= 
 TEST_LDFLAGS=-L. libz.a
-LDSHARED=/opt/freescale/usr/local/gcc-4.4.4-glibc-2.11.1-multilib-1.0/arm-fsl-linux-gnueabi/bin/arm-fsl-linux-gnueabi-gcc -shared -Wl,-soname,libz.so.1,--version-script,zlib.map
-CPP=/opt/freescale/usr/local/gcc-4.4.4-glibc-2.11.1-multilib-1.0/arm-fsl-linux-gnueabi/bin/arm-fsl-linux-gnueabi-gcc -E
+LDSHARED=/opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -shared -Wl,-soname,libz.so.1,--version-script,zlib.map
+CPP=/opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc -E
 
 STATICLIB=libz.a
 SHAREDLIB=libz.so
@@ -175,7 +176,7 @@ placebo $(SHAREDLIBV): $(PIC_OBJS) libz.a
 	-@rmdir objs
 
 example$(EXE): example.o $(STATICLIB)
-	$(CC) $(CFLAGS) -o $@ example.o $(TEST_LDFLAGS)
+	$(LD) $(CFLAGS) -o $@ example.o $(TEST_LDFLAGS)
 
 minigzip$(EXE): minigzip.o $(STATICLIB)
 	$(CC) $(CFLAGS) -o $@ minigzip.o $(TEST_LDFLAGS)

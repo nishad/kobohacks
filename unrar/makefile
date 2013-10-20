@@ -2,8 +2,9 @@
 # Makefile for UNIX - unrar
 
 # Linux using GCC
-CXX=/opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-g++
-CXXFLAGS=-O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize
+#CXX=/opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-g++
+CXX=clang++ -target arm-linux-gnueabihf
+CXXFLAGS=-O3 -mthumb -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -I/opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/arm-linux-gnueabihf/include/c++/4.8.1 -I/opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/arm-linux-gnueabihf/include/c++/4.8.1/arm-linux-gnueabihf/ -I/opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/arm-linux-gnueabihf/libc/usr/include/arm-linux-gnueabihf
 LIBFLAGS=-fPIC
 DEFINES=-D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DRAR_SMP
 STRIP=/opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-strip
@@ -93,7 +94,8 @@ DESTDIR=/usr
 ##########################
 
 COMPILE=$(CXX) $(CPPFLAGS) $(CXXFLAGS) $(DEFINES)
-LINK=$(CXX)
+LINK=/opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-g++
+#LINK=$(CXX)
 
 WHAT=UNRAR
 

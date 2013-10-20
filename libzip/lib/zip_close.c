@@ -242,8 +242,13 @@ zip_close(struct zip *za)
 
 	    if (add_data(za, zs ? zs : za->entry[i].source, &de, out) < 0) {
 		error = 1;
+		if (zs)
+		    zip_source_free(zs);
 		break;
 	    }
+	    if(zs)
+		zip_source_free(zs);
+
 	    cd->entry[j].last_mod = de.last_mod;
 	    cd->entry[j].comp_method = de.comp_method;
 	    cd->entry[j].comp_size = de.comp_size;
@@ -630,7 +635,8 @@ _zip_changed(struct zip *za, int *survivorsp)
 	    survivors++;
     }
 
-    *survivorsp = survivors;
+    if(survivorsp)
+	*survivorsp = survivors;
 
     return changed;
 }

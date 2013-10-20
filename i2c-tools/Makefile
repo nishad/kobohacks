@@ -8,7 +8,7 @@
 # (at your option) any later version.
 
 DESTDIR	=
-prefix	= /usr/local
+prefix	= /opt/local
 bindir	= $(prefix)/bin
 sbindir	= $(prefix)/sbin
 mandir	= $(prefix)/share/man
@@ -21,9 +21,9 @@ INSTALL_DIR	:= $(INSTALL) -m 755 -d
 INSTALL_PROGRAM	:= $(INSTALL) -m 755
 RM		:= rm -f
 
-CC	?= gcc
+CC	:= /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc
 
-CFLAGS	?= -O2
+CFLAGS	?= -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize
 # When debugging, use the following instead
 #CFLAGS	:= -O -g
 CFLAGS	+= -Wall
