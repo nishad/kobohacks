@@ -709,7 +709,7 @@ def_hd_params:
 								 BLOCK_SIZE_BITS);
 	    bs.cluster_size =
 		sz_mb >= 32 * 1024 ? 64 : sz_mb >= 16 * 1024 ? 32 : sz_mb >=
-		8 * 1024 ? 16 : 8;
+		8 * 1024 ? 16 : sz_mb > 260 ? 8 : 1;
 	} else {
 	    /* FAT12 and FAT16: start at 4 sectors per cluster */
 	    bs.cluster_size = (char)4;
@@ -1575,8 +1575,13 @@ int main(int argc, char **argv)
 
 	case 'n':		/* n : Volume name */
 	    sprintf(volume_name, "%-11.11s", optarg);
-	    for (i = 0; i < 11; i++)
-		volume_name[i] = toupper(volume_name[i]);
+	    for (i = 0; volume_name[i] && i < 11; i++)
+		/* don't know if here should be more strict !uppercase(label[i]) */
+		if (islower(volume_name[i])) {
+		    fprintf(stderr,
+		            "mkfs.fat: warning - lowercase labels might not work properly with DOS or Windows\n");
+		    break;
+		}
 
 	    break;
 
