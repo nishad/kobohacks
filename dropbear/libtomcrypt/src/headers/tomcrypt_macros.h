@@ -104,13 +104,20 @@ asm __volatile__ (             \
 
 
 /* x86_64 processor */
-#if !defined(LTC_NO_BSWAP) && ((__GNUC__ > 4) || ((__GNUC__ == 4) && ((__GNUC_MINOR__ > 3) || (__GNUC_MINOR__ == 3))))
+#if !defined(LTC_NO_BSWAP) && (defined(__GNUC__) && defined(__x86_64__))
 
 #define STORE64H(x, y)           \
-	{ *(unsigned long long*)(y) = __builtin_bswap64(x); }
+asm __volatile__ (               \
+   "bswapq %0     \n\t"          \
+   "movq   %0,(%1)\n\t"          \
+   "bswapq %0     \n\t"          \
+      ::"r"(x), "r"(y));
 
 #define LOAD64H(x, y)          \
-	{ x = __builtin_bswap64(*(unsigned long long*)(y)); }
+asm __volatile__ (             \
+   "movq (%1),%0\n\t"          \
+   "bswapq %0\n\t"             \
+   :"=r"(x): "r"(y));
 
 #else
 
