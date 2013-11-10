@@ -8,3 +8,4 @@
 ./bin/i2cget
 ./bin/i2cset
 ./bin/strace
+./usr/bin/openssl
