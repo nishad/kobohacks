@@ -56,15 +56,16 @@ includedir   := ${prefix}/include
 datarootdir  := ${prefix}/share
 datadir      := ${datarootdir}
 
-version_info := 16:2:10
+version_info := 17:0:11
 
 # Variables needed for `freetype-config' and `freetype.pc'.
 #
 FT2_EXTRA_LIBS     := 
 LIBBZ2             := 
-LIBZ               := -lz
+LIBZ               := 
+LIBPNG             := 
 build_libtool_libs := 
-ft_version         := 16.2.10
+ft_version         := 17.0.11
 
 # The directory where all library files are placed.
 #
@@ -81,7 +82,7 @@ ftmac_c :=
 # The SYSTEM_ZLIB macro is defined if the user wishes to link dynamically
 # with its system wide zlib. If SYSTEM_ZLIB is 'yes', the zlib part of the
 # ftgzip module is not compiled in.
-SYSTEM_ZLIB := yes
+SYSTEM_ZLIB := 
 
 
 # The NO_OUTPUT macro is appended to command lines in order to ignore
@@ -102,6 +103,7 @@ $(OBJ_BUILD)/freetype-config: $(TOP_DIR)/builds/unix/freetype-config.in
 	sed -e 's|%FT2_EXTRA_LIBS%|$(FT2_EXTRA_LIBS)|' \
 	    -e 's|%LIBBZ2%|$(LIBBZ2)|' \
 	    -e 's|%LIBZ%|$(LIBZ)|' \
+	    -e 's|%LIBPNG%|$(LIBPNG)|' \
 	    -e 's|%build_libtool_libs%|$(build_libtool_libs)|' \
 	    -e 's|%exec_prefix%|$(exec_prefix)|' \
 	    -e 's|%ft_version%|$(ft_version)|' \
@@ -119,6 +121,7 @@ $(OBJ_BUILD)/freetype2.pc: $(TOP_DIR)/builds/unix/freetype2.in
 	sed -e 's|%FT2_EXTRA_LIBS%|$(FT2_EXTRA_LIBS)|' \
 	    -e 's|%LIBBZ2%|$(LIBBZ2)|' \
 	    -e 's|%LIBZ%|$(LIBZ)|' \
+	    -e 's|%LIBPNG%|$(LIBPNG)|' \
 	    -e 's|%build_libtool_libs%|$(build_libtool_libs)|' \
 	    -e 's|%exec_prefix%|$(exec_prefix)|' \
 	    -e 's|%ft_version%|$(ft_version)|' \
@@ -127,7 +130,6 @@ $(OBJ_BUILD)/freetype2.pc: $(TOP_DIR)/builds/unix/freetype2.in
 	    -e 's|%prefix%|$(prefix)|' \
 	    $< \
 	    > $@.tmp
-	chmod +x $@.tmp
 	chmod a-w $@.tmp
 	mv $@.tmp $@
 

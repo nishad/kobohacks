@@ -93,6 +93,7 @@ FT_Glyph_Stroke
 FT_Glyph_StrokeBorder
 FT_Glyph_To_Bitmap
 FT_Glyph_Transform
+FT_Gzip_Uncompress
 FT_Has_PS_Glyph_Names
 FT_Init_FreeType
 FT_Library_SetLcdFilter

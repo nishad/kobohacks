@@ -1470,7 +1470,11 @@
     __asm__ __volatile__ (
       "smull  %1, %2, %4, %3\n\t"       /* (lo=%1,hi=%2) = a*b */
       "mov    %0, %2, asr #31\n\t"      /* %0  = (hi >> 31) */
+#ifdef __clang__
+      "add.w  %0, %0, #0x2000\n\t"      /* %0 += 0x2000 */
+#else
       "add    %0, %0, #0x2000\n\t"      /* %0 += 0x2000 */
+#endif
       "adds   %1, %1, %0\n\t"           /* %1 += %0 */
       "adc    %2, %2, #0\n\t"           /* %2 += carry */
       "mov    %0, %1, lsr #14\n\t"      /* %0  = %1 >> 16 */
@@ -1494,6 +1498,12 @@
 
 #define TT_MulFix14  TT_MulFix14_long_long
 
+  /* Temporarily disable the warning that C90 doesn't support `long long'. */
+#if ( __GNUC__ * 100 + __GNUC_MINOR__ ) >= 406
+#pragma GCC diagnostic push
+#endif
+#pragma GCC diagnostic ignored "-Wlong-long"
+
   /* This is declared `noinline' because inlining the function results */
   /* in slower code.  The `pure' attribute indicates that the result   */
   /* only depends on the parameters.                                   */
@@ -1502,10 +1512,6 @@
   TT_MulFix14_long_long( FT_Int32  a,
                          FT_Int    b )
   {
-    /* Temporarily disable the warning that C90 doesn't support */
-    /* `long long'.                                             */
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wlong-long"
 
     long long  ret = (long long)a * b;
 
@@ -1518,9 +1524,11 @@
     ret += 0x2000 + tmp;
 
     return (FT_Int32)( ret >> 14 );
-
-#pragma GCC diagnostic pop
   }
+
+#if ( __GNUC__ * 100 + __GNUC_MINOR__ ) >= 406
+#pragma GCC diagnostic pop
+#endif
 
 #endif /* __GNUC__ && ( __i386__ || __x86_64__ ) */
 
@@ -1571,6 +1579,11 @@
 
 #define TT_DotFix14  TT_DotFix14_long_long
 
+#if ( __GNUC__ * 100 + __GNUC_MINOR__ ) >= 406
+#pragma GCC diagnostic push
+#endif
+#pragma GCC diagnostic ignored "-Wlong-long"
+
   static __attribute__(( pure )) FT_Int32
   TT_DotFix14_long_long( FT_Int32  ax,
                          FT_Int32  ay,
@@ -1579,8 +1592,6 @@
   {
     /* Temporarily disable the warning that C90 doesn't support */
     /* `long long'.                                             */
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wlong-long"
 
     long long  temp1 = (long long)ax * bx;
     long long  temp2 = (long long)ay * by;
@@ -1592,8 +1603,11 @@
 
     return (FT_Int32)( temp1 >> 14 );
 
-#pragma GCC diagnostic pop
   }
+
+#if ( __GNUC__ * 100 + __GNUC_MINOR__ ) >= 406
+#pragma GCC diagnostic pop
+#endif
 
 #endif /* __GNUC__ && (__arm__ || __i386__ || __x86_64__) */
 
@@ -3137,42 +3151,42 @@
   }
 
 
-#define DO_JROT                                                   \
-    if ( args[1] != 0 )                                           \
-    {                                                             \
-      if ( args[0] == 0 && CUR.args == 0 )                        \
-        CUR.error = FT_THROW( Bad_Argument );                     \
-      CUR.IP += args[0];                                          \
-      if ( CUR.IP < 0                                          || \
-           ( CUR.callTop > 0                                 &&   \
-             CUR.IP > CUR.callStack[CUR.callTop - 1].Cur_End ) )  \
-        CUR.error = FT_THROW( Bad_Argument );                     \
-      CUR.step_ins = FALSE;                                       \
+#define DO_JROT                                                    \
+    if ( args[1] != 0 )                                            \
+    {                                                              \
+      if ( args[0] == 0 && CUR.args == 0 )                         \
+        CUR.error = FT_THROW( Bad_Argument );                      \
+      CUR.IP += args[0];                                           \
+      if ( CUR.IP < 0                                           || \
+           ( CUR.callTop > 0                                  &&   \
+             CUR.IP > CUR.callStack[CUR.callTop - 1].Def->end ) )  \
+        CUR.error = FT_THROW( Bad_Argument );                      \
+      CUR.step_ins = FALSE;                                        \
     }
 
 
-#define DO_JMPR                                                 \
-    if ( args[0] == 0 && CUR.args == 0 )                        \
-      CUR.error = FT_THROW( Bad_Argument );                     \
-    CUR.IP += args[0];                                          \
-    if ( CUR.IP < 0                                          || \
-         ( CUR.callTop > 0                                 &&   \
-           CUR.IP > CUR.callStack[CUR.callTop - 1].Cur_End ) )  \
-      CUR.error = FT_THROW( Bad_Argument );                     \
+#define DO_JMPR                                                  \
+    if ( args[0] == 0 && CUR.args == 0 )                         \
+      CUR.error = FT_THROW( Bad_Argument );                      \
+    CUR.IP += args[0];                                           \
+    if ( CUR.IP < 0                                           || \
+         ( CUR.callTop > 0                                  &&   \
+           CUR.IP > CUR.callStack[CUR.callTop - 1].Def->end ) )  \
+      CUR.error = FT_THROW( Bad_Argument );                      \
     CUR.step_ins = FALSE;
 
 
-#define DO_JROF                                                   \
-    if ( args[1] == 0 )                                           \
-    {                                                             \
-      if ( args[0] == 0 && CUR.args == 0 )                        \
-        CUR.error = FT_THROW( Bad_Argument );                     \
-      CUR.IP += args[0];                                          \
-      if ( CUR.IP < 0                                          || \
-           ( CUR.callTop > 0                                 &&   \
-             CUR.IP > CUR.callStack[CUR.callTop - 1].Cur_End ) )  \
-        CUR.error = FT_THROW( Bad_Argument );                     \
-      CUR.step_ins = FALSE;                                       \
+#define DO_JROF                                                    \
+    if ( args[1] == 0 )                                            \
+    {                                                              \
+      if ( args[0] == 0 && CUR.args == 0 )                         \
+        CUR.error = FT_THROW( Bad_Argument );                      \
+      CUR.IP += args[0];                                           \
+      if ( CUR.IP < 0                                           || \
+           ( CUR.callTop > 0                                  &&   \
+             CUR.IP > CUR.callStack[CUR.callTop - 1].Def->end ) )  \
+        CUR.error = FT_THROW( Bad_Argument );                      \
+      CUR.step_ins = FALSE;                                        \
     }
 
 
@@ -4888,7 +4902,7 @@
     if ( pRec->Cur_Count > 0 )
     {
       CUR.callTop++;
-      CUR.IP = pRec->Cur_Restart;
+      CUR.IP = pRec->Def->start;
     }
     else
       /* Loop through the current function */
@@ -4978,8 +4992,7 @@
     pCrec->Caller_Range = CUR.curRange;
     pCrec->Caller_IP    = CUR.IP + 1;
     pCrec->Cur_Count    = 1;
-    pCrec->Cur_Restart  = def->start;
-    pCrec->Cur_End      = def->end;
+    pCrec->Def          = def;
 
     CUR.callTop++;
 
@@ -5067,8 +5080,7 @@
       pCrec->Caller_Range = CUR.curRange;
       pCrec->Caller_IP    = CUR.IP + 1;
       pCrec->Cur_Count    = (FT_Int)args[0];
-      pCrec->Cur_Restart  = def->start;
-      pCrec->Cur_End      = def->end;
+      pCrec->Def          = def;
 
       CUR.callTop++;
 
@@ -7816,18 +7828,15 @@
       if ( ( args[0] & 32 ) != 0 && CUR.grayscale_hinting )
         K |= 1 << 12;
 
-      /********************************/
-      /* HINTING FOR SUBPIXEL         */
-      /* Selector Bit:  6             */
-      /* Return Bit(s): 13            */
-      /*                              */
-      if ( ( args[0] & 64 ) != 0        &&
-           CUR.subpixel_hinting         &&
-           CUR.rasterizer_version >= 37 )
+      if ( CUR.rasterizer_version >= 37 )
       {
-        K |= 1 << 13;
-
-        /* the stuff below is irrelevant if subpixel_hinting is not set */
+        /********************************/
+        /* HINTING FOR SUBPIXEL         */
+        /* Selector Bit:  6             */
+        /* Return Bit(s): 13            */
+        /*                              */
+        if ( ( args[0] & 64 ) != 0 && CUR.subpixel_hinting )
+          K |= 1 << 13;
 
         /********************************/
         /* COMPATIBLE WIDTHS ENABLED    */
@@ -7903,8 +7912,7 @@
         call->Caller_Range = CUR.curRange;
         call->Caller_IP    = CUR.IP + 1;
         call->Cur_Count    = 1;
-        call->Cur_Restart  = def->start;
-        call->Cur_End      = def->end;
+        call->Def          = def;
 
         INS_Goto_CodeRange( def->range, def->start );
 
@@ -8960,8 +8968,7 @@
                 callrec->Caller_Range = CUR.curRange;
                 callrec->Caller_IP    = CUR.IP + 1;
                 callrec->Cur_Count    = 1;
-                callrec->Cur_Restart  = def->start;
-                callrec->Cur_End      = def->end;
+                callrec->Def          = def;
 
                 if ( INS_Goto_CodeRange( def->range, def->start ) == FAILURE )
                   goto LErrorLabel_;

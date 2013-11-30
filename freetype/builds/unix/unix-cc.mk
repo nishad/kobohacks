@@ -12,7 +12,8 @@
 # fully.
 
 
-CC           := /opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc
+#CC           := arm-linux-gnueabihf-gcc
+CC           := clang -target arm-linux-gnueabihf
 COMPILER_SEP := $(SEP)
 FT_LIBTOOL_DIR ?= $(BUILD_DIR)
 
@@ -78,8 +79,8 @@ T := -o$(space)
 #
 #   We use our own FreeType configuration file.
 #
-CPPFLAGS := -I/opt/local/include
-CFLAGS   := -c -Wall -g -O2 -march=armv7-a -mtune=cortex-a8 -mfpu=neon -ftree-vectorize -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG -DFT_CONFIG_CONFIG_H="<ftconfig.h>"
+CPPFLAGS := 
+CFLAGS   := -mthumb -march=armv7-a -mtune=cortex-a8 -mfpu=neon -O3 -c -Wall -I/opt/local/include -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include/libpng16 -DFT_CONFIG_OPTION_USE_PNG -DFT_CONFIG_CONFIG_H="<ftconfig.h>" -I/opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/arm-linux-gnueabihf/libc/usr/include/arm-linux-gnueabihf
 
 # ANSIFLAGS: Put there the flags used to make your compiler ANSI-compliant.
 #
@@ -93,7 +94,7 @@ CC    := $(LIBTOOL) --mode=compile $(CCraw)
 
 # Linker flags.
 #
-LDFLAGS := -L/opt/local/lib -lz 
+LDFLAGS := -L/opt/local/lib -lz -L/opt/local/lib -lpng16
 
 
 # export symbols

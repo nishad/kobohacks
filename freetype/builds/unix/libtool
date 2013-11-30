@@ -164,10 +164,10 @@ old_postuninstall_cmds=""
 lock_old_archive_extraction=no
 
 # A C compiler.
-LTCC="/opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc"
+LTCC="arm-linux-gnueabihf-gcc"
 
 # LTCC compiler flags.
-LTCFLAGS="-g -O2 -DFT_CONFIG_OPTION_SYSTEM_ZLIB -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG"
+LTCFLAGS="-g -O2 -I/opt/local/include -DFT_CONFIG_OPTION_USE_PNG"
 
 # Take the output of nm and produce a listing of raw symbols and C names.
 global_symbol_pipe="sed -n -e 's/^.*[	 ]\\([ABCDGIRSTW][ABCDGIRSTW]*\\)[	 ][	 ]*\\([_A-Za-z][_A-Za-z0-9]*\\)\$/\\1 \\2 \\2/p' | sed '/ __gnu_lto/d'"
@@ -305,7 +305,7 @@ reload_cmds="\$LD\$reload_flag -o \$output\$reload_objs"
 old_archive_cmds="\$AR \$AR_FLAGS \$oldlib\$oldobjs~\$RANLIB \$tool_oldlib"
 
 # A language specific compiler.
-CC="/opt/gcc-linaro-arm-linux-gnueabihf-4.8-2013.04-20130417_linux/bin/arm-linux-gnueabihf-gcc"
+CC="arm-linux-gnueabihf-gcc"
 
 # Is the compiler the GNU compiler?
 with_gcc=yes

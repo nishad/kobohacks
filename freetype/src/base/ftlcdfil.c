@@ -290,8 +290,7 @@
     /* the values here sum up to a value larger than 256, */
     /* providing a cheap gamma correction                 */
     static const FT_Byte  default_filter[5] =
-                            /* { 0x10, 0x40, 0x70, 0x40, 0x10 }; */
-                            { 21, 64, 86, 64, 21 };
+                            { 0x10, 0x40, 0x70, 0x40, 0x10 };
 
 
     if ( !library )
