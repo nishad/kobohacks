@@ -1,0 +1,4 @@
+SUBDIRS = clearfat test
+AM_CFLAGS = $(WARN_CFLAGS) $(WERROR_CFLAGS)
+
+MAINTAINERCLEANFILES = Makefile.in

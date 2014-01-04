@@ -1,0 +1,3 @@
+SUBDIRS = parted
+
+MAINTAINERCLEANFILES = Makefile.in

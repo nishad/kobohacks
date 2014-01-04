@@ -1,0 +1,1669 @@
+This is parted.info, produced by makeinfo version 4.13 from parted.texi.
+
+This file documents the use of GNU Parted, a program for creating,
+resizing, checking and copy partitions and file systems on them.
+
+  Copyright (C) 1999-2011 Free Software Foundation, Inc.
+
+  Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with no Front-Cover Texts, and with no Back-Cover
+Texts.  A copy of the license is included in the section entitled "GNU
+Free Documentation License".
+
+INFO-DIR-SECTION System administration
+START-INFO-DIR-ENTRY
+* parted: (parted).                         GNU partitioning software
+END-INFO-DIR-ENTRY
+
+
+File: parted.info,  Node: Top,  Next: Introduction,  Up: (dir)
+
+GNU Parted User Manual
+**********************
+
+This document describes the use of GNU Parted, a program for creating,
+destroying, resizing, checking and copying hard drive partitions, and
+the file systems on them.
+
+  This document applies roughly to version *2.4* of GNU Parted.
+
+  The original version was written by Andrew Clausen in text format.
+Richard M. Kreuter translated it into Texinfo format in 2002, to be
+heavily edited by Leslie P. Polzer in 2006.
+
+* Menu:
+
+* Introduction::                Overview
+* Using Parted::                Partitioning a Hard Drive
+* Related information::         Further reading on related topics
+* Copying This Manual::         How to make copies of this manual
+* History::                     This manual's history
+* Concept index::               Concept index
+
+
+File: parted.info,  Node: Introduction,  Next: Using Parted,  Prev: Top,  Up: Top
+
+1 Introduction
+**************
+
+* Menu:
+
+* Overview::                    GNU Parted and prerequisite knowledge
+* Software Required::           GNU Parted's software dependencies
+* Supported Platforms::         Where you can use GNU Parted
+* License::                     What you may and may not do with GNU Parted
+* Compiling::                   How to build GNU Parted
+* Static binaries::             How to get and use a static version of GNU
+                                Parted
+
+
+File: parted.info,  Node: Overview,  Next: Software Required,  Up: Introduction
+
+1.1 Overview of GNU Parted
+==========================
+
+GNU Parted is a program for creating, destroying, resizing, checking
+and copying partitions, and the file systems on them.
+
+  This is useful for creating space for new operating systems, for
+reorganizing disk usage, for copying data between hard disks and for
+"disk imaging" -- replicating an installation on another computer.
+
+  This documentation is written with the assumption that the reader has
+some understanding of partitioning and file systems.  If you want to
+learn more about these, the upcoming GNU Storage Guide is recommended
+reading.
+
+  GNU Parted was designed to minimize the chance of data loss.  For
+example, it was designed to avoid data loss during interruptions (like
+power failure) and performs many safety checks.  However, there could
+be bugs in GNU Parted, so you should back up your important files before
+running Parted.  Also note that reiserfs support relies on libreiserfs,
+which does not fulfil the aforementioned requirement.  The same holds
+for any external tools like `ntfsresize'.
+
+  The GNU Parted homepage is `http://www.gnu.org/software/parted'.  The
+library and frontend themselves can be downloaded from
+`ftp://ftp.gnu.org/gnu/parted'.  You can also find a listing of mailing
+lists, notes for contributing and more useful information on the web
+site.
+
+  Please send bug reports to <bug-parted@gnu.org>.  When sending bug
+reports, please include the version of GNU Parted.  Please include the
+output from these commands (for disk `/dev/hda'):
+
+     # parted /dev/hda print unit s print unit chs print
+
+  Feel free to ask for help on this list -- just check that your
+question isn't answered here first.  If you don't understand the
+documentation, please tell us, so we can explain it better.  General
+philosophy is: if you need to ask for help, then something needs to be
+fixed so you (and others) don't need to ask for help.
+
+  Also, we'd love to hear your ideas :-)
+
+
+File: parted.info,  Node: Software Required,  Next: Supported Platforms,  Prev: Overview,  Up: Introduction
+
+1.2 Software Required for the use of Parted
+===========================================
+
+If you're installing or compiling Parted yourself, you'll need to have
+some other programs installed.  If you are compiling Parted, you will
+need both the normal and devel packages of these programs installed:
+
+   * libuuid, part of the e2fsprogs package.  If you don't have this,
+     you can get it from:
+
+     	`http://web.mit.edu/tytso/www/linux/e2fsprogs.html'
+
+     If you want to compile Parted and e2fsprogs, note that you will
+     need to `make install' and `make install-libs' e2fsprogs.
+
+   * GNU Readline (optional), available from
+
+     	`ftp://ftp.gnu.org/gnu/readline'
+
+     If you are compiling Parted, and you don't have readline, you can
+     disable Parted's readline support with the `--disable-readline'
+     option for `configure'.
+
+   * GNU gettext (or compatible software) for compilation, if
+     internationalisation support is desired.
+
+     	`ftp://ftp.gnu.org/gnu/gettext'
+
+   * libreiserfs, if you want reiserfs support:
+
+     	`http://reiserfs.osdn.org.ua'
+
+     Note that parted will automatically detect libreiserfs at runtime,
+     and enable reiserfs support.  libreiserfs is new, and hasn't been
+     widely tested yet.
+
+
+
+File: parted.info,  Node: Supported Platforms,  Next: License,  Prev: Software Required,  Up: Introduction
+
+1.3 Platforms on which GNU Parted runs
+======================================
+
+Hopefully, this list will grow a lot.  If you do not have one of these
+platforms, then you can use a rescue disk and a static binary of GNU
+Parted.  *Note Static binaries::.
+
+GNU/Linux
+     Linux versions 2.0 and up, on Alpha, x86 PCs, PC98, Macintosh
+     PowerPC, Sun hardware.
+
+GNU/Hurd
+
+  GNU libc 2.1 or higher is required.  You can probably use older
+versions by using the `--disable-nls' option. *Note Building GNU
+Parted: Compiling. (Note: I think we have now dropped this requirement.
+TODO: check if libc 2.0 works!)
+
+
+File: parted.info,  Node: License,  Next: Compiling,  Prev: Supported Platforms,  Up: Introduction
+
+1.4 Terms of distribution for GNU Parted
+========================================
+
+GNU Parted is free software, covered by the GNU General Public License
+Version 2.  This should have been included with the Parted distribution,
+in the COPYING file.  If not, write to the Free Software Foundation,
+Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
+
+  Libparted is considered part of GNU Parted.  It is covered by the GNU
+General Public License.  It is NOT released under the GNU Lesser General
+Public License (LGPL).
+
+
+File: parted.info,  Node: Compiling,  Next: Static binaries,  Prev: License,  Up: Introduction
+
+1.5 Building GNU Parted
+=======================
+
+If you want to compile GNU Parted, this is generally done with:
+
+     $ ./configure
+     $ make
+
+  However, there are a few options for `configure':
+
+`--without-readline'
+     turns off use of readline.  This is useful for making rescue disks,
+     etc., where few libraries are available.
+
+`--disable-debug'
+     don't include assertions
+
+`--disable-dynamic-loading'
+     disables dynamic loading of some libraries (only libreiserfs for
+     now, although we hope to expand this).  Dynamic loading is useful
+     because it allows you to reuse libparted shared libraries even
+     when you don't know if some libraries will be available.  It has a
+     small overhead (mainly linking with libdl), so it may be useful to
+     disable it on bootdisks if you don't need the flexibility.
+
+`--disable-fs'
+     disable all file system support
+
+`--disable-nls'
+     turns off native language support.  This is useful for use with old
+     versions of glibc, or a trimmed down version of glibc suitable for
+     rescue disks.
+
+`--disable-shared'
+     turns off shared libraries.  This may be necessary for use with old
+     versions of GNU libc, if you get a compile error about a "spilled
+     register".  Also useful for boot/rescue disks.
+
+`--disable-Werror'
+     ignore warning messages in compilation
+
+`--enable-discover-only'
+     support only reading/probing (reduces size considerably)
+
+`--enable-mtrace'
+     enable malloc() debugging
+
+`--enable-read-only'
+     disable writing (for debugging)
+
+
+
+File: parted.info,  Node: Static binaries,  Prev: Compiling,  Up: Introduction
+
+1.6 Using static binaries of GNU Parted
+=======================================
+
+1.6.1 Introduction
+------------------
+
+If you want to run GNU Parted on a machine without GNU/Linux installed,
+or you want to resize a root or boot partition, you will need to use a
+boot disk.
+
+  Special boot disk images for GNU Parted used to be available, but
+with the emergence of a plethora of rescue disks and Live CDs that all
+include GNU Parted this is no longer necessary.  However, please note
+that these disks often ship with out-of-date versions of Parted.  To
+compensate for this a static binary of the latest GNU Parted version is
+available, which you can use thus:
+
+1.6.2 Creating the Parted disk
+------------------------------
+
+  1. Boot your system
+
+  2. Download `parted-static-VERSION.tgz' from
+     `ftp://ftp.gnu.org/gnu/parted/static'
+
+  3. Unpack the tarball, resulting in a file called "parted.static".
+
+  4. Insert a floppy.
+
+  5. Do a low-level format on it (on GNU/Linux this can be achieved with
+          the tool "fdformat" from the "util-linux" package.
+     This is basically a sanity check because floppy disks often
+     contain bad blocks.
+
+  6. Create a file system. Example:
+
+          $ parted /dev/fd0 mklabel loop mkpartfs ext2 0 1.4
+
+  7. Mount the floppy disk, e.g.,
+
+          $ mount -t ext2 /dev/fd0 /mnt/floppy
+
+  8. Copy `parted.static' to the floppy, e.g.,
+
+          $ cp parted.static /mnt/floppy
+
+  9. Unmount the floppy, e.g.,
+
+          $ umount /mnt/floppy
+
+1.6.3 Using the Parted disk
+---------------------------
+
+  1. Choose a rescue disk that suits you.
+
+  2. Boot off your rescue disk.  Mount the disk you copied Parted onto.
+
+  3. Run Parted.  For example,
+
+          # cd /mnt/floppy
+          # ./parted-static
+
+
+File: parted.info,  Node: Using Parted,  Next: Related information,  Prev: Introduction,  Up: Top
+
+2 Using Parted
+**************
+
+* Menu:
+
+* Partitioning::                    Disk partitioning in context
+* Running Parted::                  Partitioning with Parted
+* Invoking Parted::                 Parted's invocation options and commands
+* Command explanations::            Full explanation of parted's commands
+
+
+File: parted.info,  Node: Partitioning,  Next: Running Parted,  Up: Using Parted
+
+2.1 Introduction to Partitioning
+================================
+
+Unfortunately, partitioning your disk is rather complicated.  This is
+because there are interactions between many different systems that need
+to be taken into consideration.
+
+  This manual used to introduce the reader to these systems and their
+working.  This content has moved to the GNU Storage Guide.
+
+
+File: parted.info,  Node: Running Parted,  Next: Invoking Parted,  Prev: Partitioning,  Up: Using Parted
+
+2.2 Using GNU Parted
+====================
+
+Parted has two modes: command line and interactive.  Parted should
+always be started with:
+
+     # parted DEVICE
+
+where DEVICE is the hard disk device to edit.  (If you're lazy and omit
+the DEVICE argument, Parted will attempt to guess which device you
+want.)
+
+  In command line mode, this is followed by one or more commands.  For
+example:
+
+     # parted /dev/sda resize 1 52Mb 104Mb mkfs 2 fat16
+
+Options (like `--help') can only be specified on the command line.
+
+  In interactive mode, commands are entered one at a time at a prompt,
+and modify the disk immediately.  For example:
+
+     (parted) resize 1 52.0005Mb 104.5Mb
+     (parted) mkfs 2 fat16
+
+Unambiguous abbreviations are allowed.  For example, you can type "p"
+instead of "print", and "resi" instead of "resize".  Commands can be
+typed either in English, or your native language (if your language has
+been translated).  This may create ambiguities.  Commands are
+case-insensitive.
+
+  Numbers indicating partition locations can be whole numbers or
+decimals.  The suffix selects the unit, which may be one of those
+described in *note unit::, except CHS and compact.  If no suffix is
+given, then the default unit is assumed.  Negative numbers count back
+from the end of the disk, with "-1s" indicating the end of the disk.
+Parted will compute sensible ranges for the locations you specify (e.g.
+a range of +/- 500 MB when you specify the location in "G"). Use the
+sector unit "s" to specify exact locations.
+
+  If you don't give a parameter to a command, Parted will prompt you
+for it.  For example:
+
+     (parted) resize 1
+     Start? 0Gb
+     End? 40Gb
+
+  Parted will always warn you before doing something that is potentially
+dangerous, unless the command is one of those that is inherently
+dangerous (viz., rm, mklabel and mkfs).  For example, if you attempt to
+shrink a partition "too much" (i.e., by more than the free space
+available), Parted will automatically reduce the shrinkage so that the
+partition is the smallest it can be without losing data.  If this size
+is significantly different from the size requested, Parted will warn
+you.  Since many partitioning systems have complicated constraints,
+Parted will usually do something slightly different to what you asked.
+(For example, create a partition starting at 10.352Mb, not 10.4Mb) If
+the calculated values differ too much, Parted will ask you for
+confirmation.
+
+  Currently ext3 filesystem functionality does not work. To manage ext3
+type filesystems use tools like resize2fs or mke2fs.  Note that the
+currently supported ext2 filesystem will be deprecated once ext3
+support is finalized.  Further note that ext3 support will have limited
+functionality that is yet to be defined.  Use tools like resize2fs (8)
+and mke2fs (8) to manage these types of filesystems.
+
+
+File: parted.info,  Node: Invoking Parted,  Next: Command explanations,  Prev: Running Parted,  Up: Using Parted
+
+2.3 Command Line Options
+========================
+
+When invoked from the command line, Parted supports the following
+syntax:
+
+     # parted [OPTION] DEVICE [COMMAND [ARGUMENT]]
+
+  Available options and commands follow.  For detailed explanations of
+the use of Parted commands, see *note Command explanations::. Options
+begin with a hyphen, commands do not:
+
+  Options:
+
+`-h'
+`--help'
+     display a help message
+
+`-s'
+`--script'
+     never prompt the user
+
+`-a alignment-type'
+`--align alignment-type'
+     Set alignment for newly created partitions, valid alignment types
+     are: none, cylinder, minimal and optimal.
+
+`-v'
+`--version'
+     display the version
+
+
+File: parted.info,  Node: Command explanations,  Prev: Invoking Parted,  Up: Using Parted
+
+2.4 Parted Session Commands
+===========================
+
+GNU Parted provides the following commands:
+
+* Menu:
+
+* align-check::
+* check::
+* cp::
+* help::
+* mklabel::
+* mkfs::
+* mkpart::
+* mkpartfs::
+* move::
+* name::
+* print::
+* quit::
+* rescue::
+* resize::
+* rm::
+* select::
+* set::
+* unit::
+
+
+File: parted.info,  Node: align-check,  Next: check,  Up: Command explanations
+
+2.4.1 align-check
+-----------------
+
+ -- Command: align-check ALIGN-TYPE N
+     Determine whether the starting sector of partition N meets the
+     disk's selected alignment criteria.  ALIGN-TYPE must be `minimal',
+     `optimal' or an abbreviation.  When in script mode, if the
+     partition does not meet the alignment requirement, exit with
+     status 1;  otherwise (including on older kernels for which
+     alignment data is not available), continue processing any
+     remaining commands.  Without `--script', print either `N aligned'
+     or `N not aligned'.
+
+     Example:
+
+          (parted) align-check minimal 1
+          1 aligned
+
+
+
+File: parted.info,  Node: check,  Next: cp,  Prev: align-check,  Up: Command explanations
+
+2.4.2 check
+-----------
+
+ -- Command: check NUMBER
+     Checks if the file system on partition NUMBER has any errors.
+
+     Example:
+
+          (parted) check 1
+
+     Check the file system on partition 1.
+
+
+File: parted.info,  Node: cp,  Next: help,  Prev: check,  Up: Command explanations
+
+2.4.3 cp
+--------
+
+ -- Command: cp [FROM-DEVICE] FROM-NUMBER TO-NUMBER
+     Copies the file system on the partition FROM-NUMBER to partition
+     TO-NUMBER, deleting the original contents of the destination
+     partition.
+
+     An optional device parameter, FROM-DEVICE can be given, which
+     specifies which device the source partition is on.
+
+     Supported file systems:
+        * ext2 (provided the destination partition is larger than the
+          source partition)
+
+        * fat16, fat32
+
+        * linux-swap (equivalent to mkswap on destination partition)
+
+        * reiserfs (if libreiserfs is installed)
+
+
+     Example:
+
+          (parted) cp /dev/hdb 2 3
+
+     Copy partition 2 of `/dev/hdb' (i.e., `/dev/hdb2') to partition on
+     3, on the device Parted was loaded with, destroying the original
+     contents of partition 3.
+
+
+File: parted.info,  Node: help,  Next: mklabel,  Prev: cp,  Up: Command explanations
+
+2.4.4 help
+----------
+
+ -- Command: help [COMMAND]
+     Prints general help, or help on COMMAND.
+
+     Example:
+
+          (parted) help resize
+
+     Print help for the resize command.
+
+
+File: parted.info,  Node: mklabel,  Next: mkfs,  Prev: help,  Up: Command explanations
+
+2.4.5 mklabel
+-------------
+
+ -- Command: mklabel LABEL-TYPE
+     Creates a new disk label, of type LABEL-TYPE.  The new disk label
+     will have no partitions.  This command (normally) won't technically
+     destroy your data, but it will make it basically unusable, and you
+     will need to use the rescue command (*note Related information::)
+     to recover any partitions.  Parted works on all partition tables.
+     (1)
+
+     LABEL-TYPE must be one of these supported disk labels:
+        * bsd
+
+        * loop (raw disk access)
+
+        * gpt
+
+        * mac
+
+        * msdos
+
+        * pc98
+
+        * sun
+
+     Example:
+
+          (parted) mklabel msdos
+
+     Create an MS-DOS disk label.  This is still the most common disk
+     label for PCs.
+
+  ---------- Footnotes ----------
+
+  (1) Everyone seems to have a different word for "disk label" -- these
+are all the same thing: partition table, partition map.
+
+
+File: parted.info,  Node: mkfs,  Next: mkpart,  Prev: mklabel,  Up: Command explanations
+
+2.4.6 mkfs
+----------
+
+ -- Command: mkfs NUMBER FS-TYPE
+     Makes a file system FS-TYPE on partition NUMBER, destroying all
+     data that resides on that partition.
+
+     Supported file systems:
+        * ext2
+
+        * fat16, fat32
+
+        * linux-swap
+
+        * reiserfs (if libreiserfs is installed)
+
+     Example:
+
+          (parted) mkfs 2 fat32
+
+     Make a FAT32 file system on partition 2.
+
+
+File: parted.info,  Node: mkpart,  Next: mkpartfs,  Prev: mkfs,  Up: Command explanations
+
+2.4.7 mkpart
+------------
+
+ -- Command: mkpart [PART-TYPE FS-TYPE NAME] START END
+     Creates a new partition, _without_ creating a new file system on
+     that partition.  This is useful for creating partitions for file
+     systems (or LVM, etc.) that Parted doesn't support.  You may
+     specify a file system type, to set the appropriate partition code
+     in the partition table for the new partition.  FS-TYPE is required
+     for data partitions (i.e., non-extended partitions).  START and END
+     are the offset from the beginning of the disk, that is, the
+     "distance" from the start of the disk.
+
+     PART-TYPE is one of `primary', `extended' or `logical', and may be
+     specified only with `msdos' or `dvh' partition tables.  A NAME
+     must be specified for a `gpt' partition table.  Neither PART-TYPE
+     nor NAME may be used with a `sun' partition table.
+
+     FS-TYPE must be one of these supported file systems:
+        * ext2
+
+        * fat16, fat32
+
+        * hfs, hfs+, hfsx
+
+        * linux-swap
+
+        * NTFS
+
+        * reiserfs
+
+        * ufs
+
+     Example:
+
+          (parted) mkpart logical 0.0 692.1
+
+     Create a logical partition that will contain an ext2 file system.
+     The partition will start at the beginning of the disk, and end
+     692.1 megabytes into the disk.
+
+
+
+File: parted.info,  Node: mkpartfs,  Next: move,  Prev: mkpart,  Up: Command explanations
+
+2.4.8 mkpartfs
+--------------
+
+ -- Command: mkpartfs PART-TYPE FS-TYPE START END
+     Creates a new partition of type PART-TYPE with a new file system
+     of type FS-TYPE on it.  The new partition will start START
+     megabytes, and end END megabytes from the beginning of the disk.
+     Do not use this command to recover a deleted partition (use mkpart
+     instead).  Using this command is discouraged.  Instead use mkpart
+     to create an empty partition, and then use external tools like
+     mke2fs (8) to create the filesystem.
+
+     PART-TYPE is one of: primary, extended, logical.  Extended and
+     logical are only used for msdos and dvh disk labels.
+
+     FS-TYPE must be one of these supported file systems:
+        * ext2
+
+        * fat16, fat32
+
+        * linux-swap
+
+        * reiserfs (if libreiserfs is installed)
+
+     Example:
+
+          (parted) mkpartfs logical ext2 440 670
+
+     Make a logical partition and write an ext2 file system, starting
+     440 megabytes and ending 670 megabytes from the beginning of the
+     disk.
+
+
+File: parted.info,  Node: move,  Next: name,  Prev: mkpartfs,  Up: Command explanations
+
+2.4.9 move
+----------
+
+ -- Command: move NUMBER START END
+     Moves partition on the disk, by moving its beginning to START.
+     You can't move a partition so that the old and new positions
+     overlap.  That is, you can only move partitions into free space.
+     If you want to resize a partition in-place, use `resize'.
+
+     Move never changes the partition number.
+
+     Supported file systems:
+        * ext2 (provided the destination partition is larger than the
+          source partition)
+
+        * fat16, fat32
+
+        * linux-swap
+
+        * reiserfs (if libreiserfs is installed)
+
+     Example:
+
+          (parted) move 2 150M 500M
+
+     Move the partition numbered 2 so that it begins 150 megabytes from
+     the start of the disk, and ends 500 megabytes from the start.
+
+
+
+File: parted.info,  Node: name,  Next: print,  Prev: move,  Up: Command explanations
+
+2.4.10 name
+-----------
+
+ -- Command: name NUMBER NAME
+     Sets the name for the partition NUMBER (GPT, Mac, MIPS and PC98
+     only).  The name can be placed in quotes.
+
+     Example:
+
+          (parted) name 2 'Secret Documents'
+
+     Set the name of partition 2 to `Secret Documents'.
+
+
+File: parted.info,  Node: print,  Next: quit,  Prev: name,  Up: Command explanations
+
+2.4.11 print
+------------
+
+ -- Command: print [NUMBER]
+     Displays the partition table on the device parted is editing, or
+     detailed information about a particular partition.
+
+     Example:
+
+          (parted) print
+          Disk geometry for /dev/hda: 0.000-2445.679 megabytes
+          Disk label type: msdos
+          Minor    Start       End     Type      Filesystem  Flags
+          1          0.031    945.000  primary   fat32       boot, lba
+          2        945.000   2358.562  primary   ext2
+          3       2358.562   2445.187  primary   linux-swap
+          (parted) print 1
+          Minor: 1
+          Flags: boot, lba
+          File System: fat32
+          Size:            945.000Mb (0%)
+          Minimum size:     84.361Mb (0%)
+          Maximum size:   2445.679Mb (100%)
+
+
+File: parted.info,  Node: quit,  Next: rescue,  Prev: print,  Up: Command explanations
+
+2.4.12 quit
+-----------
+
+ -- Command: quit
+     Quits Parted.
+
+     It is only after Parted exits that the Linux kernel knows about
+     the changes Parted has made to the disks.  However, the changes
+     caused by typing your commands will _probably_ be made to the disk
+     immediately after typing a command.  However, the operating
+     system's cache and the disk's hardware cache may delay this.
+
+
+File: parted.info,  Node: rescue,  Next: resize,  Prev: quit,  Up: Command explanations
+
+2.4.13 rescue
+-------------
+
+ -- Command: rescue START END
+     Rescue a lost partition that used to be located approximately
+     between START and END.  If such a partition is found, Parted will
+     ask you if you want to create a partition for it.  This is useful
+     if you accidently deleted a partition with parted's rm command,
+     for example.
+
+     Example:
+
+          (parted) print
+          Disk geometry for /dev/hdc: 0.000-8063.507 megabytes
+          Disk label type: msdos
+          Minor    Start       End     Type      Filesystem  Flags
+          1          0.031   8056.032  primary   ext3
+          (parted) rm
+          Partition number? 1
+          (parted) print
+          Disk geometry for /dev/hdc: 0.000-8063.507 megabytes
+          Disk label type: msdos
+          Minor    Start       End     Type      Filesystem  Flags
+
+     OUCH!  We deleted our ext3 partition!!!  Parted comes to the
+     rescue...
+
+          (parted) rescue
+          Start? 0
+          End? 8056
+          Information: A ext3 primary partition was found at 0.031MB ->
+          8056.030MB.  Do you want to add it to the partition table?
+          Yes/No/Cancel? y
+          (parted) print
+          Disk geometry for /dev/hdc: 0.000-8063.507 megabytes
+          Disk label type: msdos
+          Minor    Start       End     Type      Filesystem  Flags
+          1          0.031   8056.032  primary   ext3
+
+     It's back!  :)
+
+
+
+File: parted.info,  Node: resize,  Next: rm,  Prev: rescue,  Up: Command explanations
+
+2.4.14 resize
+-------------
+
+ -- Command: resize NUMBER START END
+     Resizes the partition with number NUMBER.  The partition will start
+     START from the beginning of the disk, and end END from the
+     beginning of the disk.  resize never changes the partition number.
+     Extended partitions can be resized only so long as the new
+     extended partition completely contains all logical partitions.
+
+     Note that Parted can manipulate partitions whether or not they
+     have been defragmented, so you do not need to defragment the disk
+     before using Parted.
+
+     Supported file systems:
+        * ext2 - restriction: the new START must be the same as the old
+          START.
+
+        * fat16, fat32
+
+        * hfs, hfs+, hfsx - restriction: the new START must be the same
+          as the old START and the new END must be smaller than the old
+          END.
+
+        * linux-swap
+
+        * reiserfs (if libreiserfs is installed)
+
+     Example:
+
+          (parted) resize 3 200M 850M
+
+     Resize partition 3, so that it begins 200 megabytes and ends 850
+     megabytes from the beginning of the disk.
+
+
+File: parted.info,  Node: rm,  Next: select,  Prev: resize,  Up: Command explanations
+
+2.4.15 rm
+---------
+
+ -- Command: rm NUMBER
+     Removes the partition with number NUMBER.  If you accidently delete
+     a partition with this command, use mkpart (_not_ mkpartfs) to
+     recover it.  Also, you can use the gpart program (*note Related
+     information::) to recover damaged disk labels.
+
+     Note for msdos disk labels: if you delete a logical partition, all
+     logical partitions with a larger partition number will be
+     renumbered.  For example, if you delete a logical partition with a
+     partition number of 6, then logical partitions that were number 7,
+     8 and 9 would be renumbered to 6, 7 and 8 respectively.  This
+     means, for example, that you have to update `/etc/fstab' on
+     GNU/Linux systems.
+
+     Example:
+
+          (parted) rm 3
+
+     Remove partition 3.
+
+
+File: parted.info,  Node: select,  Next: set,  Prev: rm,  Up: Command explanations
+
+2.4.16 select
+-------------
+
+ -- Command: select DEVICE
+     Selects the device, DEVICE, for Parted to edit.  The device can be
+     a Linux hard disk device, a partition, a software RAID device or
+     LVM logical volume.
+
+     Example:
+
+          (parted) select /dev/hdb
+
+     Select `/dev/hdb' (the slave device on the first ide controller on
+     Linux) as the device to edit.
+
+
+File: parted.info,  Node: set,  Next: unit,  Prev: select,  Up: Command explanations
+
+2.4.17 set
+----------
+
+ -- Command: set NUMBER FLAG STATE
+     Changes a flag on the partition with number NUMBER.  A flag can be
+     either "on" or "off".  Some or all of these flags will be
+     available, depending on what disk label you are using:
+
+    `bios_grub'
+          (GPT) - Enable this to record that the selected partition is a
+          GRUB BIOS partition.
+
+    `legacy_boot'
+          (GPT) - this flag is used to tell special purpose software
+          that the GPT partition may be bootable.
+
+    `boot'
+          (Mac, MS-DOS, PC98) - should be enabled if you want to boot
+          off the partition.  The semantics vary between disk labels.
+          For MS-DOS disk labels, only one partition can be bootable.
+          If you are installing LILO on a partition that partition must
+          be bootable.  For PC98 disk labels, all ext2 partitions must
+          be bootable (this is enforced by Parted).
+
+    `lba'
+          (MS-DOS) - this flag can be enabled to tell MS DOS, MS
+          Windows 9x and MS Windows ME based operating systems to use
+          Linear (LBA) mode.
+
+    `root'
+          (Mac) - this flag should be enabled if the partition is the
+          root device to be used by Linux.
+
+    `swap'
+          (Mac) - this flag should be enabled if the partition is the
+          swap device to be used by Linux.
+
+    `hidden'
+          (MS-DOS, PC98) - this flag can be enabled to hide partitions
+          from Microsoft operating systems.
+
+    `raid'
+          (MS-DOS) - this flag can be enabled to tell linux the
+          partition is a software RAID partition.
+
+    `LVM'
+          (MS-DOS) - this flag can be enabled to tell linux the
+          partition is a physical volume.
+
+    `PALO'
+          (MS-DOS) - this flag can be enabled so that the partition can
+          be used by the Linux/PA-RISC boot loader, palo.
+
+    `PREP'
+          (MS-DOS) - this flag can be enabled so that the partition can
+          be used as a PReP boot partition on PowerPC PReP or IBM
+          RS6K/CHRP hardware.
+
+    `DIAG'
+          (MS-DOS) - Enable this to indicate that a partition can be
+          used as a diagnostics / recovery partition.
+
+
+     The print command displays all enabled flags for each partition.
+
+     Example:
+
+          (parted) set 1 boot on
+
+     Set the `boot' flag on partition 1.
+
+
+File: parted.info,  Node: unit,  Prev: set,  Up: Command explanations
+
+2.4.18 unit
+-----------
+
+ -- Command: unit UNIT
+     Selects the current default unit that Parted will use to display
+     locations and capacities on the disk and to interpret those given
+     by the user if they are not suffixed by an UNIT.
+
+     UNIT may be one of:
+
+    `s'
+          sector (n bytes depending on the sector size, often 512)
+
+    `B'
+          byte
+
+    `KiB'
+          kibibyte (1024 bytes)
+
+    `MiB'
+          mebibyte (1048576 bytes)
+
+    `GiB'
+          gibibyte (1073741824 bytes)
+
+    `TiB'
+          tebibyte (1099511627776 bytes)
+
+    `kB'
+          kilobyte (1000 bytes)
+
+    `MB'
+          megabyte (1000000 bytes)
+
+    `GB'
+          gigabyte (1000000000 bytes)
+
+    `TB'
+          terabyte (1000000000000 bytes)
+
+    `%'
+          percentage of the device (between 0 and 100)
+
+    `cyl'
+          cylinders (related to the BIOS CHS geometry)
+
+    `chs'
+          cylinders, heads, sectors addressing (related to the BIOS CHS
+          geometry)
+
+    `compact'
+          This is a special unit that defaults to megabytes for input,
+          and picks a unit that gives a compact human readable
+          representation for output.
+
+     The default unit apply only for the output and when no unit is
+     specified after an input number.  Input numbers can be followed by
+     an unit (without any space or other character between them), in
+     which case this unit apply instead of the default unit for this
+     particular number, but CHS and cylinder units are not supported as
+     a suffix.  If no suffix is given, then the default unit is assumed.
+     Parted will compute sensible ranges for the locations you specify
+     (e.g. a range of +/- 500 MB when you specify the location in "G",
+     and a range of +/- 500 KB when you specify the location in "M")
+     and will select the nearest location in this range from the one you
+     wrote that satisfies constraints from both the operation, the
+     filesystem being worked on, the disk label, other partitions and so
+     on.  Use the sector unit "s" to specify exact locations (if they
+     do not satisfy all constraints, Parted will ask you for the nearest
+     solution).  Note that negative numbers count back from the end of
+     the disk, with "-1s" pointing to the last sector of the disk.
+
+     Note that as of parted-2.4, when you specify start and/or end
+     values using IEC binary units like "MiB", "GiB", "TiB", etc.,
+     parted treats those values as exact, and equivalent to the same
+     number specified in bytes (i.e., with the "B" suffix), in that it
+     provides _no_ "helpful" range of sloppiness.  Contrast that with a
+     partition start request of "4GB", which may actually resolve to
+     some sector up to 500MB before or after that point.  Thus, when
+     creating a partition, you should prefer to specify units of bytes
+     ("B"), sectors ("s"), or IEC binary units like "MiB", but not
+     "MB", "GB", etc.
+
+     Example:
+
+          (parted) unit compact
+          (parted) print
+          Disk geometry for /dev/hda: 0kB - 123GB
+          Disk label type: msdos
+          Number  Start   End     Size    Type      File system  Flags
+          1       32kB    1078MB  1077MB  primary   reiserfs     boot
+          2       1078MB  2155MB  1078MB  primary   linux-swap
+          3       2155MB  123GB   121GB   extended
+          5       2155MB  7452MB  5297MB  logical   reiserfs
+          (parted) unit chs print
+          Disk geometry for /dev/hda: 0,0,0 - 14946,225,62
+          BIOS cylinder,head,sector geometry: 14946,255,63.  Each cylinder
+          is 8225kB.
+          Disk label type: msdos
+          Number  Start       End         Type      File system  Flags
+          1       0,1,0       130,254,62  primary   reiserfs     boot
+          2       131,0,0     261,254,62  primary   linux-swap
+          3       262,0,0     14945,254,62 extended
+          5       262,2,0     905,254,62  logical   reiserfs
+          (parted) unit mb print
+          Disk geometry for /dev/hda: 0MB - 122942MB
+          Disk label type: msdos
+          Number  Start   End     Size    Type      File system  Flags
+          1       0MB     1078MB  1077MB  primary   reiserfs     boot
+          2       1078MB  2155MB  1078MB  primary   linux-swap
+          3       2155MB  122935MB 120780MB extended
+          5       2155MB  7452MB  5297MB  logical   reiserfs
+
+
+
+File: parted.info,  Node: Related information,  Next: Copying This Manual,  Prev: Using Parted,  Up: Top
+
+3 Related information
+*********************
+
+If you want to find out more information, please see the GNU Parted web
+site.
+
+  These files in the Parted distribution contain further information:
+
+   * `ABOUT-NLS' - information about using Native Language Support, and
+     the Free Translation Project.
+
+   * `AUTHORS' - who wrote what.
+
+   * `ChangeLog' - record of changes made to Parted.
+
+   * `COPYING' - the GNU General Public License, the terms under which
+     GNU Parted may be distributed.
+
+   * `COPYING.DOC' - the GNU Free Documentation Licence, the term under
+     which Parted's documentation may be distributed.
+
+   * `INSTALL' -- how to compile and install Parted, and most other free
+     software
+
+
+
+File: parted.info,  Node: Copying This Manual,  Next: History,  Prev: Related information,  Up: Top
+
+Appendix A Copying This Manual
+******************************
+
+* Menu:
+
+* GNU Free Documentation License::  License for copying this manual
+
+
+File: parted.info,  Node: GNU Free Documentation License,  Up: Copying This Manual
+
+A.1 GNU Free Documentation License
+==================================
+
+                        Version 1.1, March 2000
+
+     Copyright (C) 2000, 2009-2011 Free Software Foundation, Inc.
+     51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
+
+     Everyone is permitted to copy and distribute verbatim copies
+     of this license document, but changing it is not allowed.
+
+  0. PREAMBLE
+
+     The purpose of this License is to make a manual, textbook, or other
+     written document "free" in the sense of freedom: to assure everyone
+     the effective freedom to copy and redistribute it, with or without
+     modifying it, either commercially or noncommercially.  Secondarily,
+     this License preserves for the author and publisher a way to get
+     credit for their work, while not being considered responsible for
+     modifications made by others.
+
+     This License is a kind of "copyleft", which means that derivative
+     works of the document must themselves be free in the same sense.
+     It complements the GNU General Public License, which is a copyleft
+     license designed for free software.
+
+     We have designed this License in order to use it for manuals for
+     free software, because free software needs free documentation: a
+     free program should come with manuals providing the same freedoms
+     that the software does.  But this License is not limited to
+     software manuals; it can be used for any textual work, regardless
+     of subject matter or whether it is published as a printed book.
+     We recommend this License principally for works whose purpose is
+     instruction or reference.
+
+  1. APPLICABILITY AND DEFINITIONS
+
+     This License applies to any manual or other work that contains a
+     notice placed by the copyright holder saying it can be distributed
+     under the terms of this License.  The "Document", below, refers to
+     any such manual or work.  Any member of the public is a licensee,
+     and is addressed as "you".
+
+     A "Modified Version" of the Document means any work containing the
+     Document or a portion of it, either copied verbatim, or with
+     modifications and/or translated into another language.
+
+     A "Secondary Section" is a named appendix or a front-matter
+     section of the Document that deals exclusively with the
+     relationship of the publishers or authors of the Document to the
+     Document's overall subject (or to related matters) and contains
+     nothing that could fall directly within that overall subject.
+     (For example, if the Document is in part a textbook of
+     mathematics, a Secondary Section may not explain any mathematics.)
+     The relationship could be a matter of historical connection with
+     the subject or with related matters, or of legal, commercial,
+     philosophical, ethical or political position regarding them.
+
+     The "Invariant Sections" are certain Secondary Sections whose
+     titles are designated, as being those of Invariant Sections, in
+     the notice that says that the Document is released under this
+     License.
+
+     The "Cover Texts" are certain short passages of text that are
+     listed, as Front-Cover Texts or Back-Cover Texts, in the notice
+     that says that the Document is released under this License.
+
+     A "Transparent" copy of the Document means a machine-readable copy,
+     represented in a format whose specification is available to the
+     general public, whose contents can be viewed and edited directly
+     and straightforwardly with generic text editors or (for images
+     composed of pixels) generic paint programs or (for drawings) some
+     widely available drawing editor, and that is suitable for input to
+     text formatters or for automatic translation to a variety of
+     formats suitable for input to text formatters.  A copy made in an
+     otherwise Transparent file format whose markup has been designed
+     to thwart or discourage subsequent modification by readers is not
+     Transparent.  A copy that is not "Transparent" is called "Opaque".
+
+     Examples of suitable formats for Transparent copies include plain
+     ASCII without markup, Texinfo input format, LaTeX input format,
+     SGML or XML using a publicly available DTD, and
+     standard-conforming simple HTML designed for human modification.
+     Opaque formats include PostScript, PDF, proprietary formats that
+     can be read and edited only by proprietary word processors, SGML
+     or XML for which the DTD and/or processing tools are not generally
+     available, and the machine-generated HTML produced by some word
+     processors for output purposes only.
+
+     The "Title Page" means, for a printed book, the title page itself,
+     plus such following pages as are needed to hold, legibly, the
+     material this License requires to appear in the title page.  For
+     works in formats which do not have any title page as such, "Title
+     Page" means the text near the most prominent appearance of the
+     work's title, preceding the beginning of the body of the text.
+
+  2. VERBATIM COPYING
+
+     You may copy and distribute the Document in any medium, either
+     commercially or noncommercially, provided that this License, the
+     copyright notices, and the license notice saying this License
+     applies to the Document are reproduced in all copies, and that you
+     add no other conditions whatsoever to those of this License.  You
+     may not use technical measures to obstruct or control the reading
+     or further copying of the copies you make or distribute.  However,
+     you may accept compensation in exchange for copies.  If you
+     distribute a large enough number of copies you must also follow
+     the conditions in section 3.
+
+     You may also lend copies, under the same conditions stated above,
+     and you may publicly display copies.
+
+  3. COPYING IN QUANTITY
+
+     If you publish printed copies of the Document numbering more than
+     100, and the Document's license notice requires Cover Texts, you
+     must enclose the copies in covers that carry, clearly and legibly,
+     all these Cover Texts: Front-Cover Texts on the front cover, and
+     Back-Cover Texts on the back cover.  Both covers must also clearly
+     and legibly identify you as the publisher of these copies.  The
+     front cover must present the full title with all words of the
+     title equally prominent and visible.  You may add other material
+     on the covers in addition.  Copying with changes limited to the
+     covers, as long as they preserve the title of the Document and
+     satisfy these conditions, can be treated as verbatim copying in
+     other respects.
+
+     If the required texts for either cover are too voluminous to fit
+     legibly, you should put the first ones listed (as many as fit
+     reasonably) on the actual cover, and continue the rest onto
+     adjacent pages.
+
+     If you publish or distribute Opaque copies of the Document
+     numbering more than 100, you must either include a
+     machine-readable Transparent copy along with each Opaque copy, or
+     state in or with each Opaque copy a publicly-accessible
+     computer-network location containing a complete Transparent copy
+     of the Document, free of added material, which the general
+     network-using public has access to download anonymously at no
+     charge using public-standard network protocols.  If you use the
+     latter option, you must take reasonably prudent steps, when you
+     begin distribution of Opaque copies in quantity, to ensure that
+     this Transparent copy will remain thus accessible at the stated
+     location until at least one year after the last time you
+     distribute an Opaque copy (directly or through your agents or
+     retailers) of that edition to the public.
+
+     It is requested, but not required, that you contact the authors of
+     the Document well before redistributing any large number of
+     copies, to give them a chance to provide you with an updated
+     version of the Document.
+
+  4. MODIFICATIONS
+
+     You may copy and distribute a Modified Version of the Document
+     under the conditions of sections 2 and 3 above, provided that you
+     release the Modified Version under precisely this License, with
+     the Modified Version filling the role of the Document, thus
+     licensing distribution and modification of the Modified Version to
+     whoever possesses a copy of it.  In addition, you must do these
+     things in the Modified Version:
+
+       A. Use in the Title Page (and on the covers, if any) a title
+          distinct from that of the Document, and from those of
+          previous versions (which should, if there were any, be listed
+          in the History section of the Document).  You may use the
+          same title as a previous version if the original publisher of
+          that version gives permission.
+
+       B. List on the Title Page, as authors, one or more persons or
+          entities responsible for authorship of the modifications in
+          the Modified Version, together with at least five of the
+          principal authors of the Document (all of its principal
+          authors, if it has less than five).
+
+       C. State on the Title page the name of the publisher of the
+          Modified Version, as the publisher.
+
+       D. Preserve all the copyright notices of the Document.
+
+       E. Add an appropriate copyright notice for your modifications
+          adjacent to the other copyright notices.
+
+       F. Include, immediately after the copyright notices, a license
+          notice giving the public permission to use the Modified
+          Version under the terms of this License, in the form shown in
+          the Addendum below.
+
+       G. Preserve in that license notice the full lists of Invariant
+          Sections and required Cover Texts given in the Document's
+          license notice.
+
+       H. Include an unaltered copy of this License.
+
+       I. Preserve the section entitled "History", and its title, and
+          add to it an item stating at least the title, year, new
+          authors, and publisher of the Modified Version as given on
+          the Title Page.  If there is no section entitled "History" in
+          the Document, create one stating the title, year, authors,
+          and publisher of the Document as given on its Title Page,
+          then add an item describing the Modified Version as stated in
+          the previous sentence.
+
+       J. Preserve the network location, if any, given in the Document
+          for public access to a Transparent copy of the Document, and
+          likewise the network locations given in the Document for
+          previous versions it was based on.  These may be placed in
+          the "History" section.  You may omit a network location for a
+          work that was published at least four years before the
+          Document itself, or if the original publisher of the version
+          it refers to gives permission.
+
+       K. In any section entitled "Acknowledgments" or "Dedications",
+          preserve the section's title, and preserve in the section all
+          the substance and tone of each of the contributor
+          acknowledgments and/or dedications given therein.
+
+       L. Preserve all the Invariant Sections of the Document,
+          unaltered in their text and in their titles.  Section numbers
+          or the equivalent are not considered part of the section
+          titles.
+
+       M. Delete any section entitled "Endorsements".  Such a section
+          may not be included in the Modified Version.
+
+       N. Do not retitle any existing section as "Endorsements" or to
+          conflict in title with any Invariant Section.
+
+     If the Modified Version includes new front-matter sections or
+     appendices that qualify as Secondary Sections and contain no
+     material copied from the Document, you may at your option
+     designate some or all of these sections as invariant.  To do this,
+     add their titles to the list of Invariant Sections in the Modified
+     Version's license notice.  These titles must be distinct from any
+     other section titles.
+
+     You may add a section entitled "Endorsements", provided it contains
+     nothing but endorsements of your Modified Version by various
+     parties--for example, statements of peer review or that the text
+     has been approved by an organization as the authoritative
+     definition of a standard.
+
+     You may add a passage of up to five words as a Front-Cover Text,
+     and a passage of up to 25 words as a Back-Cover Text, to the end
+     of the list of Cover Texts in the Modified Version.  Only one
+     passage of Front-Cover Text and one of Back-Cover Text may be
+     added by (or through arrangements made by) any one entity.  If the
+     Document already includes a cover text for the same cover,
+     previously added by you or by arrangement made by the same entity
+     you are acting on behalf of, you may not add another; but you may
+     replace the old one, on explicit permission from the previous
+     publisher that added the old one.
+
+     The author(s) and publisher(s) of the Document do not by this
+     License give permission to use their names for publicity for or to
+     assert or imply endorsement of any Modified Version.
+
+  5. COMBINING DOCUMENTS
+
+     You may combine the Document with other documents released under
+     this License, under the terms defined in section 4 above for
+     modified versions, provided that you include in the combination
+     all of the Invariant Sections of all of the original documents,
+     unmodified, and list them all as Invariant Sections of your
+     combined work in its license notice.
+
+     The combined work need only contain one copy of this License, and
+     multiple identical Invariant Sections may be replaced with a single
+     copy.  If there are multiple Invariant Sections with the same name
+     but different contents, make the title of each such section unique
+     by adding at the end of it, in parentheses, the name of the
+     original author or publisher of that section if known, or else a
+     unique number.  Make the same adjustment to the section titles in
+     the list of Invariant Sections in the license notice of the
+     combined work.
+
+     In the combination, you must combine any sections entitled
+     "History" in the various original documents, forming one section
+     entitled "History"; likewise combine any sections entitled
+     "Acknowledgments", and any sections entitled "Dedications".  You
+     must delete all sections entitled "Endorsements."
+
+  6. COLLECTIONS OF DOCUMENTS
+
+     You may make a collection consisting of the Document and other
+     documents released under this License, and replace the individual
+     copies of this License in the various documents with a single copy
+     that is included in the collection, provided that you follow the
+     rules of this License for verbatim copying of each of the
+     documents in all other respects.
+
+     You may extract a single document from such a collection, and
+     distribute it individually under this License, provided you insert
+     a copy of this License into the extracted document, and follow
+     this License in all other respects regarding verbatim copying of
+     that document.
+
+  7. AGGREGATION WITH INDEPENDENT WORKS
+
+     A compilation of the Document or its derivatives with other
+     separate and independent documents or works, in or on a volume of
+     a storage or distribution medium, does not as a whole count as a
+     Modified Version of the Document, provided no compilation
+     copyright is claimed for the compilation.  Such a compilation is
+     called an "aggregate", and this License does not apply to the
+     other self-contained works thus compiled with the Document, on
+     account of their being thus compiled, if they are not themselves
+     derivative works of the Document.
+
+     If the Cover Text requirement of section 3 is applicable to these
+     copies of the Document, then if the Document is less than one
+     quarter of the entire aggregate, the Document's Cover Texts may be
+     placed on covers that surround only the Document within the
+     aggregate.  Otherwise they must appear on covers around the whole
+     aggregate.
+
+  8. TRANSLATION
+
+     Translation is considered a kind of modification, so you may
+     distribute translations of the Document under the terms of section
+     4.  Replacing Invariant Sections with translations requires special
+     permission from their copyright holders, but you may include
+     translations of some or all Invariant Sections in addition to the
+     original versions of these Invariant Sections.  You may include a
+     translation of this License provided that you also include the
+     original English version of this License.  In case of a
+     disagreement between the translation and the original English
+     version of this License, the original English version will prevail.
+
+  9. TERMINATION
+
+     You may not copy, modify, sublicense, or distribute the Document
+     except as expressly provided for under this License.  Any other
+     attempt to copy, modify, sublicense or distribute the Document is
+     void, and will automatically terminate your rights under this
+     License.  However, parties who have received copies, or rights,
+     from you under this License will not have their licenses
+     terminated so long as such parties remain in full compliance.
+
+ 10. FUTURE REVISIONS OF THIS LICENSE
+
+     The Free Software Foundation may publish new, revised versions of
+     the GNU Free Documentation License from time to time.  Such new
+     versions will be similar in spirit to the present version, but may
+     differ in detail to address new problems or concerns.  See
+     `http://www.gnu.org/copyleft/'.
+
+     Each version of the License is given a distinguishing version
+     number.  If the Document specifies that a particular numbered
+     version of this License "or any later version" applies to it, you
+     have the option of following the terms and conditions either of
+     that specified version or of any later version that has been
+     published (not as a draft) by the Free Software Foundation.  If
+     the Document does not specify a version number of this License,
+     you may choose any version ever published (not as a draft) by the
+     Free Software Foundation.
+
+A.1.1 ADDENDUM: How to use this License for your documents
+----------------------------------------------------------
+
+To use this License in a document you have written, include a copy of
+the License in the document and put the following copyright and license
+notices just after the title page:
+
+       Copyright (C)  YEAR  YOUR NAME.
+       Permission is granted to copy, distribute and/or modify this document
+       under the terms of the GNU Free Documentation License, Version 1.3
+       or any later version published by the Free Software Foundation;
+       with the Invariant Sections being LIST THEIR TITLES, with the
+       Front-Cover Texts being LIST, and with the Back-Cover Texts being LIST.
+       A copy of the license is included in the section entitled ``GNU
+       Free Documentation License''.
+
+  If you have no Invariant Sections, write "with no Invariant Sections"
+instead of saying which ones are invariant.  If you have no Front-Cover
+Texts, write "no Front-Cover Texts" instead of "Front-Cover Texts being
+LIST"; likewise for Back-Cover Texts.
+
+  If your document contains nontrivial examples of program code, we
+recommend releasing these examples in parallel under your choice of
+free software license, such as the GNU General Public License, to
+permit their use in free software.
+
+
+File: parted.info,  Node: History,  Next: Concept index,  Prev: Copying This Manual,  Up: Top
+
+Appendix B This manual's history
+********************************
+
+This manual was based on the file `USER' included in GNU Parted version
+1.4.22 source distribution.  The GNU Parted source distribution is
+available at `ftp.gnu.org/gnu/parted'.
+
+  Initial Texinfo formatting by Richard M. Kreuter, 2002.
+
+  Maintainance by Andrew Clausen from 2002 to 2005 and by Leslie P.
+Polzer from July 2005 onwards.
+
+  This manual is distributed under the GNU Free Documentation License,
+version 1.1 or later, at your discretion, any later version published
+by the Free Software Foundation; with no Invariant Sections, with no
+Front-Cover Texts, and with no Back-Cover Texts.  *Note Copying This
+Manual::, for details.
+
+
+File: parted.info,  Node: Concept index,  Prev: History,  Up: Top
+
+Index
+*****
+
+ [index ]
+* Menu:
+
+* align-check, command description:      align-check.           (line 6)
+* bugs, reporting:                       Overview.              (line 6)
+* building parted:                       Compiling.             (line 6)
+* check, command description:            check.                 (line 6)
+* command description, align-check:      align-check.           (line 6)
+* command description, check:            check.                 (line 6)
+* command description, cp:               cp.                    (line 6)
+* command description, help:             help.                  (line 6)
+* command description, mkfs:             mkfs.                  (line 6)
+* command description, mkindex:          mklabel.               (line 6)
+* command description, mkpart:           mkpart.                (line 6)
+* command description, mkpartfs:         mkpartfs.              (line 6)
+* command description, move:             move.                  (line 6)
+* command description, name:             name.                  (line 6)
+* command description, print:            print.                 (line 6)
+* command description, quit:             quit.                  (line 6)
+* command description, rescue:           rescue.                (line 6)
+* command description, resize:           resize.                (line 6)
+* command description, rm:               rm.                    (line 6)
+* command description, select:           select.                (line 6)
+* command description, set:              set.                   (line 6)
+* command description, unit:             unit.                  (line 6)
+* command syntax:                        Command explanations.  (line 6)
+* commands:                              Using Parted.          (line 6)
+* commands, detailed listing:            Command explanations.  (line 6)
+* commands, overview:                    Invoking Parted.       (line 6)
+* compiling parted:                      Compiling.             (line 6)
+* contacting developers:                 Overview.              (line 6)
+* cp, command description:               cp.                    (line 6)
+* description of parted:                 Overview.              (line 6)
+* detailed command listing:              Command explanations.  (line 6)
+* e2fsprogs:                             Software Required.     (line 6)
+* FDL, GNU Free Documentation License:   GNU Free Documentation License.
+                                                                (line 6)
+* further reading:                       Related information.   (line 6)
+* gettext:                               Software Required.     (line 6)
+* gnu gpl:                               License.               (line 6)
+* gpl:                                   License.               (line 6)
+* help, command description:             help.                  (line 6)
+* history of this manual:                History.               (line 6)
+* invocation options:                    Invoking Parted.       (line 6)
+* libuuid:                               Software Required.     (line 6)
+* license terms:                         License.               (line 6)
+* mkfs, command description:             mkfs.                  (line 6)
+* mklabel, command description:          mklabel.               (line 6)
+* mkpart, command description:           mkpart.                (line 6)
+* mkpartfs, command description:         mkpartfs.              (line 6)
+* modes of use:                          Running Parted.        (line 6)
+* move, command description:             move.                  (line 6)
+* name, command description:             name.                  (line 6)
+* options at invocation:                 Invoking Parted.       (line 6)
+* overview:                              Overview.              (line 6)
+* parted description:                    Overview.              (line 6)
+* partitioning overview:                 Partitioning.          (line 6)
+* platforms, supported:                  Supported Platforms.   (line 6)
+* print, command description:            print.                 (line 6)
+* quit, command description:             quit.                  (line 6)
+* readline:                              Software Required.     (line 6)
+* related documentation:                 Related information.   (line 6)
+* reporting bugs:                        Overview.              (line 6)
+* required software:                     Software Required.     (line 6)
+* rescue, command description:           rescue.                (line 6)
+* resize, command description:           resize.                (line 6)
+* resizing root device:                  Static binaries.       (line 6)
+* rm, command description:               rm.                    (line 6)
+* select, command description:           select.                (line 6)
+* set, command description:              set.                   (line 6)
+* software dependencies:                 Software Required.     (line 6)
+* static binary:                         Static binaries.       (line 6)
+* supported platforms:                   Supported Platforms.   (line 6)
+* terms of distribution:                 License.               (line 6)
+* unit, command description:             unit.                  (line 6)
+* unsupported platforms:                 Static binaries.       (line 6)
+
+
+
+Tag Table:
+Node: Top797
+Node: Introduction1666
+Node: Overview2236
+Node: Software Required4281
+Node: Supported Platforms5640
+Node: License6356
+Node: Compiling6987
+Node: Static binaries8632
+Node: Using Parted10467
+Node: Partitioning10886
+Node: Running Parted11342
+Node: Invoking Parted14285
+Node: Command explanations15065
+Node: align-check15451
+Node: check16180
+Node: cp16479
+Node: help17410
+Node: mklabel17684
+Ref: mklabel-Footnote-118565
+Node: mkfs18694
+Node: mkpart19190
+Node: mkpartfs20600
+Node: move21746
+Node: name22627
+Node: print23005
+Node: quit23894
+Node: rescue24389
+Node: resize25914
+Node: rm27124
+Node: select28021
+Node: set28490
+Node: unit30925
+Node: Related information35386
+Node: Copying This Manual36209
+Node: GNU Free Documentation License36453
+Node: History56341
+Node: Concept index57146
+
+End Tag Table
