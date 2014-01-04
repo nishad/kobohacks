@@ -2,8 +2,8 @@ KoboRoot.tgz : __ALWAYS__
 	( cd ../rootfs_261 && find . -type l | xargs rm -f )
 	( cd ../rootfs_261/lib && ln -s libz.so.1.2.8 libz.so && ln -s libz.so.1.2.8 libz.so.1 ) 
 	( cd ../rootfs_261/lib && ln -s libjpeg.so.62.1.0 libjpeg.so && ln -s libjpeg.so.62.1.0 libjpeg.so.62 ) 
-	( cd ../rootfs_261/lib && ln -s libpng16.so.16.7.0 libpng12.so && ln -s libpng16.so.16.7.0 libpng12.so.0 ) 
-	( cd ../rootfs_261/usr/lib && ln -s libfreetype.so.6.11.0 libfreetype.so && ln -s libfreetype.so.6.11.0 libfreetype.so.6 ) 
+	( cd ../rootfs_261/lib && ln -s libpng16.so.16.8.0 libpng12.so && ln -s libpng16.so.16.8.0 libpng12.so.0 ) 
+	( cd ../rootfs_261/usr/lib && ln -s libfreetype.so.6.11.1 libfreetype.so && ln -s libfreetype.so.6.11.1 libfreetype.so.6 ) 
 	( cd ../rootfs_261/bin && ln -s ../sbin/mkfs.fat mkdosfs ) 
 	( cd ../rootfs_261/bin && ln -s ../sbin/fsck.fat dosfsck ) 
 	( cd ../rootfs_261/lib && ln -s libexpat.so.1.6.0 libexpat.so && ln -s libexpat.so.1.6.0 libexpat.so.1 ) 
@@ -13,6 +13,8 @@ KoboRoot.tgz : __ALWAYS__
 KoboRoot_hack.tgz : __ALWAYS__
 	( cd ../rootfs_261 && find . -type l | xargs rm -f )
 	( cd ../rootfs_261/bin && ln -s dropbearmulti dropbear && ln -s dropbearmulti dropbearkey && ln -s dropbearmulti dropbearconvert && ln -s dropbearmulti dbclient ) 
+	( cd ../rootfs_261/lib && ln -s libuuid.so.1.0.0 libuuid.so && ln -s libuuid.so.1.0.0 libuuid.so.1 ) 
+	( cd ../rootfs_261/lib && ln -s libparted.so.0.0.2 libparted.so && ln -s libparted.so.0.0.2 libparted.so.0 ) 
 	( cd ../rootfs_261 && tar --files-from=../script/hackfiles.txt --owner=root --group=root -zcvf ../script/KoboRoot_hack.tgz ./libexec )
 
 README.wiki : __ALWAYS__

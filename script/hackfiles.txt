@@ -9,3 +9,10 @@
 ./bin/i2cset
 ./bin/strace
 ./usr/bin/openssl
+./sbin/parted
+./lib/libuuid.so.1.0.0
+./lib/libuuid.so
+./lib/libuuid.so.1
+./lib/libparted.so.0.0.2
+./lib/libparted.so
+./lib/libparted.so.0
