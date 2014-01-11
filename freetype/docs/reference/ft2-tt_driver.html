@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>FreeType-2.5.1 API Reference</title>
+<title>FreeType-2.5.2 API Reference</title>
 <style type="text/css">
   body { font-family: Verdana, Geneva, Arial, Helvetica, serif;
          color: #000000;
@@ -35,7 +35,7 @@
 <table align=center><tr><td><font size=-1>[<a href="ft2-index.html">Index</a>]</font></td>
 <td width="100%"></td>
 <td><font size=-1>[<a href="ft2-toc.html">TOC</a>]</font></td></tr></table>
-<center><h1>FreeType-2.5.1 API Reference</h1></center>
+<center><h1>FreeType-2.5.2 API Reference</h1></center>
 
 <center><h1>
 The TrueType driver
@@ -109,6 +109,19 @@ Defined in FT_TRUETYPE_DRIVER_H (ftttdrv.h).
 <table align=center width="87%" cellpadding=5><tr bgcolor="#EEEEFF"><td><em><b>note</b></em></td></tr><tr><td>
 <p>This property controls the behaviour of the bytecode interpreter and thus how outlines get hinted. It does <b>not</b> control how glyph get rasterized! In particular, it does not control subpixel color filtering.</p>
 <p>If FreeType has not been compiled with configuration option FT_CONFIG_OPTION_SUBPIXEL_HINTING, selecting version&nbsp;38 causes an &lsquo;FT_Err_Unimplemented_Feature&rsquo; error.</p>
+<p>Depending on the graphics framework, Microsoft uses different bytecode engines. As a consequence, the version numbers returned by a call to the &lsquo;GETINFO[1]&rsquo; bytecode instruction are more convoluted than desired.</p>
+<pre class="colored">
+   framework   Windows version   result of GETINFO[1]
+  ----------------------------------------------------
+    GDI         before XP         35
+    GDI         XP and later      37
+    GDI+ old    before Vista      37
+    GDI+ old    Vista, 7          38
+    GDI+        after 7           40
+    DWrite      before 8          39
+    DWrite      8 and later       40
+</pre>
+<p>Since FreeType doesn't provide all capabilities of DWrite ClearType, using version&nbsp;38 seems justified.</p>
 </td></tr></table>
 </td></tr></table>
 <hr width="75%">
