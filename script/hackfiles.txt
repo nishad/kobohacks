@@ -16,3 +16,4 @@
 ./lib/libparted.so.0.0.2
 ./lib/libparted.so
 ./lib/libparted.so.0
+./bin/busybox
