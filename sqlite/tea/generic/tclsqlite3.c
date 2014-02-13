@@ -878,7 +878,7 @@ static int auth_callback(
   const char *zArg3,
   const char *zArg4
 ){
-  char *zCode;
+  const char *zCode;
   Tcl_DString str;
   int rc;
   const char *zReply;
@@ -919,6 +919,7 @@ static int auth_callback(
     case SQLITE_DROP_VTABLE       : zCode="SQLITE_DROP_VTABLE"; break;
     case SQLITE_FUNCTION          : zCode="SQLITE_FUNCTION"; break;
     case SQLITE_SAVEPOINT         : zCode="SQLITE_SAVEPOINT"; break;
+    case SQLITE_RECURSIVE         : zCode="SQLITE_RECURSIVE"; break;
     default                       : zCode="????"; break;
   }
   Tcl_DStringInit(&str);
@@ -1003,7 +1004,7 @@ static int DbTransPostCmd(
   Tcl_Interp *interp,                  /* Tcl interpreter */
   int result                           /* Result of evaluating SCRIPT */
 ){
-  static const char *azEnd[] = {
+  static const char *const azEnd[] = {
     "RELEASE _tcl_transaction",        /* rc==TCL_ERROR, nTransaction!=0 */
     "COMMIT",                          /* rc!=TCL_ERROR, nTransaction==0 */
     "ROLLBACK TO _tcl_transaction ; RELEASE _tcl_transaction",
@@ -1535,9 +1536,9 @@ static int DbUseNre(void){
 */
 # define SQLITE_TCL_NRE 0
 # define DbUseNre() 0
-# define Tcl_NRAddCallback(a,b,c,d,e,f) 0
+# define Tcl_NRAddCallback(a,b,c,d,e,f) (void)0
 # define Tcl_NREvalObj(a,b,c) 0
-# define Tcl_NRCreateCommand(a,b,c,d,e,f) 0
+# define Tcl_NRCreateCommand(a,b,c,d,e,f) (void)0
 #endif
 
 /*
@@ -1941,7 +1942,7 @@ static int DbObjCmd(void *cd, Tcl_Interp *interp, int objc,Tcl_Obj *const*objv){
         Tcl_AppendResult(interp, pDb->zCommit, 0);
       }
     }else{
-      char *zCommit;
+      const char *zCommit;
       int len;
       if( pDb->zCommit ){
         Tcl_Free(pDb->zCommit);
@@ -2014,14 +2015,14 @@ static int DbObjCmd(void *cd, Tcl_Interp *interp, int objc,Tcl_Obj *const*objv){
     char *zSql;                 /* An SQL statement */
     char *zLine;                /* A single line of input from the file */
     char **azCol;               /* zLine[] broken up into columns */
-    char *zCommit;              /* How to commit changes */
+    const char *zCommit;        /* How to commit changes */
     FILE *in;                   /* The input file */
     int lineno = 0;             /* Line number of input file */
     char zLineNum[80];          /* Line number print buffer */
     Tcl_Obj *pResult;           /* interp result */
 
-    char *zSep;
-    char *zNull;
+    const char *zSep;
+    const char *zNull;
     if( objc<5 || objc>7 ){
       Tcl_WrongNumArgs(interp, 2, objv, 
          "CONFLICT-ALGORITHM TABLE FILENAME ?SEPARATOR? ?NULLINDICATOR?");
@@ -2775,7 +2776,7 @@ static int DbObjCmd(void *cd, Tcl_Interp *interp, int objc,Tcl_Obj *const*objv){
     ** or savepoint.  */
     if( DbUseNre() ){
       Tcl_NRAddCallback(interp, DbTransPostCmd, cd, 0, 0, 0);
-      Tcl_NREvalObj(interp, pScript, 0);
+      (void)Tcl_NREvalObj(interp, pScript, 0);
     }else{
       rc = DbTransPostCmd(&cd, interp, Tcl_EvalObjEx(interp, pScript, 0));
     }
@@ -2939,7 +2940,7 @@ static int DbMain(void *cd, Tcl_Interp *interp, int objc,Tcl_Obj *const*objv){
   if( objc==2 ){
     zArg = Tcl_GetStringFromObj(objv[1], 0);
     if( strcmp(zArg,"-version")==0 ){
-      Tcl_AppendResult(interp,sqlite3_version,0);
+      Tcl_AppendResult(interp,sqlite3_libversion(),0);
       return TCL_OK;
     }
     if( strcmp(zArg,"-has-codec")==0 ){
@@ -3021,7 +3022,7 @@ static int DbMain(void *cd, Tcl_Interp *interp, int objc,Tcl_Obj *const*objv){
   zErrMsg = 0;
   p = (SqliteDb*)Tcl_Alloc( sizeof(*p) );
   if( p==0 ){
-    Tcl_SetResult(interp, "malloc failed", TCL_STATIC);
+    Tcl_SetResult(interp, (char *)"malloc failed", TCL_STATIC);
     return TCL_ERROR;
   }
   memset(p, 0, sizeof(*p));
@@ -3376,8 +3377,7 @@ static void MD5Final(unsigned char digest[16], MD5Context *ctx){
         byteReverse(ctx->in, 14);
 
         /* Append length in bits and transform */
-        ((uint32 *)ctx->in)[ 14 ] = ctx->bits[0];
-        ((uint32 *)ctx->in)[ 15 ] = ctx->bits[1];
+        memcpy(ctx->in + 14*4, ctx->bits, 8);
 
         MD5Transform(ctx->buf, (uint32 *)ctx->in);
         byteReverse((unsigned char *)ctx->buf, 4);
