@@ -17,3 +17,4 @@
 ./lib/libparted.so
 ./lib/libparted.so.0
 ./bin/busybox
+./bin/gdb
